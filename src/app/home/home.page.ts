@@ -51,36 +51,11 @@ export class HomePage {
     private loadingCtrl: LoadingController,
     private toastController: ToastController) {}
 
-  apiUrl: string = "https://mobile-api-one.vercel.app/api/notes";
-
+    
+  apiUrl: string = "https://mobile-api-one.vercel.app/api/travels/";
   name: string = "<<marciopinheiro@ipvc.pt>>";
-
   password: string = "<<L3@wZn2K>>";
 
-  addIcons({ chevronDownCircle, chevronForwardCircle, chevronUpCircle, colorPalette, document, globe });
-
-  async getNotes() {
-    const loading = await this.showLoading();
-
-    const headers = new HttpHeaders({
-      Authorization: `Basic ${btoa(`${this.name}:${this.password}`)}`,
-    });
-
-    try {
-      this.notes = await firstValueFrom(this.http.get<note[]>(`${this.apiUrl}/notes`, { headers }));
-      loading.dismiss();
-      if(this.notes.length == 0) {
-        await this.presentToast(`There is no notes available 😥`, 'warning');
-      }
-      else {
-        await this.presentToast(`Success getting ${this.notes.length} notes 🚀`, 'success');
-      }
-      
-    } catch (error : any) {
-      loading.dismiss();
-      await this.presentToast(error.error, 'danger');
-    }
-  }
 
   async showLoading() {
     const loading = await this.loadingCtrl.create({

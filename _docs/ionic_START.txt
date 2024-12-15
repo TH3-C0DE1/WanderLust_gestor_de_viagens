@@ -1,0 +1,28 @@
+
+-----------------_STEP-BY-STEP_-----------------
+
+npm i -g @ionic/cli
+
+ionic start ionic-demo 
+
+-> angular
+-> blank
+-> NgModules
+-> Create ionic account - No
+
+cd ionic-demo
+
+code .
+
+ionic serve
+
+------------------------------------------------
+API:
+https://mobile-api-one.vercel.app/api/notes
+------------------------------------------------
+USER: 
+marciopinheiro@ipvc.pt
+------------------------------------------------
+PASSWORD: 
+L3@wZn2K
+------------------------------------------------
