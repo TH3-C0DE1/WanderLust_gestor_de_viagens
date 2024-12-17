@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { AlertController, LoadingController, ModalController, ToastController } from '@ionic/angular';
+import { ApiService } from '../api.service';
 import { firstValueFrom } from 'rxjs';
 
 
@@ -14,28 +15,6 @@ import {
   globe,
 } from 'ionicons/icons';
 
-interface note {
-  id: String,
-  description: String,
-  state: State,
-  priority: Priority,
-  createdBy: String,
-  createdAt: Date
-  updatedBy: String,
-  updatedAt: Date
-}
-
-enum State {
-  TODO = 'TODO',
-  DONE = 'DONE',
-}
-
-enum Priority {
-  LOW = 'LOW',
-  NORMAL = 'NORMAL',
-  CRITICAL = "CRITICAL",
-}
-
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -43,19 +22,14 @@ enum Priority {
 })
 
 export class HomePage {
-  notes: note[] = [];
 
-  constructor(private http: HttpClient,
+  constructor(
+    private http: HttpClient,
+    private apiService: ApiService,
     private modalCtrl: ModalController,
     private alertController: AlertController,
     private loadingCtrl: LoadingController,
     private toastController: ToastController) {}
-
-    
-  apiUrl: string = "https://mobile-api-one.vercel.app/api/travels/";
-  name: string = "<<marciopinheiro@ipvc.pt>>";
-  password: string = "<<L3@wZn2K>>";
-
 
   async showLoading() {
     const loading = await this.loadingCtrl.create({
