@@ -12,7 +12,6 @@ export class ViagensPage implements OnInit {
   constructor(private loaderService: LoaderService) {}
 
   ngOnInit() {
-    // Optionally, show the loader when the page is initialized
     this.loaderService.showLoader('Loading Data...');
     
     // Simulate an async operation (like data fetching)
