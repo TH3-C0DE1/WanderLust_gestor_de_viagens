@@ -1,32 +1,50 @@
 import { Component, OnInit } from '@angular/core';
-import { LoaderService } from '../services/loader.service';  // Import the loader service
+import { ApiService } from '../services/api.service'; // Import the ApiService
 
 @Component({
   selector: 'app-viagens',
-  templateUrl: 'viagens.page.html',
-  styleUrls: ['viagens.page.scss'],
+  templateUrl: './viagens.page.html',
+  styleUrls: ['./viagens.page.scss'],
   standalone: false,
 })
-export class ViagensPage implements OnInit {
 
-  constructor(private loaderService: LoaderService) {}
+export class ViagensPage implements OnInit 
+{
+  travels: any[] = []; // Array to store the travels data
 
-  ngOnInit() {
-    this.loaderService.showLoader('Loading Data...');
-    
-    // Simulate an async operation (like data fetching)
-    setTimeout(() => {
-      // After the operation completes, hide the loader
-      this.loaderService.hideLoader();
-    }, 3000); // You can simulate any async operation here
+  constructor(private apiService: ApiService) {} // Inject the ApiService
+
+  ngOnInit() 
+  {
+    this.loadTravels(); // Call the method to fetch travels when the component initializes
   }
 
-  // Example of triggering the loader manually with a button click
-  loadData() {
-    this.loaderService.showLoader('Loading Data...');
-    
-    setTimeout(() => {
-      this.loaderService.hideLoader();
-    }, 3000);
+  // Method to fetch travels
+  async loadTravels() 
+  {
+    this.travels = await this.apiService.getTravels(); // Fetch travels from the service and store them
+  }
+
+  // Method to create a new travel
+  async createTravel() 
+  {
+    await this.apiService.postTravels(); // Call the API service to create a travel
+    this.loadTravels(); // Refresh the list of travels after creation
+  }
+
+  // Method to edit a travel
+  async editTravel(id: string) 
+  {
+    // Update the `putTravels` method in ApiService to accept a dynamic `id` and `updatedData` (if needed)
+    await this.apiService.putTravels(); // Edit the travel
+    this.loadTravels(); // Refresh the list of travels after editing
+  }
+
+  // Method to delete a travel
+  async deleteTravel(id: string) 
+  {
+    // Update the `deleteTravels` method in ApiService to accept a dynamic `id`
+    await this.apiService.deleteTravels(); // Delete the travel
+    this.loadTravels(); // Refresh the list of travels after deletion
   }
 }

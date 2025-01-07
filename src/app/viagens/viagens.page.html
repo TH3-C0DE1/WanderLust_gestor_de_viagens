@@ -1,35 +1,61 @@
-<!--<ion-header [translucent]="true">
+
+<ion-header>
   <ion-toolbar>
-    <ion-title>
-      Viagens
+
+    <ion-title class="centered-title">
+      <b>Viagens</b>
     </ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button >
+        <ion-icon slot="icon-only" name="add-outline" (click)="createTravel()"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
   </ion-toolbar>
-</ion-header>-->
+</ion-header>
 
-<ion-content [fullscreen]="true">
-  <h1 class="ion-text-center">Viagens</h1>
 
-  <ion-card class="outlineCard">
+<ion-content>
+
+  <!-- Show a message if no travels are available -->
+  <ion-text *ngIf="travels.length === 0" class="ion-text-center">
+    <h3>No travels available.</h3>
+  </ion-text>
+
+  <!-- Iterate over travels and display each as a card -->
+  <ion-card class="outlineCard" *ngFor="let travel of travels">
     <ion-card-header>
-      <ion-card-title>Card Title</ion-card-title>
-      <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+      <ion-card-title>{{ travel.prop1 }}</ion-card-title>
     </ion-card-header>
   
-    <!--<ion-card-content>
-      Card Description (remove bottom margin?)
-    </ion-card-content>-->
+    <ion-card-content>
+      {{ travel.description }}
+      {{ travel.type }}
+      {{ travel.state }}
+    </ion-card-content>
   
-    <ion-button class="editButton" fill="clear">
+    <!-- Edit Button -->
+    <ion-button (click)="editTravel(travel.id)" class="editButton" fill="clear">
       <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12.9482 4.43768H6.31392C4.11553 4.43768 2.33337 6.21977 2.33337 8.4181V21.6863C2.33337 23.8846 4.11553 25.6667 6.31392 25.6667H19.5824C21.7808 25.6667 23.563 23.8846 23.563 21.6863L23.563 15.0522M8.96762 19.0326L13.7951 18.0599C14.0514 18.0082 14.2867 17.882 14.4715 17.6971L25.2783 6.88473C25.7965 6.36633 25.7961 5.52603 25.2776 5.00807L22.9883 2.72146C22.4699 2.20371 21.63 2.20406 21.1121 2.72224L10.3042 13.5358C10.1197 13.7203 9.99377 13.9551 9.94208 14.2109L8.96762 19.0326Z" stroke="blue" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M12.9482 4.43768H6.31392C4.11553 4.43768 2.33337 6.21977 2.33337 8.4181V21.6863C2.33337 
+        23.8846 4.11553 25.6667 6.31392 25.6667H19.5824C21.7808 25.6667 23.563 23.8846 23.563 21.6863L23.563 
+        15.0522M8.96762 19.0326L13.7951 18.0599C14.0514 18.0082 14.2867 17.882 14.4715 17.6971L25.2783 6.88473C25.7965 
+        6.36633 25.7961 5.52603 25.2776 5.00807L22.9883 2.72146C22.4699 2.20371 21.63 2.20406 21.1121 2.72224L10.3042 
+        13.5358C10.1197 13.7203 9.99377 13.9551 9.94208 14.2109L8.96762 19.0326Z" 
+        stroke="blue" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>        
     </ion-button>
 
-    <ion-button class="deleteButton" fill="clear">
+    <!-- Delete Button -->
+    <ion-button  (click)="deleteTravel(travel.id)" class="deleteButton" fill="clear">
       <svg width="32" height="32" viewBox="0 1 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M4.66663 7.20588H23.3333M10.5 3.5H17.5M11.6666 19.5588V12.1471M16.3333 19.5588V12.1471M18.0833 24.5H9.91663C8.62796 24.5 7.58329 23.3939 7.58329 22.0294L7.05059 8.4926C7.02298 7.7908 7.55286 7.20588 8.21625 7.20588H19.7837C20.4471 7.20588 20.9769 7.7908 20.9493 8.4926L20.4166 22.0294C20.4166 23.3939 19.372 24.5 18.0833 24.5Z" stroke="maroon" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M4.66663 7.20588H23.3333M10.5 3.5H17.5M11.6666 19.5588V12.1471M16.3333 19.5588V12.1471M18.0833 
+        24.5H9.91663C8.62796 24.5 7.58329 23.3939 7.58329 22.0294L7.05059 8.4926C7.02298 7.7908 7.55286 7.20588 8.21625 
+        7.20588H19.7837C20.4471 7.20588 20.9769 7.7908 20.9493 8.4926L20.4166 22.0294C20.4166 23.3939 19.372 24.5 18.0833 
+        24.5Z" stroke="maroon" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </ion-button>
-  </ion-card>
 
+  </ion-card>
 </ion-content>
