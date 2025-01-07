@@ -34,4 +34,35 @@
 
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
-@import "@ionic/angular/css/palettes/dark.system.css";
+/*@import "@ionic/angular/css/palettes/dark.system.css";*/
+
+:root.md {
+    --ion-background-color: linear-gradient(to bottom, #FFFFFF, #FAFAFA);
+}
+
+/* Styling the tab container */
+ion-tab-bar {
+    border: 0px;
+    border-radius: 0.75rem 0.75rem 0 0;
+    --background: #ffffff;  /* Change background color of the tab container */
+    --border-color: ;   /* Add a border color around the tabs */
+    --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Add a subtle shadow to the container */
+}
+
+ion-tab-bar .tab-selected {
+    color: #FB9224;
+}
+
+ion-tab-bar.tab-selected ion-icon{
+    color: #FB9224;
+}
+
+ion-tab-button svg:hover {
+    color: #FFE382;
+    --color-selected:#FFE382;
+}
+
+ion-tab-button {
+    color: #BCBCBC;
+    --color-selected: #FFE382;
+}
