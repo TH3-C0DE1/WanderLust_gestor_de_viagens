@@ -7,8 +7,8 @@
     </ion-title>
 
     <ion-buttons slot="end">
-      <ion-button >
-        <ion-icon slot="icon-only" name="add-outline" (click)="createTravel()"></ion-icon>
+      <ion-button (click)="postTravel()">
+        <ion-icon slot="icon-only" name="add-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
 
@@ -26,17 +26,20 @@
   <!-- Iterate over travels and display each as a card -->
   <ion-card class="outlineCard" *ngFor="let travel of travels">
     <ion-card-header>
-      <ion-card-title>{{ travel.prop1 }}</ion-card-title>
+      <ion-card-title><b>Título: </b> {{ travel.description }}</ion-card-title>
     </ion-card-header>
   
     <ion-card-content>
-      {{ travel.description }}
-      {{ travel.type }}
-      {{ travel.state }}
+      
+      <p><b>Tipo: </b>{{ travel.type }}</p>
+      <p><b>Estado: </b>{{ travel.state }}</p>
+      <p><b>Data de Início: </b>{{ travel.startAt | date: 'dd/MM/yy - HH:mm\'h\'' }}</p>
+      <p><b>Data de Fim: </b>{{ travel.endAt | date: 'dd/MM/yy - HH:mm\'h\'' }}</p>      
+
     </ion-card-content>
   
     <!-- Edit Button -->
-    <ion-button (click)="editTravel(travel.id)" class="editButton" fill="clear">
+    <ion-button (click)="putTravel(travel)" class="editButton" fill="clear">
       <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M12.9482 4.43768H6.31392C4.11553 4.43768 2.33337 6.21977 2.33337 8.4181V21.6863C2.33337 
         23.8846 4.11553 25.6667 6.31392 25.6667H19.5824C21.7808 25.6667 23.563 23.8846 23.563 21.6863L23.563 
@@ -48,7 +51,7 @@
     </ion-button>
 
     <!-- Delete Button -->
-    <ion-button  (click)="deleteTravel(travel.id)" class="deleteButton" fill="clear">
+    <ion-button  (click)="deleteTravel(travel)" class="deleteButton" fill="clear">
       <svg width="32" height="32" viewBox="0 1 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M4.66663 7.20588H23.3333M10.5 3.5H17.5M11.6666 19.5588V12.1471M16.3333 19.5588V12.1471M18.0833 
         24.5H9.91663C8.62796 24.5 7.58329 23.3939 7.58329 22.0294L7.05059 8.4926C7.02298 7.7908 7.55286 7.20588 8.21625 

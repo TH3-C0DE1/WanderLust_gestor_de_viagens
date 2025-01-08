@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../services/api.service'; // Import the ApiService
 
+import { DatePipe } from '@angular/common';
+
 @Component({
   selector: 'app-viagens',
   templateUrl: './viagens.page.html',
@@ -12,11 +14,21 @@ export class ViagensPage implements OnInit
 {
   travels: any[] = []; // Array to store the travels data
 
-  constructor(private apiService: ApiService) {} // Inject the ApiService
+  constructor(
+    
+    private apiService: ApiService,
+    private datePipe: DatePipe,
+
+  ) {} // Inject the ApiService
 
   ngOnInit() 
   {
     this.loadTravels(); // Call the method to fetch travels when the component initializes
+
+    // Subscribe to travel list changes
+    this.apiService.getTravelListChanged().subscribe((travels) => {
+      this.travels = travels;
+    });
   }
 
   // Method to fetch travels
@@ -26,25 +38,30 @@ export class ViagensPage implements OnInit
   }
 
   // Method to create a new travel
-  async createTravel() 
+  async postTravel() 
   {
-    await this.apiService.postTravels(); // Call the API service to create a travel
-    this.loadTravels(); // Refresh the list of travels after creation
+    console.log('Opening modal for creating travel');
+    await this.apiService.openModal('POST'); // Open modal for creating a travel
+    
   }
 
   // Method to edit a travel
-  async editTravel(id: string) 
+  async putTravel(id: any) 
   {
     // Update the `putTravels` method in ApiService to accept a dynamic `id` and `updatedData` (if needed)
-    await this.apiService.putTravels(); // Edit the travel
-    this.loadTravels(); // Refresh the list of travels after editing
+    await this.apiService.openModal('PUT', id); // Open modal for editing a travel
+    
   }
 
   // Method to delete a travel
-  async deleteTravel(id: string) 
+  async deleteTravel(travel: any) 
   {
+    console.log('Deleting travel:', travel); // Log the travel to check if the travel object has the required data
+
     // Update the `deleteTravels` method in ApiService to accept a dynamic `id`
-    await this.apiService.deleteTravels(); // Delete the travel
-    this.loadTravels(); // Refresh the list of travels after deletion
+    await this.apiService.openModal('DELETE', travel); // Open modal for deleting a travel
+    
   }
+
+  
 }

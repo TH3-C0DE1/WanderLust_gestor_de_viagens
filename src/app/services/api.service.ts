@@ -1,8 +1,9 @@
 
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, BehaviorSubject } from 'rxjs';
 import { AlertController, LoadingController, ModalController, ToastController } from '@ionic/angular';
+import { TravelFormModalComponent } from '../travel-form-modal/travel-form-modal.component';
 
 @Injectable({
   providedIn: 'root',
@@ -16,6 +17,9 @@ export class ApiService
 
   public travels: any[] = []; // Define the Travels
 
+  // Define a BehaviorSubject to store the list of travels
+  private travelListChanged = new BehaviorSubject<any[]>([]);
+
   constructor(
 
     private http: HttpClient,
@@ -25,6 +29,11 @@ export class ApiService
     private toastController: ToastController      // Inject ToastController
 
   ) {}
+
+    // The getter method for the travelListChanged observable
+    getTravelListChanged() {
+      return this.travelListChanged.asObservable();
+    }
 
   // GET Headers
   private getHeaders(): HttpHeaders 
@@ -74,28 +83,20 @@ export class ApiService
   }
 
   // POST Travels
-  async postTravels() 
+  async postTravel(newTravel: any)
   {
     const loading = await this.showLoading();
 
     const headers = this.getHeaders(); // Get Headers
 
-    var newTravel = 
-    {
-      description: "Nova Viagem...",
-      type:"Tipo (Lazer, Trabalho, etc.)",
-      state:"Estado (Em Estudo, Agendada, etc.)",
-      startAt: "Data de Início da Viagem.",
-      endAt: "Data do Fim da Viagem.",
-    }
-
     try 
     {
-      await firstValueFrom(this.http.post(`${this.apiUrl}/api/travels`, newTravel , { headers }));
+      await firstValueFrom(this.http.post(`${this.apiUrl}/api/travels`, newTravel, { headers }));
 
       loading.dismiss();
 
       await this.presentToast(`Travel Successfully Created 🚀`, 'success');
+      await this.getTravels(); // Refresh travels
     } 
 
     catch (error : any) 
@@ -106,27 +107,15 @@ export class ApiService
   }
 
   // PUT Travels (Edit)
-  async putTravels() 
+  async putTravel(id: string, updatedTravel: any)
   {
     const loading = await this.showLoading();
 
     const headers = this.getHeaders(); // Get Headers
 
-    var id = '29747a7e-1a69-4570-811f-2c5916c33719'
-
-    var updatedTravels = 
-    {
-      prop1:"Título",
-      description: "Nova Viagem...",
-      type:"Tipo (Lazer, Trabalho, etc.)",
-      state:"Estado (Em Estudo, Agendada, etc.)",
-      startAt: "Data de Início da Viagem.",
-      endAt: "Data do Fim da Viagem.",
-    }
-
     try 
     {
-      await firstValueFrom(this.http.put(`${this.apiUrl}/api/travels/${id}`, updatedTravels , { headers }));
+      await firstValueFrom(this.http.put(`${this.apiUrl}/api/travels/${id}`, updatedTravel, { headers }));
 
       loading.dismiss();
 
@@ -141,13 +130,11 @@ export class ApiService
   }
   
    // DEL Travels
-  async deleteTravels() 
+  async deleteTravel(id: string)
   {
     const loading = await this.showLoading();
 
     const headers = this.getHeaders(); // Get Headers
-
-    var id = '29747a7e-1a69-4570-811f-2c5916c33719'
 
     try 
     {
@@ -155,8 +142,8 @@ export class ApiService
 
       loading.dismiss();
 
-      await this.presentToast(`Note Successfully Deleted 🚀`, 'success');
-      
+      await this.presentToast(`Travel Successfully Deleted 🚀`, 'success');
+      await this.getTravels(); // Refresh travels
     } 
     
     catch (error : any) 
@@ -200,4 +187,50 @@ export class ApiService
 
     await toast.present(); // Display Toast Notification
   }
+
+  // Reload Travel
+  async reloadTravels() {
+    this.travels = await this.getTravels();  // Call your existing getTravels method to reload the list
+    this.travelListChanged.next(this.travels);  // Emit the updated travels to any subscribers
+  }
+
+  // Open Modal
+  async openModal(action: 'POST' | 'PUT' | 'DELETE', travel?: any) {
+
+    console.log('Opening modal with action:', action); // Add this log
+
+    const modal = await this.modalController.create({
+      component: TravelFormModalComponent,
+      componentProps: {
+        travel: action === 'PUT' ? { ...travel } : {}, // Clone travel for editing
+        modalTitle: action === 'POST' ? 'Create Travel' : action === 'PUT' ? 'Edit Travel' : 'Delete Travel',
+        actionType: action // Pass actionType directly
+      },
+    });
+  
+    modal.onDidDismiss().then(async (result) => {
+
+      console.log('Modal dismissed with result:', result); // Add this log to check dismissal result
+
+      if (result.data) {
+        const updatedTravel = result.data;
+        switch (action) {
+          case 'POST':
+            await this.postTravel(updatedTravel);
+            await this.reloadTravels();
+            break;
+          case 'PUT':
+            await this.putTravel(travel.id, updatedTravel);
+            await this.reloadTravels();
+            break;
+          case 'DELETE':
+            await this.deleteTravel(travel.id);
+            await this.reloadTravels();
+            break;
+        }
+      }
+    });
+  
+    return modal.present();
+  }  
 }
