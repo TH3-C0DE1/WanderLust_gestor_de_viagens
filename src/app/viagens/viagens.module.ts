@@ -7,6 +7,8 @@ import { FormsModule } from '@angular/forms';
 import { ViagensPage } from './viagens.page';
 import { ViagensPageRoutingModule } from './viagens-routing.module';
 import { TravelFormModalComponent } from '../travel-form-modal/travel-form-modal.component'; // Import the modal component
+import { TravelCommentsModalComponent } from '../travel-comments-modal/travel-comments-modal.component'; // Import the component
+
 
 @NgModule({
 
@@ -15,7 +17,8 @@ import { TravelFormModalComponent } from '../travel-form-modal/travel-form-modal
     CommonModule,
     FormsModule,
     ViagensPageRoutingModule,
-    TravelFormModalComponent, // Declare the modal component
+    TravelFormModalComponent,
+    TravelCommentsModalComponent,
   ],
 
   declarations: 

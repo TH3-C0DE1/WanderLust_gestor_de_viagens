@@ -66,3 +66,20 @@ ion-tab-button {
     color: #BCBCBC;
     --color-selected: #FFE382;
 }
+
+.fab-custom {
+    --background: #FB9224;
+    --color: rgb(255, 255, 255);
+    transition: all ease-in-out 0.3s;
+}
+
+.fab-custom:hover {
+    --background: #000000;
+    --color: rgb(255, 255, 255);
+}
+
+.toast-top {
+    position: fixed !important; /* Ensure it is positioned in a fixed manner */
+    top: 6% !important; /* 10px from the top */
+    z-index: 9999; /* Ensure it is above other content */
+}

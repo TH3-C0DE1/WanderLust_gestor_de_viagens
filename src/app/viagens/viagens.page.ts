@@ -1,7 +1,10 @@
+
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../services/api.service'; // Import the ApiService
 
 import { DatePipe } from '@angular/common';
+import { ModalController } from '@ionic/angular';
+import { TravelCommentsModalComponent } from '../travel-comments-modal/travel-comments-modal.component'; // Import the Comments Modal
 
 @Component({
   selector: 'app-viagens',
@@ -18,6 +21,7 @@ export class ViagensPage implements OnInit
     
     private apiService: ApiService,
     private datePipe: DatePipe,
+    private modalController: ModalController,
 
   ) {} // Inject the ApiService
 
@@ -40,28 +44,33 @@ export class ViagensPage implements OnInit
   // Method to create a new travel
   async postTravel() 
   {
-    console.log('Opening modal for creating travel');
     await this.apiService.openModal('POST'); // Open modal for creating a travel
-    
   }
 
   // Method to edit a travel
   async putTravel(id: any) 
   {
-    // Update the `putTravels` method in ApiService to accept a dynamic `id` and `updatedData` (if needed)
-    await this.apiService.openModal('PUT', id); // Open modal for editing a travel
-    
+    await this.apiService.openModal('PUT', id); // Open modal for editing a travel 
   }
 
   // Method to delete a travel
   async deleteTravel(travel: any) 
   {
-    console.log('Deleting travel:', travel); // Log the travel to check if the travel object has the required data
+    await this.apiService.openModal('DELETE', travel); // Open modal for deleting a travel 
+  }  
 
-    // Update the `deleteTravels` method in ApiService to accept a dynamic `id`
-    await this.apiService.openModal('DELETE', travel); // Open modal for deleting a travel
-    
+  // Method to open Comments Modal
+  async openCommentsModal(travel: any) 
+  {
+    const modal = await this.modalController.create({
+      component: TravelCommentsModalComponent,
+      componentProps: {
+        id: travel.id, // Pass the travel ID to the modal
+      },
+      backdropDismiss: true, // Allow dismissing the modal by clicking outside
+    });
+
+    return await modal.present();
   }
 
-  
 }

@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Comentários</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()" class="personailze-button">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let comment of comments">
+      <ion-label>
+        <h2>{{ comment.createdBy }}</h2>
+        <p>{{ comment.comment }}</p>
+        <p class="comment-date">{{ comment.createdAt | date: 'dd/MM/yy - HH:mm\'h\'' }}</p>
+      </ion-label>
+
+      <ion-button fill="clear" slot="end" (click)="deleteComment(comment.id)"  class="trash-button">
+        <ion-icon name="trash"></ion-icon>
+      </ion-button>
+
+    </ion-item>
+  </ion-list>
+
+  <ion-text *ngIf="comments.length === 0" class="ion-text-center">
+    <h3>Nenhum Comentário Disponível.</h3>
+  </ion-text>
+
+    <!-- FAB to Add Comment -->
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+      <ion-fab-button (click)="openAddCommentModal()" class="fab-custom">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+</ion-content>

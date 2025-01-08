@@ -12,12 +12,91 @@
     width: 100%;
 }
 
+.viagem-content {
+    display: flex;
+    flex-direction: column; /* Stack cards vertically */
+    align-items: center; /* Center horizontally */
+    justify-content: center; /* Center vertically if needed */
+    text-align: center;
+    padding: 16px; /* Add some padding around the content */
+}
+
+.viagem-content .card-content-md {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
 /* #FB9224;
    #FFE382 */
 .outlineCard {
-    border: 0.25rem solid; /* Orange border */
+    align-content: center;
+    justify-content: center;
+    border: 0.25rem none; /* Orange border */
     border-radius: 10px; /* Optional: to round the corners */
-    border-color: #FB9224}
+    // border-color: #979491
+    max-width: 100%;
+    margin: 15px 20px 15px 20px;
+}
 
+.inline-container {
+    display: flex;
+    gap: 10px; /* Space between items */
+    justify-content: flex-start; /* Align items horizontally */
+    max-width: 100%;
+    margin-bottom: 10px;
+}
 
-  
+.inline-container p {
+    margin: 0;
+    padding: 10px;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+    border-radius: 5px;
+    color: white; /* Text color */
+    flex: 1; /* Ensure consistent width if desired */
+}
+
+.disabled {
+    background-color: #ffffff;
+    color: #ffffff;
+    border-radius: 50%; /* Optional: to round the corners */
+    margin: 10px 5px 10px 20px;
+}
+
+.add-travel {
+    color: #ffffff;
+    background-color: #FB9224; /* Blue */   
+    border-radius: 50%; /* Optional: to round the corners */
+    margin: 10px 20px 10px 5px;
+    transition: all ease-in-out 0.3s;
+}
+
+.add-travel:hover {
+    background-color: #000000; /* Blue */  
+}
+
+.personailze-button {
+    color: #FB9224;
+    padding: 10px;
+    margin: 0px 10px 0px 10px;  
+    transition: all ease-in-out 0.3s;
+}
+
+.personailze-button:hover {
+    color: #000000;
+}
+
+.personailze-button ion-icon {
+    font-size: 32px;
+}
+
+.travel-color {
+    background-color: #FFE382; /* Blue */ 
+    color: #000000 !important; 
+}
+
+.travel-date {
+    background-color: #000000; /* Yellow */
+    color: #ffffff !important;
+}

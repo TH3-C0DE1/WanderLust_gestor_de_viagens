@@ -1,0 +1,35 @@
+
+.comment-date {
+    font-size: 0.8em;
+    color: gray;
+}
+
+ion-item {
+    --background: #f9f9f9;
+    margin-bottom: 8px;
+    border-radius: 8px;
+}
+
+.comment-date {
+    font-size: 0.8em;
+    color: gray;
+}
+
+.personailze-button ion-icon {
+    font-size: 32px;
+}
+
+.trash-button {
+    color: #FB9224;
+    padding: 10px;
+    margin: 0px 30px 0px 10px;  
+    transition: all ease-in-out 0.3s;
+}
+
+.trash-button:hover {
+    color: #000000;
+}
+
+.trash-button ion-icon {
+    font-size: 24px;
+}
