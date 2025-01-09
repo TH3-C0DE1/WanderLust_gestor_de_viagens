@@ -2,10 +2,10 @@ import { IonicModule } from '@ionic/angular';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { NotifsPage } from './notifs.page';
+import { ProfilePage } from './profile.page';
 import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
 
-import { NotifsPageRoutingModule } from './notifs-routing.module';
+import { ProfilePageRoutingModule } from './profile-routing.module';
 
 @NgModule({
   imports: [
@@ -13,8 +13,8 @@ import { NotifsPageRoutingModule } from './notifs-routing.module';
     CommonModule,
     FormsModule,
     ExploreContainerComponentModule,
-    NotifsPageRoutingModule
+    ProfilePageRoutingModule
   ],
-  declarations: [NotifsPage]
+  declarations: [ProfilePage]
 })
-export class NotifsPageModule {}
+export class ProfilePageModule {}

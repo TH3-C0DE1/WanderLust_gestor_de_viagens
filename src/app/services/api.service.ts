@@ -65,12 +65,12 @@ export class ApiService
 
       if(this.travels.length == 0) 
       {
-        await this.presentToast(`Não há Viagens Disponíveis. 😥`, 'warning');
+        await this.presentToast(`There are no Trips Available. 😥`, 'warning');
       }
 
       else 
       {
-        await this.presentToast(`Sucesso a Obter ${this.travels.length} Viagens. 🚀`, 'success');
+        await this.presentToast(`${this.travels.length} Trips Available. ✈️`, 'success');
       }
       
       return this.travels;  // Make sure the Array of Travels is Returned
@@ -97,7 +97,7 @@ export class ApiService
 
       loading.dismiss();
 
-      await this.presentToast(`Viagem Criada com Sucesso. 🚀`, 'success');
+      await this.presentToast(`Trip Created Successfully. ✈️`, 'success');
       await this.getTravels(); // Refresh travels
     } 
 
@@ -121,7 +121,7 @@ export class ApiService
 
       loading.dismiss();
 
-      await this.presentToast(`Viagem Atualizada com Sucesso. 🚀`, 'success');
+      await this.presentToast(`Trip Updated Successfully. ✈️`, 'success');
     } 
     
     catch (error : any) 
@@ -144,7 +144,7 @@ export class ApiService
 
       loading.dismiss();
 
-      await this.presentToast(`Viagem Apagada com Sucesso. 🚀`, 'success');
+      await this.presentToast(`Trip Deleted Successfully. ✈️`, 'success');
       await this.getTravels(); // Refresh travels
     } 
     
@@ -181,16 +181,16 @@ export class ApiService
 
       if (!travel) {
         // Travel not found
-        await this.presentToast(`Viagem com ID ${id} não encontrada. 😥`, 'warning');
+        await this.presentToast(`Trip With ID ${id} Not Found. 😥`, 'warning');
         return [];
       }
 
       if (travel.comments.length === 0) {
         // No comments available for the travel
-        await this.presentToast(`Não há Comentários Disponíveis para esta Viagem. 😥`, 'warning');
+        await this.presentToast(`There Are No Notes Available For This Trip. 😥`, 'warning');
       } else {
         // Comments retrieved successfully
-        await this.presentToast(`Sucesso a Obter ${travel.comments.length} Comentários. 🚀`, 'success');
+        await this.presentToast(`${travel.comments.length} Notes Available. 📝`, 'success');
       }
       
       return travel.comments;  // Return the Array of Comments
@@ -219,7 +219,7 @@ export class ApiService
 
       loading.dismiss();
 
-      await this.presentToast(`Nota Criada com Sucesso. 🚀`, 'success');
+      await this.presentToast(`Note Created Successfully. 📝`, 'success');
     } 
 
     catch (error : any) 
@@ -242,7 +242,7 @@ export class ApiService
 
       loading.dismiss();
 
-      await this.presentToast(`Nota Apagada com Sucesso. 🚀`, 'success');
+      await this.presentToast(`Note Deleted Successfully. 📝`, 'success');
       await this.getTravels(); // Refresh travels
     } 
     
@@ -302,18 +302,18 @@ export class ApiService
     if (action === 'DELETE') {
       // Create the alert for DELETE action
       const alert = await this.alertController.create({
-        header: 'Confirmar Exclusão',
-        message: `Tem certeza que deseja excluir a viagem "${travel?.description}"?`,
+        header: 'DELETE TRIP',
+        message: `Are you sure you want to DELETE the trip "${travel?.description}"?`,
         buttons: [
           {
-            text: 'Cancelar',
+            text: 'Cancel',
             role: 'cancel',
             handler: () => {
-              console.log('Cancelado');
+              console.log('Canceled');
             }
           },
           {
-            text: 'Excluir',
+            text: 'Delete',
             role: 'destructive',
             handler: async () => {
               await this.deleteTravel(travel.id);
@@ -331,7 +331,7 @@ export class ApiService
         component: TravelFormModalComponent,
         componentProps: {
           travel: action === 'PUT' ? { ...travel } : {}, // Clone travel for editing
-          modalTitle: action === 'POST' ? 'Nova Viagem' : action === 'PUT' ? 'Atualizar Viagem' : 'Excluir Viagem',
+          modalTitle: action === 'POST' ? 'NEW TRIP' : action === 'PUT' ? 'UPDATE TRIP' : 'DELETE TRIP',
           actionType: action // Pass actionType directly
         },
       });

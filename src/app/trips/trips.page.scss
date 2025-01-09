@@ -12,7 +12,7 @@
     width: 100%;
 }
 
-.viagem-content {
+.trips-content {
     display: flex;
     flex-direction: column; /* Stack cards vertically */
     align-items: center; /* Center horizontally */
@@ -21,7 +21,7 @@
     padding: 16px; /* Add some padding around the content */
 }
 
-.viagem-content .card-content-md {
+.trips-content .card-content-md {
     padding-top: 0;
     padding-bottom: 0;
 }

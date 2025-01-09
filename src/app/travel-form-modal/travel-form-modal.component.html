@@ -13,12 +13,12 @@
   <form *ngIf="actionType === 'POST' || actionType === 'PUT'">
     <!-- Form fields for editing/creating travel -->
     <ion-item>
-      <ion-label position="floating">Título:</ion-label>
+      <ion-label position="floating">Title:</ion-label>
       <ion-input class="placeholder-space" [(ngModel)]="travel.description" name="description"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label position="floating">Viajar:</ion-label>
+      <ion-label position="floating">Travel:</ion-label>
       <ion-select [(ngModel)]="travel.prop1" name="prop1">
         <ion-select-option *ngFor="let prop1 of travelComp" [value]="prop1">
           {{ prop1 }}
@@ -27,12 +27,12 @@
     </ion-item>
 
     <ion-item class="placeholder-space">
-      <ion-label position="floating">Destino:</ion-label>
+      <ion-label position="floating">Destination:</ion-label>
       <ion-input class="placeholder-space" [(ngModel)]="travel.prop2" name="prop2" placeholder="City, Country"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label position="floating">Tipo:</ion-label>
+      <ion-label position="floating">Type:</ion-label>
       <ion-select [(ngModel)]="travel.type" name="type">
         <ion-select-option *ngFor="let type of travelTypes" [value]="type">
           {{ type }}
@@ -41,7 +41,7 @@
     </ion-item>
     
     <ion-item>
-      <ion-label position="floating">Estado:</ion-label>
+      <ion-label position="floating">Status:</ion-label>
       <ion-select [(ngModel)]="travel.state" name="state">
         <ion-select-option *ngFor="let state of travelStates" [value]="state">
           {{ state }}
@@ -50,29 +50,29 @@
     </ion-item>
 
     <ion-item>
-      <ion-label position="floating">Data de Início</ion-label>
+      <ion-label position="floating">Start Date:</ion-label>
       <ion-datetime [(ngModel)]="travel.startAt" name="startAt"></ion-datetime>
     </ion-item>
 
     <ion-item>
-      <ion-label position="floating">Data de Fim</ion-label>
+      <ion-label position="floating">End Date:</ion-label>
       <ion-datetime [(ngModel)]="travel.endAt" name="endAt"></ion-datetime>
     </ion-item>
 
     <ion-footer>
       <ion-button expand="full" (click)="submitForm()">
-        {{ actionType === 'POST' ? 'Nova Viagem' : 'Atualizar Viagem' }}
+        {{ actionType === 'POST' ? 'NEW TRIP' : 'UPDATE TRIP' }}
       </ion-button>
     </ion-footer>
   </form>
 
   <div *ngIf="actionType === 'DELETE'">
     <ion-text color="danger">
-      <h2>Tem certeza de que deseja excluir esta viagem?</h2>
+      <h2>Are you sure you want to delete this trip?</h2>
     </ion-text>
     <ion-footer>
-      <ion-button expand="full" color="danger" (click)="confirmDelete()">Excluir</ion-button>
-      <ion-button expand="full" (click)="dismiss()">Cancelar</ion-button>
+      <ion-button expand="full" color="danger" (click)="confirmDelete()">Delete</ion-button>
+      <ion-button expand="full" (click)="dismiss()">Cancel</ion-button>
     </ion-footer>
   </div>
 </ion-content>

@@ -9,7 +9,7 @@
     </ion-buttons>
 
     <ion-title class="centered-title">
-      <b>Viagens</b>
+      <b>TRIPS</b>
     </ion-title>
 
     <ion-buttons class="add-travel" slot="end">
@@ -22,31 +22,31 @@
 </ion-header>
 
 
-<ion-content class="viagem-content">
+<ion-content class="trips-content">
 
   <!-- Show a message if no travels are available -->
   <ion-text *ngIf="travels.length === 0" class="ion-text-center">
-    <h3>Nenhuma Viagem Disponível.</h3>
+    <h3>No Trips Available.</h3>
   </ion-text>
 
   <!-- Iterate over travels and display each as a card -->
   <ion-card class="outlineCard" *ngFor="let travel of travels">
     <ion-card-header>
-      <ion-card-title><h1><b>Título: </b> {{ travel.description }}</h1></ion-card-title>
+      <ion-card-title><h1><b>Title: </b> {{ travel.description }}</h1></ion-card-title>
     </ion-card-header>
   
     <ion-card-content>
       
       <div class="inline-container">
-        <p class="travel-color"><b>Viajar: </b>{{ travel.prop1 }}</p>
-        <p class="travel-color"><b>Destino: </b>{{ travel.prop2 }}</p>
-        <p class="travel-color"><b>Tipo: </b>{{ travel.type }}</p>
-        <p class="travel-color"><b>Estado: </b>{{ travel.state }}</p>
+        <p class="travel-color"><b>Travel: </b>{{ travel.prop1 }}</p>
+        <p class="travel-color"><b>Destination: </b>{{ travel.prop2 }}</p>
+        <p class="travel-color"><b>Type: </b>{{ travel.type }}</p>
+        <p class="travel-color"><b>Status: </b>{{ travel.state }}</p>
       </div>
 
       <div class="inline-container">
-        <p class="travel-date"><b>Data de Início: </b>{{ travel.startAt | date: 'dd/MM/yy - HH:mm\'h\'' }}</p>
-        <p class="travel-date"><b>Data de Fim: </b>{{ travel.endAt | date: 'dd/MM/yy - HH:mm\'h\'' }}</p>      
+        <p class="travel-date"><b>Start Date: </b>{{ travel.startAt | date: 'dd/MM/yy - HH:mm\'h\'' }}</p>
+        <p class="travel-date"><b>End Date: </b>{{ travel.endAt | date: 'dd/MM/yy - HH:mm\'h\'' }}</p>      
       </div>
     </ion-card-content>
 
@@ -67,4 +67,3 @@
 
   </ion-card>
 </ion-content>
-

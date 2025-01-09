@@ -5,35 +5,36 @@ import { FormsModule } from '@angular/forms';
 
 enum TravelType 
 {
-  Leisure = 'Lazer',
-  Business = 'Trabalho',
-  Family = 'Familiar',
-  Educational = 'Educacional',
-  Event =  'Evento',
-  Volunteer = 'Voluntariado',
-  RoadTrip = 'Viagem de Carro',
-  Shopping = 'Compras',
-  Beach = 'Praia',
-  Mountain = 'Montanha',
-  Cruise = 'Cruzeiro',
-  Safari = 'Safári',
-  Expedition = 'Expedição',
+  Leisure = 'Leisure',
+  Business = 'Business',
+  Family = 'Family',
+  Educational = 'Educational',
+  Event =  'Event',
+  Volunteer = 'Volunteer',
+  RoadTrip = 'RoadTrip',
+  Shopping = 'Shopping',
+  Beach = 'Beach',
+  Mountain = 'Mountain',
+  Cruise = 'Cruise',
+  Safari = 'Safari',
+  Expedition = 'Expedition',
 }
 
 enum TravelState 
 {
-  Planned = 'Planeada',
-  InProgress = 'Em Progresso',
-  Completed = 'Concluída',
-  Cancelled = 'Cancelada',
+  Planned = 'Planned',
+  Scheduled = 'Scheduled',
+  Postponed = 'Postponed',
+  Completed = 'Completed',
+  Cancelled = 'Cancelled', 
 }
 
 enum TravelCompanion 
 {
-  Alone = 'Sozinho',
-  Companion = 'Com Acompanhante',
-  Group  = 'Em Grupo',
-  Family  = 'Em Família',
+  Alone = 'Alone',
+  Companion = 'With Company',
+  Group  = 'In Group',
+  Family  = 'In Family',
 }
 
 @Component({

@@ -1,0 +1,65 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title class="centered-title">
+      <b>PROFILE</b>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="flex-center">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title><b>Sign in</b></ion-card-title>
+      </ion-card-header>
+    
+      <ion-card-content>
+        <div class="input-container">
+          <ion-icon name="mail-outline" class="input-icon"></ion-icon>
+          <ion-input
+            placeholder="Enter e-mail address"
+            type="email"
+            class="circular-input"
+            clear-input
+          ></ion-input>
+        </div>
+
+        <div class="input-container">
+          <ion-icon name="lock-closed-outline" class="input-icon"></ion-icon>
+          <ion-input
+            placeholder="Enter password"
+            type="password"
+            class="circular-input"
+            clear-input
+          ></ion-input>
+        </div>
+
+        <div>
+          <ion-button expand="block" class="continueButton">Continue</ion-button>
+        </div>
+        
+        <!-- Separator -->
+        <div class="separator">
+          <div class="line"></div>
+          <span class="or-text">Or continue with</span>
+          <div class="line"></div>
+        </div>
+
+        <!-- Social Login Buttons -->
+        <div class="button-container">
+          <ion-button expand="block" class="google-button">
+            <ion-icon slot="start" src="../../assets/icon/Google Logo.svg"></ion-icon>
+            Continue with Google
+          </ion-button>
+
+          <ion-button expand="block" class="facebook-button">
+            <ion-icon slot="start" name="logo-facebook"></ion-icon>
+            Continue with Facebook
+          </ion-button>
+          <ion-router-link [routerLink]="['signup']" class="flexed-text">Sign up</ion-router-link> 
+          <!-- NUNCA pôr / antes do path  (^aqui^)  senão os tabs deixam de aparecer-->
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

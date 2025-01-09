@@ -11,8 +11,13 @@ const routes: Routes =
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
   },
 
-  { path: 'viagens', 
-    loadChildren: () => import('./viagens/viagens.module').then(m => m.ViagensPageModule) 
+  { path: 'trips', 
+    loadChildren: () => import('./trips/trips.module').then(m => m.TripsPageModule) 
+  },
+
+  {
+    path: 'signup',
+    loadChildren: () => import('./profile/signup/signup.module').then( m => m.SignupPageModule)
   },
 
 ];

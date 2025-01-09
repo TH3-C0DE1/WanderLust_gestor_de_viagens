@@ -8,31 +8,40 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'viagens',
-        loadChildren: () => import('../viagens/viagens.module').then(m => m.ViagensPageModule)
+        path: 'trips',
+        loadChildren: () => import('../trips/trips.module').then(m => m.TripsPageModule)
       },
       {
-        path: 'locais',
-        loadChildren: () => import('../locais/locais.module').then(m => m.LocaisPageModule)
+        path: 'locations',
+        loadChildren: () => import('../locations/locations.module').then(m => m.LocationsPageModule)
       },
       {
-        path: 'notifs',
-        loadChildren: () => import('../notifs/notifs.module').then(m => m.NotifsPageModule)
+        path: 'notifications',
+        loadChildren: () => import('../notifications/notifications.module').then(m => m.NotificationsPageModule)
       },
       {
-        path: 'config',
-        loadChildren: () => import('../config/config.module').then(m => m.ConfigPageModule)
+        path: 'profile',
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('../profile/profile.module').then(m => m.ProfilePageModule),
+          },
+          {
+            path: 'signup',
+            loadChildren: () => import('../profile/signup/signup.module').then(m => m.SignupPageModule),
+          }
+        ]
       },
       {
         path: '',
-        redirectTo: '/tabs/viagens',
+        redirectTo: '/tabs/trips',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/tabs/viagens',
+    redirectTo: '/tabs/trips',
     pathMatch: 'full'
   }
 ];

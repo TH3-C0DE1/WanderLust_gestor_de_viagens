@@ -2,10 +2,10 @@ import { IonicModule } from '@ionic/angular';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { LocaisPage } from './locais.page';
+import { LocationsPage } from './locations.page';
 import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
 
-import { LocaisPageRoutingModule } from './locais-routing.module';
+import { LocationsPageRoutingModule } from './locations-routing.module';
 
 @NgModule({
   imports: [
@@ -13,8 +13,8 @@ import { LocaisPageRoutingModule } from './locais-routing.module';
     CommonModule,
     FormsModule,
     ExploreContainerComponentModule,
-    LocaisPageRoutingModule
+    LocationsPageRoutingModule
   ],
-  declarations: [LocaisPage]
+  declarations: [LocationsPage]
 })
-export class LocaisPageModule {}
+export class LocationsPageModule {}

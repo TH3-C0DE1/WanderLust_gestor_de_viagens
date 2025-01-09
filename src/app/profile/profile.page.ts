@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-config',
-  templateUrl: 'config.page.html',
-  styleUrls: ['config.page.scss'],
+  selector: 'app-profile',
+  templateUrl: 'profile.page.html',
+  styleUrls: ['profile.page.scss'],
   standalone: false,
 })
-export class ConfigPage {
+export class ProfilePage {
 
   constructor() {}
 

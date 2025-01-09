@@ -1,0 +1,24 @@
+.centered-title {
+    text-align: center;
+    color: black;
+    width: 100%;
+}
+  
+.notification-card {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    z-index: 1000;
+    animation: slide-in 0.3s ease-out;
+}
+  
+@keyframes slide-in {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+}
+  

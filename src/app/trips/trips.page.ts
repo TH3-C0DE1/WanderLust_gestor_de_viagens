@@ -7,13 +7,13 @@ import { ModalController } from '@ionic/angular';
 import { TravelCommentsModalComponent } from '../travel-comments-modal/travel-comments-modal.component'; // Import the Comments Modal
 
 @Component({
-  selector: 'app-viagens',
-  templateUrl: './viagens.page.html',
-  styleUrls: ['./viagens.page.scss'],
+  selector: 'app-trips',
+  templateUrl: './trips.page.html',
+  styleUrls: ['./trips.page.scss'],
   standalone: false,
 })
 
-export class ViagensPage implements OnInit 
+export class TripsPage implements OnInit 
 {
   travels: any[] = []; // Array to store the travels data
 

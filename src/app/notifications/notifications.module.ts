@@ -2,10 +2,10 @@ import { IonicModule } from '@ionic/angular';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ConfigPage } from './config.page';
+import { NotificationsPage } from './notifications.page';
 import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
 
-import { ConfigPageRoutingModule } from './config-routing.module';
+import { NotificationsPageRoutingModule } from './notifications-routing.module';
 
 @NgModule({
   imports: [
@@ -13,8 +13,8 @@ import { ConfigPageRoutingModule } from './config-routing.module';
     CommonModule,
     FormsModule,
     ExploreContainerComponentModule,
-    ConfigPageRoutingModule
+    NotificationsPageRoutingModule
   ],
-  declarations: [ConfigPage]
+  declarations: [NotificationsPage]
 })
-export class ConfigPageModule {}
+export class NotificationsPageModule {}

@@ -19,6 +19,7 @@ import { AlertController } from '@ionic/angular';
     FormsModule,
   ],
 })
+
 export class TravelCommentsModalComponent implements OnInit {
 
   @Input() id: string = ''; // Receive Travel ID as input
@@ -47,56 +48,56 @@ export class TravelCommentsModalComponent implements OnInit {
     this.modalController.dismiss();
   }
 
-    // Delete a comment
-    async deleteComment(commentId: string) {
-      const confirm = await this.alertController.create({
-        header: 'Confirmar',
-        message: 'Tem certeza que deseja apagar este comentário?',
-        buttons: [
-          {
-            text: 'Cancelar',
-            role: 'cancel',
+  // Delete a Comment
+  async deleteComment(commentId: string) {
+    const confirm = await this.alertController.create({
+      header: 'DELETE NOTE',
+      message: 'Are you sure you want to DELETE this note?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+        },
+        {
+          text: 'Delete',
+          handler: async () => {
+            await this.apiService.deleteTravelComments(commentId);
+            this.loadComments(); // Refresh comments
           },
-          {
-            text: 'Apagar',
-            handler: async () => {
-              await this.apiService.deleteTravelComments(commentId);
+        },
+      ],
+    });
+    await confirm.present();
+  }
+
+  // Open modal to add a comment
+  async openAddCommentModal() {
+    const alert = await this.alertController.create({
+      header: 'NEW NOTE',
+      inputs: [
+        {
+          name: 'comment',
+          type: 'text',
+          placeholder: 'Write your note...',
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+        },
+        {
+          text: 'Add',
+          handler: async (data) => {
+            if (data.comment) {
+              await this.apiService.postTravelComments(this.id, data.comment);
               this.loadComments(); // Refresh comments
-            },
+            }
           },
-        ],
-      });
-      await confirm.present();
-    }
-  
-    // Open modal to add a comment
-    async openAddCommentModal() {
-      const alert = await this.alertController.create({
-        header: 'Novo Comentário',
-        inputs: [
-          {
-            name: 'comment',
-            type: 'text',
-            placeholder: 'Escreva seu comentário...',
-          },
-        ],
-        buttons: [
-          {
-            text: 'Cancelar',
-            role: 'cancel',
-          },
-          {
-            text: 'Adicionar',
-            handler: async (data) => {
-              if (data.comment) {
-                await this.apiService.postTravelComments(this.id, data.comment);
-                this.loadComments(); // Refresh comments
-              }
-            },
-          },
-        ],
-      });
-      await alert.present();
-    }
+        },
+      ],
+    });
+    await alert.present();
+  }
 
 }
