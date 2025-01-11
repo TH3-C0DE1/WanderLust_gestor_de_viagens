@@ -12,6 +12,13 @@
     z-index: 1000;
     animation: slide-in 0.3s ease-out;
 }
+
+.disabled {
+  background-color: #ffffff;
+  color: #ffffff;
+  border-radius: 50%; /* Optional: to round the corners */
+  margin: 10px 5px 10px 20px;
+}
   
 @keyframes slide-in {
     from {

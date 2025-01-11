@@ -1,14 +1,28 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
+
+    <ion-buttons class="disabled" slot="start">
+      <ion-button [disabled]="true">
+        <ion-icon name="square"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
     <ion-title class="centered-title">
       <b>PROFILE</b>
     </ion-title>
+
+    <ion-buttons class="disabled" slot="end">
+      <ion-button [disabled]="true">
+        <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <div class="flex-center">
-    <ion-card>
+    <ion-card class="no-shadow">
       <ion-card-header>
         <ion-card-title><b>Sign in</b></ion-card-title>
       </ion-card-header>

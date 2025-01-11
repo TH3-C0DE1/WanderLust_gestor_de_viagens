@@ -3,17 +3,19 @@
     color: black;
     width: 100%;
 }
-.centered-title {
-    text-align: center;
-    color: black;
-    width: 100%;
-}
   
 .flex-center {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100%
+}
+
+.no-shadow {
+    box-shadow: none;
+    width: 80%;            
+    max-width: 600px;            
+    margin: 0 auto;            
 }
 
 .flexed-text {
@@ -126,4 +128,11 @@ ion-button.facebook-button::part(native),
 ion-button.continueButton::part(native) {
   font-family: 'Roboto', sans-serif !important; 
   font-weight: 500;
+}
+
+.disabled {
+    background-color: #ffffff;
+    color: #ffffff;
+    border-radius: 50%; /* Optional: to round the corners */
+    margin: 10px 5px 10px 20px;
 }

@@ -1,8 +1,13 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>{{ modalTitle }}</ion-title>
+    <ion-title class="titleCSS">{{ modalTitle }}</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="dismiss()" class="personailze-button">
+      <ion-button (click)="dismiss()" class="personalize-button">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons class="disabled" slot="start">
+      <ion-button [disabled]="true">
         <ion-icon name="close"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -13,12 +18,12 @@
   <form *ngIf="actionType === 'POST' || actionType === 'PUT'">
     <!-- Form fields for editing/creating travel -->
     <ion-item>
-      <ion-label position="floating">Title:</ion-label>
-      <ion-input class="placeholder-space" [(ngModel)]="travel.description" name="description"></ion-input>
+      <ion-label class="forTitleLabel" position="stacked">Title:</ion-label>
+      <ion-input [(ngModel)]="travel.description" name="description"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label position="floating">Travel:</ion-label>
+      <ion-label class="dropLabel" position="stacked">Travel:</ion-label>
       <ion-select [(ngModel)]="travel.prop1" name="prop1">
         <ion-select-option *ngFor="let prop1 of travelComp" [value]="prop1">
           {{ prop1 }}
@@ -26,13 +31,13 @@
       </ion-select>
     </ion-item>
 
-    <ion-item class="placeholder-space">
-      <ion-label position="floating">Destination:</ion-label>
-      <ion-input class="placeholder-space" [(ngModel)]="travel.prop2" name="prop2" placeholder="City, Country"></ion-input>
+    <ion-item>
+      <ion-label class="dropLabel" position="stacked">Destination:</ion-label>
+      <ion-input [(ngModel)]="travel.prop2" name="prop2" placeholder="City, Country"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label position="floating">Type:</ion-label>
+      <ion-label class="dropLabel" position="stacked">Type:</ion-label>
       <ion-select [(ngModel)]="travel.type" name="type">
         <ion-select-option *ngFor="let type of travelTypes" [value]="type">
           {{ type }}
@@ -41,7 +46,7 @@
     </ion-item>
     
     <ion-item>
-      <ion-label position="floating">Status:</ion-label>
+      <ion-label class="dropLabel" position="stacked">Status:</ion-label>
       <ion-select [(ngModel)]="travel.state" name="state">
         <ion-select-option *ngFor="let state of travelStates" [value]="state">
           {{ state }}
@@ -50,13 +55,13 @@
     </ion-item>
 
     <ion-item>
-      <ion-label position="floating">Start Date:</ion-label>
-      <ion-datetime [(ngModel)]="travel.startAt" name="startAt"></ion-datetime>
+      <ion-label class="dateLabel" position="stacked">Start Date:</ion-label>
+      <ion-datetime class="dateMarginer" [(ngModel)]="travel.startAt" name="startAt"></ion-datetime>
     </ion-item>
 
     <ion-item>
-      <ion-label position="floating">End Date:</ion-label>
-      <ion-datetime [(ngModel)]="travel.endAt" name="endAt"></ion-datetime>
+      <ion-label class="dateLabel" position="stacked">End Date:</ion-label>
+      <ion-datetime class="dateMarginer" [(ngModel)]="travel.endAt" name="endAt"></ion-datetime>
     </ion-item>
 
     <ion-footer>
@@ -66,7 +71,7 @@
     </ion-footer>
   </form>
 
-  <div *ngIf="actionType === 'DELETE'">
+  <div class="deletePrompt" *ngIf="actionType === 'DELETE'">
     <ion-text color="danger">
       <h2>Are you sure you want to delete this trip?</h2>
     </ion-text>

@@ -1,8 +1,46 @@
-
-.placeholder-space {
-    margin-top: 10px;
+.personalize-button ion-icon {
+    font-size: 32px;
 }
 
-.personailze-button ion-icon {
-    font-size: 32px;
+.dateLabel {
+    font-size: 21px;
+    margin-top: -8px;
+    margin-bottom: 8px;
+}
+
+.forTitleLabel {
+    font-size: 22px;
+    margin-bottom: -2px;
+}
+
+.dropLabel {
+    font-size: 21px;
+    margin-top: -8px;
+}
+
+.dateMarginer {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    max-width:max-content;
+}
+
+.selectorMarginer {
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+.titleCSS {
+    text-align:center;
+    color: black;
+    font-weight:bold;
+}
+
+.disabled {
+    background-color: #ffffff;
+    color: #ffffff;
+    border-radius: 50%; /* Optional: to round the corners */
+}
+
+.ion-button {
+    background-color: #fbfbfb;
 }

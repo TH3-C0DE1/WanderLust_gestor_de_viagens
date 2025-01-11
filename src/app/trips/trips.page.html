@@ -26,7 +26,7 @@
 
   <!-- Show a message if no travels are available -->
   <ion-text *ngIf="travels.length === 0" class="ion-text-center">
-    <h3>No Trips Available.</h3>
+    <h3 class="flex-center">No Trips Available.</h3>
   </ion-text>
 
   <!-- Iterate over travels and display each as a card -->
@@ -38,32 +38,39 @@
     <ion-card-content>
       
       <div class="inline-container">
-        <p class="travel-color"><b>Travel: </b>{{ travel.prop1 }}</p>
-        <p class="travel-color"><b>Destination: </b>{{ travel.prop2 }}</p>
-        <p class="travel-color"><b>Type: </b>{{ travel.type }}</p>
-        <p class="travel-color"><b>Status: </b>{{ travel.state }}</p>
+        <p class="travel-color"><b>Travel:<br></b>{{ travel.prop1 }}</p>
+        <p class="travel-color"><b>Destination:<br></b>{{ travel.prop2 }}</p>
+        <p class="travel-color"><b>Type:<br></b>{{ travel.type }}</p>
+        <p class="travel-color"><b>Status:<br></b>{{ travel.state }}</p>
       </div>
 
       <div class="inline-container">
-        <p class="travel-date"><b>Start Date: </b>{{ travel.startAt | date: 'dd/MM/yy - HH:mm\'h\'' }}</p>
-        <p class="travel-date"><b>End Date: </b>{{ travel.endAt | date: 'dd/MM/yy - HH:mm\'h\'' }}</p>      
+        <p class="travel-date"><b class="white-text">Start Date:<br></b>{{ travel.startAt | date: 'dd/MM/yy - HH:mm\'h\'' }}</p>
+        <p class="travel-date"><b class="white-text">End Date:<br></b>{{ travel.endAt | date: 'dd/MM/yy - HH:mm\'h\'' }}</p>      
       </div>
     </ion-card-content>
 
     <!-- Comments Button -->
-    <ion-button (click)="openCommentsModal(travel)" class="personailze-button" fill="clear">
+    <div>
+    <ion-button (click)="openCommentsModal(travel)" class="personalize-button" fill="clear">
       <ion-icon name="newspaper"></ion-icon>      
     </ion-button>
   
     <!-- Edit Button -->
-    <ion-button (click)="putTravel(travel)" class="personailze-button" fill="clear">
+    <ion-button (click)="putTravel(travel)" class="personalize-button" fill="clear">
       <ion-icon name="create"></ion-icon>       
     </ion-button>
 
-    <!-- Delete Button -->
-    <ion-button  (click)="deleteTravel(travel)" class="personailze-button" fill="clear">
-      <ion-icon name="trash"></ion-icon>
+    <ion-button fill="clear" class="personalize-button">
+      <ion-router-link [routerLink]="['/tabs/locations/']" class="redirect-button">
+        <ion-icon name="caret-forward-circle"></ion-icon>
+      </ion-router-link>
     </ion-button>
 
+    <!-- Delete Button -->
+    <ion-button  (click)="deleteTravel(travel)" class="personalize-button" fill="clear">
+      <ion-icon name="trash"></ion-icon>
+    </ion-button>
+    </div>
   </ion-card>
 </ion-content>

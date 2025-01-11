@@ -29,13 +29,15 @@
 /* #FB9224;
    #FFE382 */
 .outlineCard {
-    align-content: center;
-    justify-content: center;
+    display:grid;
     border: 0.25rem none; /* Orange border */
     border-radius: 10px; /* Optional: to round the corners */
     // border-color: #979491
-    max-width: 100%;
     margin: 15px 20px 15px 20px;
+}
+
+@media (max-width: 460) { 
+    /*fix the stupid boxes*/
 }
 
 .inline-container {
@@ -76,18 +78,18 @@
     background-color: #000000; /* Blue */  
 }
 
-.personailze-button {
+.personalize-button {
     color: #FB9224;
     padding: 10px;
-    margin: 0px 10px 0px 10px;  
+    margin: 0px;  
     transition: all ease-in-out 0.3s;
 }
 
-.personailze-button:hover {
+.personalize-button:hover {
     color: #000000;
 }
 
-.personailze-button ion-icon {
+.personalize-button ion-icon {
     font-size: 32px;
 }
 
@@ -99,4 +101,28 @@
 .travel-date {
     background-color: #000000; /* Yellow */
     color: #ffffff !important;
+}
+
+.white-text {
+    color: white !important;
+}
+
+.redirect-button {
+    color: #FB9224;
+    transition: all ease-in-out 0.3s;
+}
+
+.redirect-button:hover {
+    color:#000000;
+}
+
+.h1 {
+    color:#000000;
+}
+
+.flex-center {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height: 100%
 }

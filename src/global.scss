@@ -84,3 +84,24 @@ ion-tab-button {
     top: 6% !important; /* 10px from the top */
     z-index: 9999; /* Ensure it is above other content */
 }
+
+.ion-modal {
+    --border-radius: 16px !important;
+}
+
+h1 {
+    color: black;
+}
+
+h2 {
+    text-align: center;
+}
+
+b {
+    color: rgb(0, 0, 0);
+}
+
+.ion-label {
+    color:#000000;
+}
+

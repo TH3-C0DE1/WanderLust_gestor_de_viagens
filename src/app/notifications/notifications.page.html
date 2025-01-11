@@ -1,8 +1,22 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
+
+    <ion-buttons class="disabled" slot="start">
+      <ion-button [disabled]="true">
+        <ion-icon name="square"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
     <ion-title class="centered-title">
       <b>NOTIFICATIONS</b>
     </ion-title>
+
+    <ion-buttons class="disabled" slot="end">
+      <ion-button [disabled]="true">
+        <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
   </ion-toolbar>
 </ion-header>
 
