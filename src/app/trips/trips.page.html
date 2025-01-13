@@ -32,21 +32,21 @@
   <!-- Iterate over travels and display each as a card -->
   <ion-card class="outlineCard" *ngFor="let travel of travels">
     <ion-card-header>
-      <ion-card-title><h1><b>Title: </b> {{ travel.description }}</h1></ion-card-title>
+      <ion-card-title><h1>{{ travel.description }}</h1></ion-card-title>
     </ion-card-header>
   
     <ion-card-content class="trip-content">
       
       <div class="inline-container">
-        <p class="travel-color"><b>Travel:<br></b>{{ travel.prop1 }}</p>
-        <p class="travel-color"><b>Destination:<br></b>{{ travel.prop2 }}</p>
-        <p class="travel-color"><b>Type:<br></b>{{ travel.type }}</p>
-        <p class="travel-color"><b>Status:<br></b>{{ travel.state }}</p>
+        <p class="travel-color"><b>Travel<br></b>{{ travel.prop1 }}</p>
+        <p class="travel-color"><b>Destination<br></b>{{ travel.prop2 }}</p>
+        <p class="travel-color"><b>Type<br></b>{{ travel.type }}</p>
+        <p class="travel-color"><b>Status<br></b>{{ travel.state }}</p>
       </div>
 
       <div class="inline-container">
-        <p class="travel-date"><b class="white-text">Start Date:<br></b>{{ travel.startAt | date: 'dd/MM/yy - HH:mm\'h\'' }}</p>
-        <p class="travel-date"><b class="white-text">End Date:<br></b>{{ travel.endAt | date: 'dd/MM/yy - HH:mm\'h\'' }}</p>      
+        <p class="travel-date"><b class="white-text">Start Date<br></b>{{ travel.startAt | date: 'dd/MM/yy - HH:mm\'h\'' }}</p>
+        <p class="travel-date"><b class="white-text">End Date<br></b>{{ travel.endAt | date: 'dd/MM/yy - HH:mm\'h\'' }}</p>      
       </div>
     </ion-card-content>
 

@@ -18,12 +18,12 @@
   <form *ngIf="actionType === 'POST' || actionType === 'PUT'">
     <!-- Form fields for editing/creating travel -->
     <ion-item>
-      <ion-label class="forTitleLabel" position="stacked">Title:</ion-label>
+      <ion-label class="forTitleLabel" position="stacked">Title</ion-label>
       <ion-input [(ngModel)]="travel.description" name="description"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label class="dropLabel" position="stacked">Travel:</ion-label>
+      <ion-label class="dropLabel" position="stacked">Travel</ion-label>
       <ion-select [(ngModel)]="travel.prop1" name="prop1">
         <ion-select-option *ngFor="let prop1 of travelComp" [value]="prop1">
           {{ prop1 }}
@@ -32,12 +32,12 @@
     </ion-item>
 
     <ion-item>
-      <ion-label class="dropLabel" position="stacked">Destination:</ion-label>
+      <ion-label class="dropLabel" position="stacked">Destination</ion-label>
       <ion-input [(ngModel)]="travel.prop2" name="prop2" placeholder="City, Country"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label class="dropLabel" position="stacked">Type:</ion-label>
+      <ion-label class="dropLabel" position="stacked">Type</ion-label>
       <ion-select [(ngModel)]="travel.type" name="type">
         <ion-select-option *ngFor="let type of travelTypes" [value]="type">
           {{ type }}
@@ -46,7 +46,7 @@
     </ion-item>
     
     <ion-item>
-      <ion-label class="dropLabel" position="stacked">Status:</ion-label>
+      <ion-label class="dropLabel" position="stacked">Status</ion-label>
       <ion-select [(ngModel)]="travel.state" name="state">
         <ion-select-option *ngFor="let state of travelStates" [value]="state">
           {{ state }}
@@ -55,17 +55,17 @@
     </ion-item>
 
     <ion-item>
-      <ion-label class="dateLabel" position="stacked">Start Date:</ion-label>
+      <ion-label class="dateLabel" position="stacked">Start Date</ion-label>
       <ion-datetime class="dateMarginer" [(ngModel)]="travel.startAt" name="startAt"></ion-datetime>
     </ion-item>
 
     <ion-item>
-      <ion-label class="dateLabel" position="stacked">End Date:</ion-label>
+      <ion-label class="dateLabel" position="stacked">End Date</ion-label>
       <ion-datetime class="dateMarginer" [(ngModel)]="travel.endAt" name="endAt"></ion-datetime>
     </ion-item>
 
     <ion-footer>
-      <ion-button expand="full" (click)="submitForm()">
+      <ion-button expand="full" (click)="submitForm()" class="tripButton">
         {{ actionType === 'POST' ? 'NEW TRIP' : 'UPDATE TRIP' }}
       </ion-button>
     </ion-footer>

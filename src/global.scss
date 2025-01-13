@@ -79,10 +79,11 @@ ion-tab-button {
     --color: rgb(255, 255, 255);
 }
 
-.toast-top {
+.toastCSS {
     position: fixed !important; /* Ensure it is positioned in a fixed manner */
     top: 6% !important; /* 10px from the top */
     z-index: 9999; /* Ensure it is above other content */
+    text-align:center;
 }
 
 .ion-modal {
@@ -97,12 +98,35 @@ h2 {
     text-align: center;
 }
 
+.alert-title.sc-ion-alert-md {
+    font-weight: bold;
+}
+
 b {
     color: rgb(0, 0, 0);
 }
 
 .ion-label {
     color:#000000;
+}
+
+.ion-spinner {
+    --color:#FB9224 !important;
+}
+
+.loaderCSS {
+    .spinner-bubbles {
+        color: #FB9224;
+        height: 50px;
+        width: 50px;
+    }
+
+    .loading-wrapper {
+        background-color: white;
+        padding: 10px 10px 5px 10px;
+        border: 5px solid white;
+        border-radius: 20px;
+    }
 }
 
 @media screen and (max-width: 500px) 

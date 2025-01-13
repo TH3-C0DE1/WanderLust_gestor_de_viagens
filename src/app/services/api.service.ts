@@ -263,10 +263,9 @@ export class ApiService
 
     const loading = await this.loadingController.create({
 
-      message: 'Loading...',
-      spinner: 'crescent',
+      spinner: 'bubbles',
       showBackdrop: true,
-
+      cssClass: 'loaderCSS'
     });
 
     await loading.present(); // Display Loading Spinner
@@ -283,7 +282,7 @@ export class ApiService
       message: message,
       duration: 2000,             // Duration of the Toast in milliseconds   
       position: 'top', 
-      cssClass: 'toast-top',      // Custom CSS class for top-left positioning
+      cssClass: 'toastCSS',      // Custom CSS class for top-left positioning
       color: color,
 
     });
