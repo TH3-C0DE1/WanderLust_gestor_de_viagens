@@ -35,7 +35,7 @@
       <ion-card-title><h1><b>Title: </b> {{ travel.description }}</h1></ion-card-title>
     </ion-card-header>
   
-    <ion-card-content>
+    <ion-card-content class="trip-content">
       
       <div class="inline-container">
         <p class="travel-color"><b>Travel:<br></b>{{ travel.prop1 }}</p>
@@ -52,25 +52,26 @@
 
     <!-- Comments Button -->
     <div>
-    <ion-button (click)="openCommentsModal(travel)" class="personalize-button" fill="clear">
-      <ion-icon name="newspaper"></ion-icon>      
-    </ion-button>
-  
-    <!-- Edit Button -->
-    <ion-button (click)="putTravel(travel)" class="personalize-button" fill="clear">
-      <ion-icon name="create"></ion-icon>       
-    </ion-button>
+      <ion-button (click)="openCommentsModal(travel)" class="personalize-button" fill="clear">
+        <ion-icon name="newspaper"></ion-icon>      
+      </ion-button>
+    
+      <!-- Edit Button -->
+      <ion-button (click)="putTravel(travel)" class="personalize-button" fill="clear">
+        <ion-icon name="create"></ion-icon>       
+      </ion-button>
 
-    <ion-button fill="clear" class="personalize-button">
-      <ion-router-link [routerLink]="['/tabs/locations/']" class="redirect-button">
-        <ion-icon name="caret-forward-circle"></ion-icon>
-      </ion-router-link>
-    </ion-button>
+      <!-- Delete Button -->
+      <ion-button  (click)="deleteTravel(travel)" class="personalize-button" fill="clear">
+        <ion-icon name="trash"></ion-icon>
+      </ion-button>
 
-    <!-- Delete Button -->
-    <ion-button  (click)="deleteTravel(travel)" class="personalize-button" fill="clear">
-      <ion-icon name="trash"></ion-icon>
-    </ion-button>
+      <!-- Redirect to Itinerary Tab Button -->
+      <ion-button fill="clear" class="personalize-button">
+        <ion-router-link class="redirect-button" [routerLink]="['/tabs/locations/']">
+          <ion-icon name="caret-forward-circle"></ion-icon>
+        </ion-router-link>
+      </ion-button>
     </div>
   </ion-card>
 </ion-content>

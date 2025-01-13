@@ -36,10 +36,6 @@
     margin: 15px 20px 15px 20px;
 }
 
-@media (max-width: 460) { 
-    /*fix the stupid boxes*/
-}
-
 .inline-container {
     display: flex;
     gap: 10px; /* Space between items */
@@ -125,4 +121,39 @@
     justify-content:center;
     align-items:center;
     height: 100%
+}
+
+@media screen and (max-width: 500px) 
+{ 
+    .outlineCard {
+        display: flex;
+        flex-direction: column;
+        margin: 15px 20px 15px 20px;
+    }
+    
+    .trip-content {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .inline-container {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .personalize-button {
+        padding: 5px;
+        margin: 0px;  
+    }
+
+    .inline-container {
+        gap: 10px;
+        max-width: 100%;
+        margin-bottom: 5px;
+    }
+
+    .inline-container p {
+        margin: 0;
+        padding: 8px;
+    }
 }
