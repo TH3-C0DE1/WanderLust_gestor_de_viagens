@@ -18,8 +18,7 @@ import { TravelCommentsModalComponent } from '../travel-comments-modal/travel-co
     FormsModule,
     TripsPageRoutingModule,
     TravelFormModalComponent,
-    TravelCommentsModalComponent,
-  ],
+    TravelCommentsModalComponent  ],
 
   declarations: 
   [

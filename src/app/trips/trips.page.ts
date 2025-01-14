@@ -2,7 +2,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../services/api.service';
 
-import { DatePipe } from '@angular/common';
 import { ModalController } from '@ionic/angular';
 import { TravelCommentsModalComponent } from '../travel-comments-modal/travel-comments-modal.component';
 
@@ -20,7 +19,6 @@ export class TripsPage implements OnInit
   constructor(
     
     private apiService: ApiService,
-    private datePipe: DatePipe,
     private modalController: ModalController,
 
   ) {}
