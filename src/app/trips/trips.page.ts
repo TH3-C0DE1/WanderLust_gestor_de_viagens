@@ -1,10 +1,10 @@
 
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../services/api.service'; // Import the ApiService
+import { ApiService } from '../services/api.service';
 
 import { DatePipe } from '@angular/common';
 import { ModalController } from '@ionic/angular';
-import { TravelCommentsModalComponent } from '../travel-comments-modal/travel-comments-modal.component'; // Import the Comments Modal
+import { TravelCommentsModalComponent } from '../travel-comments-modal/travel-comments-modal.component';
 
 @Component({
   selector: 'app-trips',
@@ -15,7 +15,7 @@ import { TravelCommentsModalComponent } from '../travel-comments-modal/travel-co
 
 export class TripsPage implements OnInit 
 {
-  travels: any[] = []; // Array to store the travels data
+  travels: any[] = [];
 
   constructor(
     
@@ -23,54 +23,56 @@ export class TripsPage implements OnInit
     private datePipe: DatePipe,
     private modalController: ModalController,
 
-  ) {} // Inject the ApiService
+  ) {}
 
   ngOnInit() 
   {
-    this.loadTravels(); // Call the method to fetch travels when the component initializes
+    this.loadTravels(); // Call Fetch Travels
 
-    // Subscribe to travel list changes
-    this.apiService.getTravelListChanged().subscribe((travels) => {
+    this.apiService.getTravelListChanged().subscribe((travels) => 
+    {
       this.travels = travels;
     });
   }
 
-  // Method to fetch travels
+  // Fetch Travels
   async loadTravels() 
   {
-    this.travels = await this.apiService.getTravels(); // Fetch travels from the service and store them
+    this.travels = await this.apiService.getTravels();
   }
 
-  // Method to create a new travel
+  // Create New Travel
   async postTravel() 
   {
-    await this.apiService.openModal('POST'); // Open modal for creating a travel
+    await this.apiService.openModal('POST');
   }
 
-  // Method to edit a travel
+  // Edit Travel
   async putTravel(id: any) 
   {
-    await this.apiService.openModal('PUT', id); // Open modal for editing a travel 
+    await this.apiService.openModal('PUT', id);
   }
 
-  // Method to delete a travel
+  // Delete Travel
   async deleteTravel(travel: any) 
   {
-    await this.apiService.openModal('DELETE', travel); // Open modal for deleting a travel 
+    await this.apiService.openModal('DELETE', travel);
   }  
 
-  // Method to open Comments Modal
+  // Open Comments Modal
   async openCommentsModal(travel: any) 
   {
     const modal = await this.modalController.create({
+
       component: TravelCommentsModalComponent,
-      componentProps: {
-        id: travel.id, // Pass the travel ID to the modal
+
+      componentProps: 
+      {
+        id: travel.id, 
       },
-      backdropDismiss: true, // Allow dismissing the modal by clicking outside
+      backdropDismiss: true,
     });
 
     return await modal.present();
   }
-
 }

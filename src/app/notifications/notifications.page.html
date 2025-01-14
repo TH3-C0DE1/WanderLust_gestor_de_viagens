@@ -23,21 +23,21 @@
 <ion-content [fullscreen]="true">
   <ion-button (click)="triggerNotification()">Show Notification</ion-button>
 
-  <!--functional notif-->
+  
   <ion-card *ngIf="showNotification" class="notification-card">
     <ion-card-header>
-      <ion-card-title> {{ notification.title }} </ion-card-title> <!--Name of the Notification/What Trip It's From-->
+      <ion-card-title> {{ notification.title }} </ion-card-title>
     </ion-card-header>
   
     <ion-card-content>
       {{ notification.message }}
     </ion-card-content>
   
-    <ion-button fill="clear">Go</ion-button> <!--(click)="goToTrip()"-->
+    <ion-button fill="clear">Go</ion-button>
     <ion-button fill="clear" color="danger" (click)="dismissNotification()">Dismiss</ion-button>
   </ion-card>
 
-  <!--nonfunctional-->
+ 
   <ion-card>
     <ion-card-header>
       <ion-card-title> Name of the Notification/What Trip It's From </ion-card-title>

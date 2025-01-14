@@ -41,13 +41,13 @@
     --ion-font-family: 'Poppins', sans-serif;
 }
 
-/* Styling the tab container */
+
 ion-tab-bar {
     border: 0px;
     border-radius: 0.75rem 0.75rem 0 0;
-    --background: #ffffff;  /* Change background color of the tab container */
-    --border-color: ;   /* Add a border color around the tabs */
-    --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Add a subtle shadow to the container */
+    --background: #ffffff; 
+    --border-color: ;  
+    --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  
 }
 
 ion-tab-bar .tab-selected {
@@ -80,9 +80,9 @@ ion-tab-button {
 }
 
 .toastCSS {
-    position: fixed !important; /* Ensure it is positioned in a fixed manner */
-    top: 6% !important; /* 10px from the top */
-    z-index: 9999; /* Ensure it is above other content */
+    position: fixed !important; 
+    top: 6% !important; 
+    z-index: 9999;
     text-align:center;
 }
 

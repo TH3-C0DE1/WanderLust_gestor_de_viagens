@@ -15,7 +15,7 @@ export class ApiService
   private name = 'marciopinheiro@ipvc.pt';
   private password = 'L3@wZn2K';
 
-  public travels: any[] = [];     // Define the Travels
+  public travels: any[] = [];    
 
   // Define a BehaviorSubject to store the list of travels
   private travelListChanged = new BehaviorSubject<any[]>([]);
@@ -23,17 +23,18 @@ export class ApiService
   constructor(
 
     private http: HttpClient,
-    private modalController: ModalController,     // Inject ModalController
-    private alertController: AlertController,     // Inject AlertController
-    private loadingController: LoadingController, // Inject LoadingController
-    private toastController: ToastController      // Inject ToastController
+    private modalController: ModalController,     
+    private alertController: AlertController,     
+    private loadingController: LoadingController, 
+    private toastController: ToastController     
 
   ) {}
 
-    // The getter method for the travelListChanged observable
-    getTravelListChanged() {
-      return this.travelListChanged.asObservable();
-    }
+  // Get Travel List Changed
+  getTravelListChanged() 
+  {
+    return this.travelListChanged.asObservable();
+  }
 
   // GET Headers
   private getHeaders(): HttpHeaders 
@@ -55,7 +56,7 @@ export class ApiService
   {
     const loading = await this.showLoading();
 
-    const headers = this.getHeaders(); // Get Headers
+    const headers = this.getHeaders();
 
     try 
     {
@@ -73,14 +74,14 @@ export class ApiService
         await this.presentToast(`${this.travels.length} Trips Available. ✈️`, 'success');
       }
       
-      return this.travels;  // Make sure the Array of Travels is Returned
+      return this.travels;
     } 
     
     catch (error : any) 
     {
       loading.dismiss();
       await this.presentToast(error.error, 'danger');
-      return [];  // Return an Empty Array in Case of Error
+      return []; 
     }
   }
 
@@ -89,7 +90,7 @@ export class ApiService
   {
     const loading = await this.showLoading();
 
-    const headers = this.getHeaders(); // Get Headers
+    const headers = this.getHeaders(); 
 
     try 
     {
@@ -98,7 +99,7 @@ export class ApiService
       loading.dismiss();
 
       await this.presentToast(`Trip Created Successfully. ✈️`, 'success');
-      await this.getTravels(); // Refresh travels
+      await this.getTravels();
     } 
 
     catch (error : any) 
@@ -113,7 +114,7 @@ export class ApiService
   {
     const loading = await this.showLoading();
 
-    const headers = this.getHeaders(); // Get Headers
+    const headers = this.getHeaders();
 
     try 
     {
@@ -136,7 +137,7 @@ export class ApiService
   {
     const loading = await this.showLoading();
 
-    const headers = this.getHeaders(); // Get Headers
+    const headers = this.getHeaders();
 
     try 
     {
@@ -145,7 +146,7 @@ export class ApiService
       loading.dismiss();
 
       await this.presentToast(`Trip Deleted Successfully. ✈️`, 'success');
-      await this.getTravels(); // Refresh travels
+      await this.getTravels();
     } 
     
     catch (error : any) 
@@ -164,7 +165,7 @@ export class ApiService
   {
     const loading = await this.showLoading();
 
-    const headers = this.getHeaders(); // Get Headers
+    const headers = this.getHeaders();
 
     try 
     {
@@ -179,28 +180,30 @@ export class ApiService
       // Find the specific travel by ID
       const travel = travels.find((travel) => travel.id === id);
 
-      if (!travel) {
-        // Travel not found
+      if (!travel) 
+      {
         await this.presentToast(`Trip With ID ${id} Not Found. 😥`, 'warning');
         return [];
       }
 
-      if (travel.comments.length === 0) {
-        // No comments available for the travel
+      if (travel.comments.length === 0) 
+      {
         await this.presentToast(`There Are No Notes Available For This Trip. 😥`, 'warning');
-      } else {
-        // Comments retrieved successfully
+      } 
+      
+      else 
+      {
         await this.presentToast(`${travel.comments.length} Notes Available. 📝`, 'success');
       }
       
-      return travel.comments;  // Return the Array of Comments
+      return travel.comments;
     } 
     
     catch (error : any) 
     {
       loading.dismiss();
       await this.presentToast(error.error, 'danger');
-      return [];  // Return an Empty Array in Case of Error
+      return []; 
     }
   }
 
@@ -209,11 +212,11 @@ export class ApiService
   {
     const loading = await this.showLoading();
 
-    const headers = this.getHeaders(); // Get Headers
+    const headers = this.getHeaders();
 
     try 
     {
-      const body = { travelId, comment }; // Adjusted request body
+      const body = { travelId, comment };
 
       await firstValueFrom(this.http.post(`${this.apiUrl}/api/travels/comments`, body, { headers }));
 
@@ -234,7 +237,7 @@ export class ApiService
   {
     const loading = await this.showLoading();
 
-    const headers = this.getHeaders(); // Get Headers
+    const headers = this.getHeaders();
 
     try 
     {
@@ -243,7 +246,7 @@ export class ApiService
       loading.dismiss();
 
       await this.presentToast(`Note Deleted Successfully. 📝`, 'success');
-      await this.getTravels(); // Refresh travels
+      await this.getTravels();
     } 
     
     catch (error : any) 
@@ -268,9 +271,9 @@ export class ApiService
       cssClass: 'loaderCSS'
     });
 
-    await loading.present(); // Display Loading Spinner
+    await loading.present(); 
 
-    return loading; // Return Loading
+    return loading;
   }
 
   // Show Toast Notification
@@ -282,25 +285,28 @@ export class ApiService
       message: message,
       duration: 2000,             // Duration of the Toast in milliseconds   
       position: 'top', 
-      cssClass: 'toastCSS',      // Custom CSS class for top-left positioning
+      cssClass: 'toastCSS',      
       color: color,
 
     });
 
-    await toast.present(); // Display Toast Notification
+    await toast.present();
   }
 
   // Reload Travel
-  async reloadTravels() {
-    this.travels = await this.getTravels();  // Call your existing getTravels method to reload the list
-    this.travelListChanged.next(this.travels);  // Emit the updated travels to any subscribers
+  async reloadTravels() 
+  {
+    this.travels = await this.getTravels();  
+    this.travelListChanged.next(this.travels); 
   }
 
   // Open Modal
   async openModal(action: 'POST' | 'PUT' | 'DELETE', travel?: any) {
-    if (action === 'DELETE') {
-      // Create the alert for DELETE action
+    if (action === 'DELETE') 
+    {
+      // Create Alert for DELETE
       const alert = await this.alertController.create({
+
         header: 'DELETE TRIP',
         message: `Are you sure you want to DELETE the trip "${travel?.description}"?`,
         buttons: [
@@ -322,23 +328,29 @@ export class ApiService
         ]
       });
   
-      // Present the alert
       await alert.present();
-    } else {
-      // Open modal for POST or PUT action
+    } 
+    
+    else 
+    {
+      // Open modal for POST or PUT
       const modal = await this.modalController.create({
         component: TravelFormModalComponent,
         componentProps: {
-          travel: action === 'PUT' ? { ...travel } : {}, // Clone travel for editing
+          travel: action === 'PUT' ? { ...travel } : {},
           modalTitle: action === 'POST' ? 'NEW TRIP' : action === 'PUT' ? 'UPDATE TRIP' : 'DELETE TRIP',
-          actionType: action // Pass actionType directly
+          actionType: action
         },
       });
   
-      modal.onDidDismiss().then(async (result) => {
-        if (result.data) {
+      modal.onDidDismiss().then(async (result) => 
+      {
+        if (result.data) 
+        {
           const updatedTravel = result.data;
-          switch (action) {
+
+          switch (action) 
+          {
             case 'POST':
               await this.postTravel(updatedTravel);
               await this.reloadTravels();
@@ -353,6 +365,5 @@ export class ApiService
   
       return modal.present();
     }
-  }
-  
+  } 
 }

@@ -14,7 +14,7 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['./travel-comments-modal.component.scss'],
 
   imports: [
-    IonicModule, // Add this to use Ionic components
+    IonicModule,
     CommonModule,
     FormsModule,
   ],
@@ -22,9 +22,9 @@ import { AlertController } from '@ionic/angular';
 
 export class TravelCommentsModalComponent implements OnInit {
 
-  @Input() id: string = ''; // Receive Travel ID as input
+  @Input() id: string = '';
 
-  comments: any[] = []; // Array to store comments
+  comments: any[] = [];
 
   constructor(
 
@@ -34,22 +34,26 @@ export class TravelCommentsModalComponent implements OnInit {
 
   ) { }
 
-  ngOnInit() {
+  ngOnInit() 
+  {
     this.loadComments();
   }
 
-  // Method to load comments for the travel
-  async loadComments() {
+  // Load Comments (Travel)
+  async loadComments() 
+  {
     this.comments = await this.apiService.getTravelComments(this.id);
   }
 
-  // Dismiss the modal
-  dismiss() {
+  // Dismiss the Modal
+  dismiss() 
+  {
     this.modalController.dismiss();
   }
 
   // Delete a Comment
-  async deleteComment(commentId: string) {
+  async deleteComment(commentId: string) 
+  {
     const confirm = await this.alertController.create({
       header: 'DELETE NOTE',
       message: 'Are you sure you want to DELETE this note?',
@@ -62,7 +66,7 @@ export class TravelCommentsModalComponent implements OnInit {
           text: 'Delete',
           handler: async () => {
             await this.apiService.deleteTravelComments(commentId);
-            this.loadComments(); // Refresh comments
+            this.loadComments();
           },
         },
       ],
@@ -70,8 +74,9 @@ export class TravelCommentsModalComponent implements OnInit {
     await confirm.present();
   }
 
-  // Open modal to add a comment
-  async openAddCommentModal() {
+  // Open Modal to Add a Comment
+  async openAddCommentModal() 
+  {
     const alert = await this.alertController.create({
       header: 'NEW NOTE',
       inputs: [
@@ -91,7 +96,7 @@ export class TravelCommentsModalComponent implements OnInit {
           handler: async (data) => {
             if (data.comment) {
               await this.apiService.postTravelComments(this.id, data.comment);
-              this.loadComments(); // Refresh comments
+              this.loadComments();
             }
           },
         },
@@ -99,5 +104,4 @@ export class TravelCommentsModalComponent implements OnInit {
     });
     await alert.present();
   }
-
 }

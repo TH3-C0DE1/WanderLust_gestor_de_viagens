@@ -24,12 +24,10 @@
 
 <ion-content class="trips-content">
 
-  <!-- Show a message if no travels are available -->
   <ion-text *ngIf="travels.length === 0" class="ion-text-center">
     <h3 class="flex-center">No Trips Available.</h3>
   </ion-text>
 
-  <!-- Iterate over travels and display each as a card -->
   <ion-card class="outlineCard" *ngFor="let travel of travels">
     <ion-card-header>
       <ion-card-title><h1>{{ travel.description }}</h1></ion-card-title>

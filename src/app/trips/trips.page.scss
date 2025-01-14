@@ -14,11 +14,11 @@
 
 .trips-content {
     display: flex;
-    flex-direction: column; /* Stack cards vertically */
-    align-items: center; /* Center horizontally */
-    justify-content: center; /* Center vertically if needed */
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center;
     text-align: center;
-    padding: 16px; /* Add some padding around the content */
+    padding: 16px;
 }
 
 .trips-content .card-content-md {
@@ -26,20 +26,17 @@
     padding-bottom: 0;
 }
 
-/* #FB9224;
-   #FFE382 */
 .outlineCard {
     display:grid;
-    border: 0.25rem none; /* Orange border */
-    border-radius: 10px; /* Optional: to round the corners */
-    // border-color: #979491
+    border: 0.25rem none; 
+    border-radius: 10px; 
     margin: 15px 20px 15px 20px;
 }
 
 .inline-container {
     display: flex;
-    gap: 10px; /* Space between items */
-    justify-content: flex-start; /* Align items horizontally */
+    gap: 10px; 
+    justify-content: flex-start;
     max-width: 100%;
     margin-bottom: 10px;
 }
@@ -51,27 +48,27 @@
     align-content: center;
     text-align: center;
     border-radius: 5px;
-    color: white; /* Text color */
-    flex: 1; /* Ensure consistent width if desired */
+    color: white;
+    flex: 1;
 }
 
 .disabled {
     background-color: #ffffff;
     color: #ffffff;
-    border-radius: 50%; /* Optional: to round the corners */
+    border-radius: 50%;
     margin: 10px 5px 10px 20px;
 }
 
 .add-travel {
     color: #ffffff;
-    background-color: #FB9224; /* Blue */   
-    border-radius: 50%; /* Optional: to round the corners */
+    background-color: #FB9224; 
+    border-radius: 50%;
     margin: 10px 20px 10px 5px;
     transition: all ease-in-out 0.3s;
 }
 
 .add-travel:hover {
-    background-color: #000000; /* Blue */  
+    background-color: #000000;  
 }
 
 .personalize-button {
@@ -90,12 +87,12 @@
 }
 
 .travel-color {
-    background-color: #FFE382; /* Blue */ 
+    background-color: #FFE382;
     color: #000000 !important; 
 }
 
 .travel-date {
-    background-color: #000000; /* Yellow */
+    background-color: #000000; 
     color: #ffffff !important;
 }
 
