@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+
 
 import { ProfilePage } from './profile.page';
 
@@ -10,6 +12,7 @@ describe('ProfilePage', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
       declarations: [ProfilePage],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
