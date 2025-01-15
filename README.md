@@ -8,4 +8,6 @@
 
 # npm install
 
+# npm outdated
+
 # ng test --configuration=ci
