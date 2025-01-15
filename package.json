@@ -59,5 +59,8 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0"
   },
-  "description": "WanderLust - Trip Planner"
+  "description": "WanderLust - Trip Planner",
+  "engines": {
+    "node": "22.13.0"
+  }
 }
