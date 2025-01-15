@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { HttpClientModule } from '@angular/common/http'; // Import HttpClientModule
-import { ApiService } from '../services/api.service'; // Adjust the path as necessary
+import { HttpClientModule } from '@angular/common/http'; // TEST
+import { ApiService } from '../services/api.service';
 
 import { TravelFormModalComponent } from './travel-form-modal.component';
 

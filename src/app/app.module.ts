@@ -8,6 +8,7 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { ApiService } from './services/api.service';
 
 @NgModule({
   
@@ -25,6 +26,7 @@ import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
     provide: RouteReuseStrategy, 
     useClass: IonicRouteStrategy }, 
     provideHttpClient(withInterceptorsFromDi()), 
+    ApiService,
   ],
 
   bootstrap: [AppComponent],
