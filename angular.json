@@ -54,10 +54,14 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
+              "buildOptimizer": true,
+              "optimization": true,
               "outputHashing": "all",
               "sourceMap": true
             },
             "development": {
+              "buildOptimizer": true,
+              "optimization": true,
               "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
