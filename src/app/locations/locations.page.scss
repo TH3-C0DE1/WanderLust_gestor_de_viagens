@@ -1,12 +1,154 @@
+
+/* Header */
 .centered-title {
-    text-align: center;
-    color: black;
-    width: 100%;
+  text-align: center;
+  color: #000000;
+  font-weight: bold;
+  width: 100%;
 }
-  
+
+.flex-center {
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height: 100%
+}
+
 .disabled {
-    background-color: #ffffff;
-    color: #ffffff;
-    border-radius: 50%; /* Optional: to round the corners */
-    margin: 10px 5px 10px 20px;
+  background-color: #ffffff;
+  color: #ffffff;
+  border-radius: 50%;
+  margin: 10px 5px 10px 20px;
+}
+
+.add-travel {
+  color: #ffffff;
+  background-color: #FB9224; 
+  border-radius: 50%;
+  margin: 10px 20px 10px 5px;
+  transition: all ease-in-out 0.3s;
+}
+
+.add-travel:hover {
+  background-color: #000000;  
+}
+
+/* Inline Container */
+.inline-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-content: space-around;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Buttons Box (Optional Styling for Groups) */
+.button-box {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-content: space-around;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  border-radius: 8px;
+  min-width: 100%;
+}
+
+/* Priority Labels */
+.priority-css {
+
+  font-size: 22px;
+  font-weight: 500;
+  color: #000000;
+  flex: 1 1 auto;
+  text-align: center;
+  margin: 0;
+}
+
+/* Priority Backgrounds */
+.low-priority {
+  background: linear-gradient(to top, #2ad208 0%, #ffffff 20%);
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+}
+
+.normal-priority {
+  background: linear-gradient(to top, #d2be08 0%, #ffffff 20%);
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+}
+
+.high-priority {
+  background: linear-gradient(to top, #d20808 0%, #ffffff 20%);
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+}
+
+/* Buttons */
+.personalize-button {
+  color: #FB9224;
+  padding: 8px;
+  margin: 0;
+  transition: color 0.3s ease-in-out;
+}
+
+.personalize-button:hover {
+  color: #000000;
+}
+
+.personalize-button ion-icon {
+  font-size: 32px;
+}
+
+.desc-width {
+  max-width:800px;
+}
+
+.date-width {
+  max-width:200px;
+}
+
+.prio-width {
+  max-width:200px;
+}
+
+/* Card Styles */
+ion-card {
+  --background: #ffffff;
+  margin: 10px 0;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+ion-card-content {
+  padding: 10px 15px;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 500px) {
+  .inline-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .priority-css {
+    font-size: 12px;
+  }
+
+  .personalize-button ion-icon {
+    font-size: 20px;
+  }
 }

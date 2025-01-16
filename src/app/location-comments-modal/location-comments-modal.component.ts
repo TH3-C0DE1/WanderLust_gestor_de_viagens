@@ -6,43 +6,39 @@ import { FormsModule } from '@angular/forms';
 import { ApiService } from '../services/api.service';
 import { AlertController } from '@ionic/angular';
 
-
 @Component({
-  selector: 'app-travel-comments-modal',
-  templateUrl: './travel-comments-modal.component.html',
-  styleUrls: ['./travel-comments-modal.component.scss'],
+  selector: 'app-location-comments-modal',
+  templateUrl: './location-comments-modal.component.html',
+  styleUrls: ['./location-comments-modal.component.scss'],
   standalone: true,
-
+  
   imports: [
     IonicModule,
     CommonModule,
     FormsModule,
   ],
 })
-
-export class TravelCommentsModalComponent implements OnInit {
+export class LocationCommentsModalComponent  implements OnInit {
 
   @Input() id: string = '';
 
   comments: any[] = [];
 
-  constructor(
 
+  constructor(
     private modalController: ModalController,
     private apiService: ApiService,
     private alertController: AlertController,
-
   ) { }
 
-  ngOnInit() 
-  {
-    this.loadComments();
+  ngOnInit() {
+    this.loadLocComments();
   }
 
   // Load Comments (Travel)
-  async loadComments() 
+  async loadLocComments() 
   {
-    this.comments = await this.apiService.getTravelComments(this.id);
+    this.comments = await this.apiService.getLocationComments(this.id);
   }
 
   // Dismiss the Modal
@@ -52,7 +48,7 @@ export class TravelCommentsModalComponent implements OnInit {
   }
 
   // Delete a Comment
-  async deleteComment(commentId: string) 
+  async deleteLocComment(commentId: string) 
   {
     const confirm = await this.alertController.create({
       header: 'DELETE NOTE',
@@ -65,8 +61,8 @@ export class TravelCommentsModalComponent implements OnInit {
         {
           text: 'Delete',
           handler: async () => {
-            await this.apiService.deleteTravelComments(commentId);
-            this.loadComments();
+            await this.apiService.deleteLocationComments(commentId);
+            this.loadLocComments();
           },
         },
       ],
@@ -75,7 +71,7 @@ export class TravelCommentsModalComponent implements OnInit {
   }
 
   // Open Modal to Add a Comment
-  async openAddCommentModal() 
+  async openAddLocCommentModal() 
   {
     const alert = await this.alertController.create({
       header: 'NEW NOTE',
@@ -95,8 +91,8 @@ export class TravelCommentsModalComponent implements OnInit {
           text: 'Add',
           handler: async (data) => {
             if (data.comment) {
-              await this.apiService.postTravelComments(this.id, data.comment);
-              this.loadComments();
+              await this.apiService.postLocationComments(this.id, data.comment);
+              this.loadLocComments();
             }
           },
         },

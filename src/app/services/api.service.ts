@@ -16,6 +16,7 @@ export class ApiService
   private password = 'L3@wZn2K';
 
   public travels: any[] = [];    
+  public locations: any[] = [];    
 
   // Define a BehaviorSubject to store the list of travels
   private travelListChanged = new BehaviorSubject<any[]>([]);
@@ -99,7 +100,6 @@ export class ApiService
       loading.dismiss();
 
       await this.presentToast(`Trip Created Successfully. ✈️`, 'success');
-      await this.getTravels();
     } 
 
     catch (error : any) 
@@ -146,7 +146,6 @@ export class ApiService
       loading.dismiss();
 
       await this.presentToast(`Trip Deleted Successfully. ✈️`, 'success');
-      await this.getTravels();
     } 
     
     catch (error : any) 
@@ -246,7 +245,233 @@ export class ApiService
       loading.dismiss();
 
       await this.presentToast(`Note Deleted Successfully. 📝`, 'success');
-      await this.getTravels();
+    } 
+    
+    catch (error : any) 
+    {
+      loading.dismiss();
+      await this.presentToast(error.error, 'danger');
+    }
+  }
+
+//-------------------------------------------------------------------------------------------
+// TRAVELS LOCATIONS
+//-------------------------------------------------------------------------------------------
+
+  // Get Trip Locations
+  async getTravelLocations(travelId: string) : Promise<any[]>
+  {
+    const loading = await this.showLoading();
+
+    const headers = this.getHeaders();
+
+    try 
+    {
+      this.locations = await firstValueFrom(
+
+        this.http.get<any[]>(`${this.apiUrl}/api/travels/${travelId}/locations`, { headers })
+      );
+
+      // Sort locations by startAt in ascending order
+      this.locations.sort((a, b) => new Date(a.startAt).getTime() - new Date(b.startAt).getTime());
+  
+      loading.dismiss();
+
+      if(this.locations.length == 0) 
+      {
+        await this.presentToast(`There are no Locations Available. 😥`, 'warning');
+      }
+
+      else 
+      {
+        await this.presentToast(`${this.locations.length} Locations Available. 🌍`, 'success');
+      }
+      
+      return this.locations;
+    } 
+
+    catch (error : any) 
+    {
+      loading.dismiss();
+      await this.presentToast(error.error, 'danger');
+      return []; 
+    }
+  }
+
+  // Add a Location
+  async createLocation(location: any) 
+  {
+    const loading = await this.showLoading();
+  
+    const headers = this.getHeaders();
+  
+    try 
+    {
+      // Ensure the date is properly formatted
+      location.startAt = new Date(location.startAt).toISOString();
+
+      // Send the location data to the API, including the travelId in the body
+      await firstValueFrom(
+
+        this.http.post<any>(`${this.apiUrl}/api/travels/locations`, location, { headers })
+      );
+      
+      loading.dismiss();
+
+      await this.presentToast(`Location Added Successfully. ✈️`, 'success');
+    }     
+    
+    catch (error : any) 
+    {
+      loading.dismiss();
+      await this.presentToast(error.error, 'danger');
+    }
+  }
+
+  // Update a Location
+  async updateLocation(locationId: string, updatedLocation: any) 
+  {
+    const loading = await this.showLoading();
+  
+    const headers = this.getHeaders();
+
+    try 
+    {
+      // Ensure the date is properly formatted
+      updatedLocation.startAt = new Date(updatedLocation.startAt).toISOString();
+
+      // Send the updated location data to the API for the specific locationId
+      await firstValueFrom(
+
+        this.http.put(`${this.apiUrl}/api/travels/locations/${locationId}`, updatedLocation, { headers })
+      );
+      
+      loading.dismiss();
+
+      await this.presentToast(`Location Updated Successfully. ✈️`, 'success');
+    }     
+    
+    catch (error : any) 
+    {
+      loading.dismiss();
+      await this.presentToast(error.error, 'danger');
+    }
+  }
+
+  // Delete a Location
+  async deleteLocation(locationId: string) 
+  {
+    const loading = await this.showLoading();
+
+    const headers = this.getHeaders();
+
+    try 
+    {
+      // Send the DELETE request to remove the location
+      await firstValueFrom(
+        
+        this.http.delete(`${this.apiUrl}/api/travels/locations/${locationId}`, { headers })
+      );
+
+      loading.dismiss();
+
+      await this.presentToast(`Location Deleted Successfully. ✈️`, 'success');
+    } 
+    
+    catch (error : any) 
+    {
+      loading.dismiss();
+      await this.presentToast(error.error, 'danger');
+    }
+  }
+
+//-------------------------------------------------------------------------------------------
+// LOCATIONS COMMENTS
+//-------------------------------------------------------------------------------------------
+
+  // GET Comments for a Location
+  async getLocationComments(id: string)
+  {
+    const loading = await this.showLoading();
+
+    const headers = this.getHeaders();
+
+    try 
+    {
+      // Fetch all location
+      const location = await firstValueFrom(
+        
+        this.http.get<any>(`${this.apiUrl}/api/travels/locations/${id}`, { headers })
+      );
+
+      loading.dismiss();
+
+      if (!location) 
+      {
+        await this.presentToast(`Location With ID ${id} Not Found. 😥`, 'warning');
+        return [];
+      }
+
+      if (location.comments.length === 0) 
+      {
+        await this.presentToast(`There Are No Notes Available For This Location. 😥`, 'warning');
+      } 
+      
+      else 
+      {
+        await this.presentToast(`${location.comments.length} Notes Available. 📝`, 'success');
+      }
+      
+      return location.comments;
+    } 
+    
+    catch (error : any) 
+    {
+      loading.dismiss();
+      await this.presentToast(error.error, 'danger');
+      return []; 
+    }
+  }
+
+  // POST Location Notes
+  async postLocationComments(locationId: string, comment: string)
+  {
+    const loading = await this.showLoading();
+
+    const headers = this.getHeaders();
+
+    try 
+    {
+      const body = { locationId, comment };
+
+      await firstValueFrom(this.http.post(`${this.apiUrl}/api/travels/locations/comments`, body, { headers }));
+
+      loading.dismiss();
+
+      await this.presentToast(`Note Created Successfully. 📝`, 'success');
+    } 
+
+    catch (error : any) 
+    {
+      loading.dismiss();
+      await this.presentToast(error.error, 'danger');
+    }
+  }
+
+  // DEL Location Notes
+  async deleteLocationComments(id: string)
+  {
+    const loading = await this.showLoading();
+
+    const headers = this.getHeaders();
+
+    try 
+    {
+      await firstValueFrom(this.http.delete(`${this.apiUrl}/api/travels/locations/comments/${id}`, { headers }));
+
+      loading.dismiss();
+
+      await this.presentToast(`Note Deleted Successfully. 📝`, 'success');
     } 
     
     catch (error : any) 

@@ -4,6 +4,7 @@ import { ApiService } from '../services/api.service';
 
 import { ModalController } from '@ionic/angular';
 import { TravelCommentsModalComponent } from '../travel-comments-modal/travel-comments-modal.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-trips',
@@ -20,6 +21,7 @@ export class TripsPage implements OnInit
     
     private apiService: ApiService,
     private modalController: ModalController,
+    private router: Router,
 
   ) {}
 
@@ -73,4 +75,15 @@ export class TripsPage implements OnInit
 
     return await modal.present();
   }
+
+  // Fetch Locations for a Travel
+  async openLocationsPage(travelId: string) {
+    const locations = await this.apiService.getTravelLocations(travelId);
+
+    // Always navigate to Locations Page with locations as a query parameter
+    this.router.navigate(['/tabs/locations'], {
+      queryParams: { travelId, locations: JSON.stringify(locations) }
+    });
+  }
+
 }

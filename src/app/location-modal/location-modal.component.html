@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ action === 'create' ? 'Create Location' : 'Update Location' }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">Cancel</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-item>
+    <ion-label position="stacked">Description</ion-label>
+    <ion-textarea [(ngModel)]="location.description" name="description"></ion-textarea>
+  </ion-item>
+
+  <ion-item>
+    <ion-label class="dropLabel" position="stacked">Priority</ion-label>
+    <ion-select [(ngModel)]="location.prop1" name="prop1">
+      <ion-select-option *ngFor="let prop1 of priority" [value]="prop1">
+        {{ prop1 }}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label class="dateLabel" position="stacked">Day</ion-label>
+    <ion-datetime 
+      class="dateMarginer" 
+      [(ngModel)]="location.startAt" 
+      name="startAt">
+    </ion-datetime>
+  </ion-item>
+
+  <ion-footer>
+    <ion-button expand="full" (click)="saveLocation()">
+      {{ action === 'create' ? 'Create Location' : 'Update Location' }}
+    </ion-button>
+  </ion-footer>
+</ion-content>

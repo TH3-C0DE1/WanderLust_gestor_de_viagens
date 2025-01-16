@@ -21,7 +21,6 @@
   </ion-toolbar>
 </ion-header>
 
-
 <ion-content class="trips-content">
 
   <ion-text *ngIf="travels.length === 0" class="ion-text-center">
@@ -65,10 +64,8 @@
       </ion-button>
 
       <!-- Redirect to Itinerary Tab Button -->
-      <ion-button fill="clear" class="personalize-button">
-        <ion-router-link class="redirect-button" [routerLink]="['/tabs/locations/']">
+      <ion-button (click)="openLocationsPage(travel.id)" fill="clear" class="personalize-button">
           <ion-icon name="caret-forward-circle"></ion-icon>
-        </ion-router-link>
       </ion-button>
     </div>
   </ion-card>

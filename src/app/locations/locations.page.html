@@ -1,5 +1,7 @@
+
 <ion-header [translucent]="true">
   <ion-toolbar>
+
     <ion-buttons class="disabled" slot="start">
       <ion-button [disabled]="true">
         <ion-icon name="square"></ion-icon>
@@ -10,18 +12,45 @@
       <b>LOCATIONS</b>
     </ion-title>
 
-    <ion-buttons class="disabled" slot="end">
-      <ion-button [disabled]="true">
+    <ion-buttons class="add-travel" slot="end">
+      <ion-button (click)="createLocation()">
         <ion-icon slot="icon-only" name="add-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
+
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Locations</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+
+  <ion-text *ngIf="locations.length === 0" class="ion-text-center">
+    <h3 class="flex-center">No Locations Available.</h3>
+  </ion-text>
+
+
+  <ion-card *ngIf="locations.length > 0">
+    <ion-card-content *ngFor="let location of locations">
+
+      <div [ngClass]="getPriorityClass(location.prop1)" class="inline-container">
+        <div class="button-box">
+          <ion-label class="priority-css desc-width" >{{ location.description }}</ion-label>
+          <ion-label class="priority-css date-width" >{{ location.startAt | date: 'dd/MM/yy - HH:mm\'h\''}}</ion-label>
+          <ion-label class="priority-css prio-width" >{{ location.prop1 }}</ion-label>
+
+        
+          <ion-button (click)="openLocCommentsModal(location)" class="personalize-button" fill="clear">
+            <ion-icon name="newspaper"></ion-icon>
+          </ion-button>
+          
+          <ion-button (click)="updateLocation(location.id)" class="personalize-button" fill="clear">
+            <ion-icon name="create"></ion-icon>
+          </ion-button>
+          
+          <ion-button (click)="deleteLocation(location.id)" class="personalize-button" fill="clear">
+            <ion-icon name="trash"></ion-icon>
+          </ion-button>
+        </div>
+      </div>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
