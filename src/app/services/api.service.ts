@@ -385,6 +385,26 @@ export class ApiService
     }
   }
 
+  // Toggle Favorite
+  async toggleFavorite(locationId: string, isFav: boolean) {
+    const loading = await this.showLoading();
+
+    const headers = this.getHeaders();
+
+    try {
+      // Send a PATCH request to update the isFav property
+      await firstValueFrom(
+        this.http.put(`${this.apiUrl}/api/travels/locations/${locationId}`, { isFav }, { headers })
+      );
+
+      loading.dismiss();
+      await this.presentToast(isFav ? 'Added to Favorites. ❤️' : 'Removed from Favorites. 💔', 'success');
+    } catch (error: any) {
+      loading.dismiss();
+      await this.presentToast(error.error, 'danger');
+    }
+  }
+
 //-------------------------------------------------------------------------------------------
 // LOCATIONS COMMENTS
 //-------------------------------------------------------------------------------------------

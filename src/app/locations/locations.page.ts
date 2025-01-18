@@ -58,10 +58,17 @@ export class LocationsPage implements OnInit
   async fetchLocations() {
     try {
       const locations = await this.apiService.getTravelLocations(this.travelId);
-      this.locations = locations;
-    } catch (error) {
-      console.error('Error fetching locations', error);
-    }
+
+    // Sort locations: Favorites first, then by startAt
+    this.locations = locations.sort((a, b) => {
+      if (a.isFav === b.isFav) {
+        return new Date(a.startAt).getTime() - new Date(b.startAt).getTime();
+      }
+      return b.isFav - a.isFav; // `true` (1) comes before `false` (0)
+    });
+  } catch (error) {
+    console.error('Error fetching locations', error);
+  }
   }
 
   // Create a new location
@@ -146,4 +153,17 @@ export class LocationsPage implements OnInit
 
     return await modal.present();
   }
+
+  async toggleFavorite(location: any) {
+    const updatedFavStatus = !location.isFav;
+  
+    try {
+      await this.apiService.toggleFavorite(location.id, updatedFavStatus);
+      location.isFav = updatedFavStatus; // Update the local state
+      this.fetchLocations(); // Re-fetch locations to maintain order
+    } catch (error) {
+      console.error('Error toggling favorite:', error);
+    }
+  }
+  
 }

@@ -37,7 +37,14 @@
           <ion-label class="priority-css date-width" >{{ location.startAt | date: 'dd/MM/yy - HH:mm\'h\''}}</ion-label>
           <ion-label class="priority-css prio-width" >{{ location.prop1 }}</ion-label>
 
-        
+          <ion-button 
+            (click)="toggleFavorite(location)" 
+            class="personalize-button" 
+            fill="clear"
+            >
+              <ion-icon name="{{ location.isFav ? 'heart' : 'heart-outline' }}"></ion-icon>
+          </ion-button>
+
           <ion-button (click)="openLocCommentsModal(location)" class="personalize-button" fill="clear">
             <ion-icon name="newspaper"></ion-icon>
           </ion-button>
@@ -49,6 +56,7 @@
           <ion-button (click)="deleteLocation(location.id)" class="personalize-button" fill="clear">
             <ion-icon name="trash"></ion-icon>
           </ion-button>
+
         </div>
       </div>
     </ion-card-content>
