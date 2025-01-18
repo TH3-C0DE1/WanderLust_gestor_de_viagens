@@ -63,6 +63,10 @@ export class ApiService
     {
       this.travels = await firstValueFrom(this.http.get<any[]>(`${this.apiUrl}/api/travels`, { headers }));
 
+
+      // Sort travels by startAt in ascending order
+      this.travels.sort((a, b) => new Date(a.startAt).getTime() - new Date(b.startAt).getTime());
+
       loading.dismiss();
 
       if(this.travels.length == 0) 
@@ -150,6 +154,28 @@ export class ApiService
     
     catch (error : any) 
     {
+      loading.dismiss();
+      await this.presentToast(error.error, 'danger');
+    }
+  }
+
+  // Toggle Favorite
+  async toggleTravelFavorite(travel: any) {
+    const loading = await this.showLoading();
+
+    const headers = this.getHeaders();
+
+    try {
+          // Prepare updated travel data with the new favorite status
+    const updatedTravel = { ...travel, isFav: !travel.isFav };
+      // Send a PATCH request to update the isFav property
+      await firstValueFrom(
+        this.http.put(`${this.apiUrl}/api/travels/${travel.id}`, updatedTravel, { headers })
+      );
+
+      loading.dismiss();
+      await this.presentToast(updatedTravel.isFav ? 'Added to Favorites. ❤️' : 'Removed from Favorites. 💔', 'success');
+    } catch (error: any) {
       loading.dismiss();
       await this.presentToast(error.error, 'danger');
     }

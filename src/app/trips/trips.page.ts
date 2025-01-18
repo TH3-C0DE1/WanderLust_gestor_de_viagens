@@ -86,4 +86,17 @@ export class TripsPage implements OnInit
     });
   }
 
+  async toggleTravelFavorite(travel: any) {
+    try {
+      await this.apiService.toggleTravelFavorite(travel);
+  
+      // Update the local favorite status to reflect the change
+      travel.isFav = !travel.isFav;
+      //this.loadTravels();
+    } catch (error) {
+      console.error('Error toggling favorite:', error);
+    }
+  }
+  
+
 }

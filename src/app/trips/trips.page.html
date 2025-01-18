@@ -2,9 +2,9 @@
 <ion-header>
   <ion-toolbar>
 
-    <ion-buttons class="disabled" slot="start">
-      <ion-button [disabled]="true">
-        <ion-icon name="square"></ion-icon>
+    <ion-buttons class="filter-travel" slot="start">
+      <ion-button>
+        <ion-icon class="filter-adjust" slot="icon-only" name="funnel"></ion-icon>
       </ion-button>
     </ion-buttons>
 
@@ -28,6 +28,7 @@
   </ion-text>
 
   <ion-card class="outlineCard" *ngFor="let travel of travels">
+
     <ion-card-header>
       <ion-card-title><h1>{{ travel.description }}</h1></ion-card-title>
     </ion-card-header>
@@ -49,6 +50,10 @@
 
     <!-- Comments Button -->
     <div>
+      <ion-button (click)="toggleTravelFavorite(travel)" class="personalize-button" fill="clear">
+        <ion-icon name="{{ travel.isFav ? 'heart' : 'heart-outline' }}"></ion-icon>
+      </ion-button>
+
       <ion-button (click)="openCommentsModal(travel)" class="personalize-button" fill="clear">
         <ion-icon name="newspaper"></ion-icon>      
       </ion-button>

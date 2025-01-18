@@ -59,6 +59,18 @@
     margin: 10px 5px 10px 20px;
 }
 
+.filter-travel {
+    color: #ffffff;
+    background-color: #FB9224; 
+    border-radius: 50%;
+    margin: 10px 5px 10px 20px;
+    transition: all ease-in-out 0.3s;
+}
+
+.filter-adjust {
+    padding-top: 2px !important;
+}
+
 .add-travel {
     color: #ffffff;
     background-color: #FB9224; 
@@ -67,6 +79,7 @@
     transition: all ease-in-out 0.3s;
 }
 
+.filter-travel:hover,
 .add-travel:hover {
     background-color: #000000;  
 }
@@ -152,5 +165,9 @@
     .inline-container p {
         margin: 0;
         padding: 8px;
+    }
+
+    .personalize-button ion-icon {
+        font-size: 28px;
     }
 }
