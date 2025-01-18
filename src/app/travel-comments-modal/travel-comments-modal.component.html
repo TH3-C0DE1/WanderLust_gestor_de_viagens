@@ -16,18 +16,22 @@
 
 <ion-content>
   <ion-list>
+    <ion-reorder-group [disabled]="false" (ionItemReorder)="handleReorder($any($event))">
+
     <ion-item *ngFor="let comment of comments">
       <ion-label>
-        <h2>{{ comment.createdBy }}</h2>
-        <p>{{ comment.comment }}</p>
-        <p class="comment-date">{{ comment.createdAt | date: 'dd/MM/yy - HH:mm\'h\'' }}</p>
+          <p><b>{{ comment.createdBy }}</b></p>
+          <p class="comment-date">{{ comment.createdAt | date: 'dd/MM/yy - HH:mm\'h\'' }}</p>
+          <p>{{ comment.comment }}</p>
       </ion-label>
 
       <ion-button fill="clear" slot="end" (click)="deleteComment(comment.id)"  class="trash-button">
         <ion-icon name="trash"></ion-icon>
       </ion-button>
-
+      <ion-reorder slot="end"></ion-reorder>
     </ion-item>
+
+    </ion-reorder-group>
   </ion-list>
 
   <ion-text *ngIf="comments.length === 0" class="flex-center">

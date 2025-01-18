@@ -104,4 +104,13 @@ export class TravelCommentsModalComponent implements OnInit {
     });
     await alert.present();
   }
+
+  // Handle the reordering of items
+  handleReorder(event: any) {
+    const itemToMove = this.comments.splice(event.detail.from, 1)[0]; // Remove the item from its old position
+    this.comments.splice(event.detail.to, 0, itemToMove);             // Insert it at the new position
+
+    // Complete the reorder action
+    event.detail.complete();
+  }
 }
