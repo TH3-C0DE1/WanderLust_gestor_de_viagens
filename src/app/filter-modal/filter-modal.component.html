@@ -1,0 +1,61 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Filters</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label>Favorites Only</ion-label>
+      <ion-toggle [(ngModel)]="filterCriteria.isFav"></ion-toggle>
+    </ion-item>
+
+    <ion-item>
+      <ion-label class="dropLabel" position="stacked">Travel</ion-label>
+      <ion-select [(ngModel)]="filterCriteria.companion" name="prop1">
+        <ion-select-option *ngFor="let prop1 of travelCompanion" [value]="prop1">
+          {{ prop1 }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label class="dropLabel" position="stacked">Type</ion-label>
+      <ion-select [(ngModel)]="filterCriteria.type" name="type">
+        <ion-select-option *ngFor="let type of travelTypes" [value]="type">
+          {{ type }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label class="dropLabel" position="stacked">Status</ion-label>
+      <ion-select [(ngModel)]="filterCriteria.status" name="state">
+        <ion-select-option *ngFor="let state of travelStates" [value]="state">
+          {{ state }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="resetFilters()">
+        <ion-icon name="refresh-circle"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="applyFilters()">
+        <ion-icon name="checkmark-done-circle"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

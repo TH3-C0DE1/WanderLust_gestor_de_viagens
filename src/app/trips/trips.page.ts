@@ -4,6 +4,7 @@ import { ApiService } from '../services/api.service';
 
 import { ModalController } from '@ionic/angular';
 import { TravelCommentsModalComponent } from '../travel-comments-modal/travel-comments-modal.component';
+import { FilterModalComponent } from '../filter-modal/filter-modal.component';
 import { Router } from '@angular/router';
 
 @Component({
@@ -16,6 +17,14 @@ import { Router } from '@angular/router';
 export class TripsPage implements OnInit 
 {
   travels: any[] = [];
+  allTravels: any[] = [];
+
+  filterCriteria = {
+    isFav: false,
+    companion: '',
+    type: '',
+    status: '',
+  };
 
   constructor(
     
@@ -32,6 +41,7 @@ export class TripsPage implements OnInit
     this.apiService.getTravelListChanged().subscribe((travels) => 
     {
       this.travels = travels;
+      this.allTravels = [...travels];
     });
   }
 
@@ -39,6 +49,7 @@ export class TripsPage implements OnInit
   async loadTravels() 
   {
     this.travels = await this.apiService.getTravels();
+    this.allTravels = [...this.travels];
   }
 
   // Create New Travel
@@ -98,5 +109,45 @@ export class TripsPage implements OnInit
     }
   }
   
+  async openFilterModal() {
+    const modal = await this.modalController.create({
+      component: FilterModalComponent,
+      componentProps: {
+        filterCriteria: { ...this.filterCriteria }, // Pass current filters
+      },
+      backdropDismiss: true,
+    });
 
+    modal.onDidDismiss().then((result) => {
+      if (result.data) {
+        this.filterCriteria = result.data; // Update current filters
+        this.applyFilters(this.filterCriteria);
+      }
+    });
+
+    await modal.present();
+  }
+
+  applyFilters(criteria: any) {
+    if (
+      !criteria.isFav &&
+      !criteria.companion &&
+      !criteria.type &&
+      !criteria.status
+    ) {
+      // No filters applied, restore the full list
+      this.travels = [...this.allTravels];
+      return;
+    }
+
+    // Apply filters
+    this.travels = this.allTravels.filter((travel) => {
+      const matchesFav = !criteria.isFav || travel.isFav;
+      const matchesCompanion = !criteria.companion || travel.prop1 === criteria.companion;
+      const matchesType = !criteria.type || travel.type === criteria.type;
+      const matchesStatus = !criteria.status || travel.status === criteria.status;
+
+      return matchesFav && matchesCompanion && matchesType && matchesStatus;
+    });
+  }
 }

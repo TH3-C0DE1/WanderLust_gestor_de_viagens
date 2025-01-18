@@ -129,6 +129,17 @@ b {
     }
 }
 
+.ion-color-primary {
+    --ion-color-base: #fb9224 !important;
+    --ion-color-shade: #fb9224 !important;
+    --ion-color-tint: #fb9224 !important;
+    --ion-color-base-rgb: #FFE382 !important;
+}
+
+.alert-button.sc-ion-alert-md {
+    color: #fb9224 !important;
+}
+
 @media screen and (max-width: 500px) 
 { 
   body {

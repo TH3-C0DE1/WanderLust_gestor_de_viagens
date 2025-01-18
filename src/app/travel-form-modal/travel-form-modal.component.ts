@@ -59,13 +59,26 @@ export class TravelFormModalComponent
   @Input() modalTitle: string = ''; 
   @Input() actionType: 'POST' | 'PUT' | 'DELETE' = 'POST';
 
-  constructor(private modalController: ModalController) {}
+  constructor(
+    private modalController: ModalController,
+    private alertController: AlertController,
+
+  ) {}
 
   // Handle Form Submission (for POST and PUT)
-  submitForm() 
-  {
-    if (this.actionType === 'POST' || this.actionType === 'PUT') 
-    {
+  async submitForm() {
+    if (this.actionType === 'POST' || this.actionType === 'PUT') {
+      if (this.travel.endAt && this.travel.startAt && new Date(this.travel.endAt) < new Date(this.travel.startAt)) {
+        // Show an alert if endAt is before startAt
+        const alert = await this.alertController.create({
+          header: 'Invalid Date',
+          message: 'End Date cannot be before Start Date.',
+          buttons: ['OK'],
+        });
+        await alert.present();
+        return; // Prevent form submission
+      }
+
       this.modalController.dismiss(this.travel);
     }
   }
