@@ -28,6 +28,8 @@
     <ion-datetime 
       class="dateMarginer" 
       [(ngModel)]="location.startAt" 
+      [min]="travelStartAt" 
+      [max]="travelEndAt"
       name="startAt">
     </ion-datetime>
   </ion-item>

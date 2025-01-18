@@ -298,6 +298,35 @@ export class ApiService
     }
   }
 
+  // Get Start and End Dates for a Specific Trip
+  async getTravelDates(travelId: string): Promise<{ startAt: string; endAt: string } | null> {
+    const loading = await this.showLoading();
+    const headers = this.getHeaders();
+
+    try {
+      // Fetch all travels
+      const travels: { id: string; startAt: string; endAt: string }[] = await firstValueFrom(
+        this.http.get<any[]>(`${this.apiUrl}/api/travels`, { headers })
+      );
+
+      loading.dismiss();
+
+      // Find the specific travel by ID
+      const travel = travels.find((t) => t.id === travelId);
+
+      if (!travel) {
+        await this.presentToast(`Trip with ID ${travelId} not found. 😥`, 'warning');
+        return null;
+      }
+
+      return { startAt: travel.startAt, endAt: travel.endAt };
+    } catch (error: any) {
+      loading.dismiss();
+      await this.presentToast(error.error, 'danger');
+      return null;
+    }
+  }
+
   // Add a Location
   async createLocation(location: any) 
   {

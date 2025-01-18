@@ -21,6 +21,8 @@ export class LocationsPage implements OnInit
 {
   travelId!: string;
   locations: any[] = [];
+  travelStartAt!: string; // Add this property
+  travelEndAt!: string;   // Add this property
 
 
   getPriorityClass(priority: string): string {
@@ -55,8 +57,17 @@ export class LocationsPage implements OnInit
   }
 
   // Fetch locations for the given travelId
-  async fetchLocations() {
+  async fetchLocations() 
+  {
     try {
+      // Fetch travel dates
+      const travelDates = await this.apiService.getTravelDates(this.travelId);
+
+      if (travelDates) {
+        this.travelStartAt = travelDates.startAt; // Assign start date
+        this.travelEndAt = travelDates.endAt;     // Assign end date
+      }
+
       const locations = await this.apiService.getTravelLocations(this.travelId);
 
     // Sort locations: Favorites first, then by startAt
@@ -66,16 +77,24 @@ export class LocationsPage implements OnInit
       }
       return b.isFav - a.isFav; // `true` (1) comes before `false` (0)
     });
+
   } catch (error) {
     console.error('Error fetching locations', error);
   }
   }
 
   // Create a new location
-  async createLocation() {
+  async createLocation() 
+  {
     const modal = await this.modalController.create({
       component: LocationModalComponent,
-      componentProps: { travelId: this.travelId, action: 'create' },  // Pass travelId and action type (create)
+      componentProps: 
+      { 
+        travelId: this.travelId,
+        action: 'create',
+        travelStartAt: this.travelStartAt,
+        travelEndAt: this.travelEndAt,
+      },
     });
 
     modal.onDidDismiss().then((result) => {
@@ -93,7 +112,15 @@ export class LocationsPage implements OnInit
 
     const modal = await this.modalController.create({
       component: LocationModalComponent,
-      componentProps: { travelId: this.travelId, location: locationToUpdate, action: 'update' }, // Pass location data and action type (update)
+      componentProps: 
+      { 
+        travelId: this.travelId, 
+        location: locationToUpdate, 
+        action: 'update',
+        travelStartAt: this.travelStartAt,
+        travelEndAt: this.travelEndAt,
+        
+      }, // Pass location data and action type (update)
     });
 
     modal.onDidDismiss().then((result) => {

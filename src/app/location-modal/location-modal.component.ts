@@ -32,7 +32,9 @@ export class LocationModalComponent
 
   @Input() travelId!: string;
   @Input() location: any = {};
-  @Input() action!: string; // 'create' or 'update'
+  @Input() action!: string;
+  @Input() travelStartAt!: string; 
+  @Input() travelEndAt!: string; 
 
   constructor(
 
