@@ -114,6 +114,10 @@ b {
     --color:#FB9224 !important;
 }
 
+.reorder-enabled ion-reorder {
+    margin: 5px 30px 5px 5px;
+}
+
 .loaderCSS {
     .spinner-bubbles {
         color: #FB9224;
@@ -142,6 +146,22 @@ b {
 
 .alert-message.sc-ion-alert-md {
     text-align: center !important;
+}
+
+.alert-radio-icon.sc-ion-alert-md {
+    border-width: 3px;
+}
+
+.alert-wrapper.sc-ion-alert-md {
+    max-width: 500px;
+    width: 90%;
+}
+
+ion-content::part(scroll) {
+    overflow-x: hidden;
+	overflow-y: auto;
+	scrollbar-width: thin;
+	scrollbar-color: #fb9224 white;
 }
 
 @media screen and (max-width: 500px) 

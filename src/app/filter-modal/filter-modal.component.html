@@ -1,8 +1,15 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Filters</ion-title>
+    <ion-buttons class="disabled" slot="start">
+      <ion-button [disabled]="true">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title class="titleCSS">FILTERS</ion-title>
+
     <ion-buttons slot="end">
-      <ion-button (click)="dismiss()">
+      <ion-button (click)="dismiss()" class="personalize-button">
         <ion-icon name="close"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -11,9 +18,9 @@
 
 <ion-content>
   <ion-list>
-    <ion-item>
-      <ion-label>Favorites Only</ion-label>
-      <ion-toggle [(ngModel)]="filterCriteria.isFav"></ion-toggle>
+    <ion-item class="fav-label">
+      <ion-label class="forTitleLabel fav-label" >Favorites Only</ion-label>
+      <ion-toggle class="toggle-fav fav-label" [(ngModel)]="filterCriteria.isFav"></ion-toggle>
     </ion-item>
 
     <ion-item>
@@ -48,12 +55,12 @@
 <ion-footer>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-button (click)="resetFilters()">
+      <ion-button expand="full" (click)="resetFilters()" class="tripButton reset-btn">
         <ion-icon name="refresh-circle"></ion-icon>
       </ion-button>
     </ion-buttons>
     <ion-buttons slot="end">
-      <ion-button (click)="applyFilters()">
+      <ion-button expand="full" (click)="applyFilters()" class="tripButton apply-btn">
         <ion-icon name="checkmark-done-circle"></ion-icon>
       </ion-button>
     </ion-buttons>

@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../services/api.service';
-import { ModalController, AlertController } from '@ionic/angular';
+import { IonContent, ModalController, AlertController } from '@ionic/angular';
 import { LocationModalComponent } from '../location-modal/location-modal.component';
 import { LocationCommentsModalComponent } from '../location-comments-modal/location-comments-modal.component';
 
@@ -19,6 +19,8 @@ enum LocationPriority {
 })
 export class LocationsPage implements OnInit 
 {
+  @ViewChild(IonContent) content!: IonContent;
+
   travelId!: string;
   locations: any[] = [];
   travelStartAt!: string; // Add this property
@@ -139,8 +141,8 @@ export class LocationsPage implements OnInit
   // Delete a location
   async deleteLocation(locationId: string) {
     const alert = await this.alertController.create({
-      header: 'Confirm Deletion',
-      message: 'Are you sure you want to delete this location?',
+      header: 'DELETE LOCATION',
+      message: 'Are you sure you want to DELETE the location?',
       buttons: [
         {
           text: 'Cancel',
@@ -193,4 +195,7 @@ export class LocationsPage implements OnInit
     }
   }
   
+  scrollToTop() {
+    this.content.scrollToTop(500);
+  }
 }

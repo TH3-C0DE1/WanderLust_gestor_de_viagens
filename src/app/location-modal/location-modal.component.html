@@ -1,8 +1,17 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>{{ action === 'create' ? 'Create Location' : 'Update Location' }}</ion-title>
+    <ion-buttons class="disabled" slot="start">
+      <ion-button [disabled]="true">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title class="titleCSS">{{ action === 'create' ? 'CREATE LOCATION' : 'UPDATE LOCATION' }}</ion-title>
+
     <ion-buttons slot="end">
-      <ion-button (click)="closeModal()">Cancel</ion-button>
+      <ion-button (click)="closeModal()" class="personalize-button">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -10,7 +19,7 @@
 <ion-content>
 
   <ion-item>
-    <ion-label position="stacked">Name</ion-label>
+    <ion-label class="forTitleLabel" position="stacked">Name</ion-label>
     <ion-textarea [(ngModel)]="location.description" name="description"></ion-textarea>
   </ion-item>
 
@@ -35,8 +44,8 @@
   </ion-item>
 
   <ion-footer>
-    <ion-button expand="full" (click)="saveLocation()">
-      {{ action === 'create' ? 'Create Location' : 'Update Location' }}
+    <ion-button expand="full" (click)="saveLocation()" class="tripButton">
+      {{ action === 'create' ? 'CREATE LOCATION' : 'UPDATE LOCATION' }}
     </ion-button>
   </ion-footer>
 </ion-content>

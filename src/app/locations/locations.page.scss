@@ -14,6 +14,13 @@
   height: 100%
 }
 
+.outlineCard {
+  display:grid;
+  border: 0.25rem none; 
+  border-radius: 10px; 
+  margin: 15px 20px 15px 20px;
+}
+
 .disabled {
   background-color: #ffffff;
   color: #ffffff;
@@ -42,7 +49,7 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
-  padding: 10px;
+  padding: 10px 0px;
   border-radius: 8px;
   background-color: #ffffff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -58,7 +65,7 @@
   align-items: center;
   background-color: #ffffff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 20px;
+  padding: 20px 0px 10px 0px;
   border-radius: 8px;
   min-width: 100%;
 }
@@ -99,7 +106,7 @@
 /* Buttons */
 .personalize-button {
   color: #FB9224;
-  padding: 8px;
+  padding: 8px 22px;
   margin: 0;
   transition: color 0.3s ease-in-out;
 }
@@ -112,16 +119,52 @@
   font-size: 32px;
 }
 
+.fab-custom-size {
+  right: 2px !important;
+}
+
+.fab-custom {
+  padding: 15px;
+  --box-shadow: 0 !important;
+}
+
+.fab-custom ion-icon {
+  padding: 0px;
+  font-size: 30px;
+  --box-shadow: 0 !important;
+}
+
 .desc-width {
-  max-width:800px;
+  background: linear-gradient(to top, #000000 0%, #ffffff 5%);
+  width:100%;
+  padding: 0px 10px 12px 10px;
+}
+
+.desc-width p {
+  color: #000000 !important;
+  font-size: 24px;
+  font-weight: 900;
+  text-transform: uppercase;
 }
 
 .date-width {
-  max-width:200px;
+  max-width: 400px;
+  width: 100%;
+  padding: 0px 10px 0px 10px;
 }
 
 .prio-width {
-  max-width:200px;
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  padding: 0px 10px 0px 10px;
+  text-transform: uppercase;
+}
+
+.all-btn {
+  max-width: 400px;
+  width: 100%;
+  justify-content: center;
 }
 
 /* Card Styles */
@@ -137,18 +180,60 @@ ion-card-content {
 }
 
 /* Responsive Design */
-@media screen and (max-width: 500px) {
-  .inline-container {
+@media screen and (max-width: 498px) 
+{
+  .outlineCard {
+    display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    gap: 15px;
+    margin: 15px 20px 15px 20px;
+  }
+      
+  .trip-content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .inline-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 100%;
+    margin-bottom: 10px;
   }
 
   .priority-css {
     font-size: 12px;
   }
 
+  .priority-css p {
+    font-size: 16px;
+  }
+
+  .personalize-button {
+    padding: 8px 8px;
+  }
+
   .personalize-button ion-icon {
     font-size: 20px;
+  }
+
+  .fab-custom-size {
+    right: -8px !important;
+  }
+
+  .desc-width {
+    width: 100%;
+  }
+  
+  .date-width {
+    width: 100%;
+  }
+  
+  .prio-width {
+    width: 100%;
+  }
+  
+  .all-btn {
+    width: 100%;
   }
 }

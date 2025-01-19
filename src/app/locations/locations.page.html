@@ -28,37 +28,41 @@
   </ion-text>
 
 
-  <ion-card *ngIf="locations.length > 0">
+  <ion-card *ngIf="locations.length > 0" class="outlineCard">
     <ion-card-content *ngFor="let location of locations">
 
-      <div [ngClass]="getPriorityClass(location.prop1)" class="inline-container">
-        <div class="button-box">
-          <ion-label class="priority-css desc-width" >{{ location.description }}</ion-label>
+      <div [ngClass]="getPriorityClass(location.prop1)" class="trip-content">
+        <div class="button-box inline-container">
+          <ion-label class="priority-css desc-width" ><p>{{ location.description }}</p></ion-label>
           <ion-label class="priority-css date-width" >{{ location.startAt | date: 'dd/MM/yy - HH:mm\'h\''}}</ion-label>
           <ion-label class="priority-css prio-width" >{{ location.prop1 }}</ion-label>
 
-          <ion-button 
-            (click)="toggleFavorite(location)" 
-            class="personalize-button" 
-            fill="clear"
-            >
-            <ion-icon name="{{ location.isFav ? 'heart' : 'heart-outline' }}"></ion-icon>
-          </ion-button>
+          <ion-buttons class="all-btn">
+            <ion-button (click)="toggleFavorite(location)" class="personalize-button" fill="clear">
+              <ion-icon name="{{ location.isFav ? 'heart' : 'heart-outline' }}"></ion-icon>
+            </ion-button>
 
-          <ion-button (click)="openLocCommentsModal(location)" class="personalize-button" fill="clear">
-            <ion-icon name="newspaper"></ion-icon>
-          </ion-button>
-          
-          <ion-button (click)="updateLocation(location.id)" class="personalize-button" fill="clear">
-            <ion-icon name="create"></ion-icon>
-          </ion-button>
-          
-          <ion-button (click)="deleteLocation(location.id)" class="personalize-button" fill="clear">
-            <ion-icon name="trash"></ion-icon>
-          </ion-button>
-
+            <ion-button (click)="openLocCommentsModal(location)" class="personalize-button" fill="clear">
+              <ion-icon name="newspaper"></ion-icon>
+            </ion-button>
+            
+            <ion-button (click)="updateLocation(location.id)" class="personalize-button" fill="clear">
+              <ion-icon name="create"></ion-icon>
+            </ion-button>
+            
+            <ion-button (click)="deleteLocation(location.id)" class="personalize-button" fill="clear">
+              <ion-icon name="trash"></ion-icon>
+            </ion-button>
+          </ion-buttons>
         </div>
       </div>
     </ion-card-content>
   </ion-card>
+
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed" class="fab-custom-size">
+      <ion-fab-button (click)="scrollToTop()" class="fab-custom">
+        <ion-icon name="caret-up-circle"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+
 </ion-content>

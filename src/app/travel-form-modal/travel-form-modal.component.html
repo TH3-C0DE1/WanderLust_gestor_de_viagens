@@ -1,13 +1,15 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title class="titleCSS">{{ modalTitle }}</ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="dismiss()" class="personalize-button">
+    <ion-buttons class="disabled" slot="start">
+      <ion-button [disabled]="true">
         <ion-icon name="close"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-buttons class="disabled" slot="start">
-      <ion-button [disabled]="true">
+
+    <ion-title class="titleCSS">{{ modalTitle }}</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()" class="personalize-button">
         <ion-icon name="close"></ion-icon>
       </ion-button>
     </ion-buttons>

@@ -1,8 +1,8 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ApiService } from '../services/api.service';
 
-import { ModalController } from '@ionic/angular';
+import { IonContent, ModalController } from '@ionic/angular';
 import { TravelCommentsModalComponent } from '../travel-comments-modal/travel-comments-modal.component';
 import { FilterModalComponent } from '../filter-modal/filter-modal.component';
 import { Router } from '@angular/router';
@@ -16,6 +16,8 @@ import { Router } from '@angular/router';
 
 export class TripsPage implements OnInit 
 {
+  @ViewChild(IonContent) content!: IonContent;
+  
   travels: any[] = [];
   allTravels: any[] = [];
 
@@ -149,5 +151,9 @@ export class TripsPage implements OnInit
 
       return matchesFav && matchesCompanion && matchesType && matchesStatus;
     });
+  }
+
+  scrollToTop() {
+    this.content.scrollToTop(500);
   }
 }

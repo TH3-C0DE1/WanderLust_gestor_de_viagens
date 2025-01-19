@@ -1,13 +1,15 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title class="titleCSS"><b>NOTES</b></ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="dismiss()" class="personailze-button">
+    <ion-buttons class="disabled" slot="start">
+      <ion-button [disabled]="true">
         <ion-icon name="close"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-buttons class="disabled" slot="start">
-      <ion-button [disabled]="true">
+
+    <ion-title class="titleCSS"><b>NOTES</b></ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()" class="personailze-button">
         <ion-icon name="close"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -16,18 +18,23 @@
 
 <ion-content>
   <ion-list>
-    <ion-item *ngFor="let comment of comments">
-      <ion-label>
-        <p><b>{{ comment.createdBy }}</b></p>
-        <p class="comment-date">{{ comment.createdAt | date: 'dd/MM/yy - HH:mm\'h\'' }}</p>
-        <p>{{ comment.comment }}</p>
-      </ion-label>
+    <ion-reorder-group [disabled]="false" (ionItemReorder)="handleReorder($any($event))">
+      <ion-item *ngFor="let comment of comments">
+        
+        <ion-label>
+          <p><b>{{ comment.createdBy }}</b></p>
+          <p class="comment-date">{{ comment.createdAt | date: 'dd/MM/yy - HH:mm\'h\'' }}</p>
+          <p>{{ comment.comment }}</p>
+        </ion-label>
 
-      <ion-button fill="clear" slot="end" (click)="deleteLocComment(comment.id)"  class="trash-button">
-        <ion-icon name="trash"></ion-icon>
-      </ion-button>
+        <ion-button fill="clear" slot="end" (click)="deleteLocComment(comment.id)"  class="trash-button">
+          <ion-icon name="trash"></ion-icon>
+        </ion-button>
 
-    </ion-item>
+        <ion-reorder slot="end"></ion-reorder>
+
+      </ion-item>
+    </ion-reorder-group>
   </ion-list>
 
   <ion-text *ngIf="comments.length === 0" class="flex-center">
@@ -35,7 +42,7 @@
   </ion-text>
 
     <!-- FAB to Add Comment -->
-    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed" class="fab-custom-size">
       <ion-fab-button (click)="openAddLocCommentModal()" class="fab-custom">
         <ion-icon name="add"></ion-icon>
       </ion-fab-button>

@@ -15,7 +15,18 @@ ion-item {
     color: gray;
 }
 
-.fab-custom{
+.fab-custom-size {
+    right: 2px !important;
+}
+
+.fab-custom {
+    padding: 15px; 
+    --box-shadow: 0 !important;
+}
+
+.fab-custom ion-icon {
+    padding: 0px;
+    font-size: 30px;
     --box-shadow: 0 !important;
 }
 
@@ -26,7 +37,7 @@ ion-item {
 .trash-button {
     color: #FB9224;
     padding: 10px;
-    margin: 0px 30px 0px 10px;  
+    margin: 0px 5px 0px 10px;  
     transition: all ease-in-out 0.3s;
 }
 

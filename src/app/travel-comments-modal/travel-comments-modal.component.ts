@@ -6,7 +6,6 @@ import { FormsModule } from '@angular/forms';
 import { ApiService } from '../services/api.service';
 import { AlertController } from '@ionic/angular';
 
-
 @Component({
   selector: 'app-travel-comments-modal',
   templateUrl: './travel-comments-modal.component.html',

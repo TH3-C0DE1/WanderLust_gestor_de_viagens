@@ -99,6 +99,21 @@
     font-size: 32px;
 }
 
+.fab-custom-size {
+    right: 2px !important;
+}
+
+.fab-custom {
+    padding: 15px;
+    --box-shadow: 0 !important;
+}
+
+.fab-custom ion-icon {
+    padding: 0px;
+    font-size: 30px;
+    --box-shadow: 0 !important;
+}
+
 .travel-color {
     background-color: #FFE382;
     color: #000000 !important; 
@@ -133,7 +148,7 @@
     height: 100%
 }
 
-@media screen and (max-width: 500px) 
+@media screen and (max-width: 498px) 
 { 
     .outlineCard {
         display: flex;
@@ -156,6 +171,14 @@
         margin: 0px;  
     }
 
+    .personalize-button ion-icon {
+        font-size: 28px;
+    }
+
+    .fab-custom-size {
+        right: -8px !important;
+    }
+
     .inline-container {
         gap: 10px;
         max-width: 100%;
@@ -165,9 +188,5 @@
     .inline-container p {
         margin: 0;
         padding: 8px;
-    }
-
-    .personalize-button ion-icon {
-        font-size: 28px;
     }
 }

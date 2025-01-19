@@ -17,20 +17,21 @@
 <ion-content>
   <ion-list>
     <ion-reorder-group [disabled]="false" (ionItemReorder)="handleReorder($any($event))">
+      <ion-item *ngFor="let comment of comments">
 
-    <ion-item *ngFor="let comment of comments">
-      <ion-label>
+        <ion-label>
           <p><b>{{ comment.createdBy }}</b></p>
           <p class="comment-date">{{ comment.createdAt | date: 'dd/MM/yy - HH:mm\'h\'' }}</p>
           <p>{{ comment.comment }}</p>
-      </ion-label>
+        </ion-label>
 
-      <ion-button fill="clear" slot="end" (click)="deleteComment(comment.id)"  class="trash-button">
-        <ion-icon name="trash"></ion-icon>
-      </ion-button>
-      <ion-reorder slot="end"></ion-reorder>
-    </ion-item>
+        <ion-button fill="clear" slot="end" (click)="deleteComment(comment.id)"  class="trash-button">
+          <ion-icon name="trash"></ion-icon>
+        </ion-button>
 
+        <ion-reorder slot="end"></ion-reorder>
+        
+      </ion-item>
     </ion-reorder-group>
   </ion-list>
 
@@ -39,7 +40,7 @@
   </ion-text>
 
     <!-- FAB to Add Comment -->
-    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed" class="fab-custom-size">
       <ion-fab-button (click)="openAddCommentModal()" class="fab-custom">
         <ion-icon name="add"></ion-icon>
       </ion-fab-button>
