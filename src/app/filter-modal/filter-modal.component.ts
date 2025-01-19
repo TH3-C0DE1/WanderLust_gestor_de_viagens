@@ -38,7 +38,7 @@ export class FilterModalComponent implements OnInit {
     'Educational', 
     'Event',
     'Volunteer', 
-    'RoadTrip', 
+    'Road Trip', 
     'Shopping', 
     'Beach', 
     'Mountain',

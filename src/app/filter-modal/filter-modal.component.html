@@ -21,6 +21,7 @@
 
 <ion-content>
   <ion-list>
+
     <ion-item class="fav-label">
       <ion-label class="forTitleLabel fav-label" >Favorites Only</ion-label>
       <ion-toggle class="toggle-fav fav-label" [(ngModel)]="filterCriteria.isFav"></ion-toggle>
@@ -52,20 +53,24 @@
         </ion-select-option>
       </ion-select>
     </ion-item>
+
   </ion-list>
 </ion-content>
 
 <ion-footer>
   <ion-toolbar>
+
     <ion-buttons slot="start">
       <ion-button expand="full" (click)="resetFilters()" class="tripButton reset-btn">
         <ion-icon name="refresh-circle"></ion-icon>
       </ion-button>
     </ion-buttons>
+
     <ion-buttons slot="end">
       <ion-button expand="full" (click)="applyFilters()" class="tripButton apply-btn">
         <ion-icon name="checkmark-done-circle"></ion-icon>
       </ion-button>
     </ion-buttons>
+    
   </ion-toolbar>
 </ion-footer>

@@ -1,9 +1,4 @@
 
-.comment-date {
-    font-size: 0.8em;
-    color: gray;
-}
-
 ion-item {
     --background: #f9f9f9;
     margin-bottom: 8px;
@@ -26,12 +21,12 @@ ion-item {
 
 .fab-custom ion-icon {
     padding: 0px;
-    font-size: 30px;
+    font-size: 1.875rem;
     --box-shadow: 0 !important;
 }
 
 .personailze-button ion-icon {
-    font-size: 32px;
+    font-size: 2rem;
 }
 
 .trash-button {
@@ -46,7 +41,7 @@ ion-item {
 }
 
 .trash-button ion-icon {
-    font-size: 24px;
+    font-size: 1.5rem;
 }
 
 .titleCSS {
@@ -66,4 +61,18 @@ ion-item {
     justify-content:center;
     align-items:center;
     height: 70%
+}
+
+/* ---------------------------------------------------------------------------------- */
+/* Responsive Media */
+/* ---------------------------------------------------------------------------------- */
+@media screen and (max-width: 498px) 
+{ 
+    .comment-createdBy {
+        font-size: 0.6em;
+    }
+
+    .comment-date {
+        font-size: 0.6em;
+    }
 }

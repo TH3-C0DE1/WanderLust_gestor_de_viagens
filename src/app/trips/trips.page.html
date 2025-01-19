@@ -8,9 +8,7 @@
       </ion-button>
     </ion-buttons>
 
-    <ion-title class="centered-title">
-      <b>TRIPS</b>
-    </ion-title>
+    <ion-title class="centered-title"><b>TRIPS</b></ion-title>
 
     <ion-buttons class="add-travel" slot="end">
       <ion-button (click)="postTravel()">
@@ -46,10 +44,11 @@
         <p class="travel-date"><b class="white-text">Start Date<br></b>{{ travel.startAt | date: 'dd/MM/yy - HH:mm\'h\'' }}</p>
         <p class="travel-date"><b class="white-text">End Date<br></b>{{ travel.endAt | date: 'dd/MM/yy - HH:mm\'h\'' }}</p>      
       </div>
+
     </ion-card-content>
 
-    <!-- Comments Button -->
     <div>
+      
       <ion-button (click)="toggleTravelFavorite(travel)" class="personalize-button" fill="clear">
         <ion-icon name="{{ travel.isFav ? 'heart' : 'heart-outline' }}"></ion-icon>
       </ion-button>
@@ -57,21 +56,19 @@
       <ion-button (click)="openCommentsModal(travel)" class="personalize-button" fill="clear">
         <ion-icon name="newspaper"></ion-icon>      
       </ion-button>
-    
-      <!-- Edit Button -->
+
       <ion-button (click)="putTravel(travel)" class="personalize-button" fill="clear">
         <ion-icon name="create"></ion-icon>       
       </ion-button>
 
-      <!-- Delete Button -->
       <ion-button  (click)="deleteTravel(travel)" class="personalize-button" fill="clear">
         <ion-icon name="trash"></ion-icon>
       </ion-button>
-
-      <!-- Redirect to Itinerary Tab Button -->
+      
       <ion-button (click)="openLocationsPage(travel.id)" fill="clear" class="personalize-button">
           <ion-icon name="caret-forward-circle"></ion-icon>
       </ion-button>
+
     </div>
   </ion-card>
 

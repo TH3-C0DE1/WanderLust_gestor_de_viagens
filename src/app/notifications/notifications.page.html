@@ -8,9 +8,7 @@
       </ion-button>
     </ion-buttons>
 
-    <ion-title class="centered-title">
-      <b>NOTIFICATIONS</b>
-    </ion-title>
+    <ion-title class="centered-title"><b>NOTIFICATIONS</b></ion-title>
 
     <ion-buttons class="disabled-r" slot="end">
       <ion-button [disabled]="true">
@@ -22,10 +20,12 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+
   <ion-button (click)="triggerNotification()">Show Notification</ion-button>
 
   
   <ion-card *ngIf="showNotification" class="notification-card">
+
     <ion-card-header>
       <ion-card-title> {{ notification.title }} </ion-card-title>
     </ion-card-header>
@@ -36,10 +36,11 @@
   
     <ion-button fill="clear">Go</ion-button>
     <ion-button fill="clear" color="danger" (click)="dismissNotification()">Dismiss</ion-button>
+
   </ion-card>
 
- 
   <ion-card>
+
     <ion-card-header>
       <ion-card-title> Name of the Notification/What Trip It's From </ion-card-title>
     </ion-card-header>
@@ -50,9 +51,11 @@
   
     <ion-button fill="clear">Go</ion-button>
     <ion-button fill="clear" color="danger" (click)="dismissNotification()">Dismiss</ion-button>
+
   </ion-card>
 
   <ion-card>
+
     <ion-card-header>
       <ion-card-title> Name of the Notification/What Trip It's From </ion-card-title>
     </ion-card-header>
@@ -62,17 +65,7 @@
     </ion-card-content>
   
     <ion-button fill="clear" (click)="dismissNotification()">Ok</ion-button>
+    
   </ion-card>
 
-  <!--<ion-card *ngIf="showNotification" class="notification-card">
-    <ion-card-header>
-      <ion-card-title> {{ notification.title }} </ion-card-title> <!-Name of the Notification/What Trip It's From->
-    </ion-card-header>
-  
-    <ion-card-content>
-      {{ notification.message }}
-    </ion-card-content>
-  
-    <ion-button fill="clear" (click)="dismissNotification()">Ok</ion-button>
-  </ion-card>-->
 </ion-content>

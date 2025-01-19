@@ -8,9 +8,7 @@
       </ion-button>
     </ion-buttons>
 
-    <ion-title class="centered-title">
-      <b>LOCATIONS</b>
-    </ion-title>
+    <ion-title class="centered-title"><b>LOCATIONS</b></ion-title>
 
     <ion-buttons class="add-travel" slot="end">
       <ion-button (click)="createLocation()">
@@ -33,6 +31,7 @@
 
       <div [ngClass]="getPriorityClass(location.prop1)" class="trip-content">
         <div class="button-box inline-container">
+
           <ion-label class="priority-css desc-width" ><p>{{ location.description }}</p></ion-label>
           <ion-label class="priority-css date-width" >{{ location.startAt | date: 'dd/MM/yy - HH:mm\'h\''}}</ion-label>
           <ion-label class="priority-css prio-width" >{{ location.prop1 }}</ion-label>
@@ -54,8 +53,10 @@
               <ion-icon name="trash"></ion-icon>
             </ion-button>
           </ion-buttons>
+
         </div>
       </div>
+
     </ion-card-content>
   </ion-card>
 

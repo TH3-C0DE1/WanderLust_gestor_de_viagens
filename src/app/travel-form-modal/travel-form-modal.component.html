@@ -21,7 +21,7 @@
 
 <ion-content>
   <form *ngIf="actionType === 'POST' || actionType === 'PUT'">
-    <!-- Form fields for editing/creating travel -->
+
     <ion-item>
       <ion-label class="forTitleLabel" position="stacked">Title</ion-label>
       <ion-input [(ngModel)]="travel.description" name="description"></ion-input>
@@ -77,12 +77,16 @@
   </form>
 
   <div class="deletePrompt" *ngIf="actionType === 'DELETE'">
+
     <ion-text color="danger">
       <h2>Are you sure you want to delete this trip?</h2>
     </ion-text>
+
     <ion-footer>
       <ion-button expand="full" color="danger" (click)="confirmDelete()">Delete</ion-button>
       <ion-button expand="full" (click)="dismiss()">Cancel</ion-button>
     </ion-footer>
+    
   </div>
+
 </ion-content>

@@ -11,7 +11,7 @@ enum TravelType
   Educational = 'Educational',
   Event =  'Event',
   Volunteer = 'Volunteer',
-  RoadTrip = 'RoadTrip',
+  RoadTrip = 'Road Trip',
   Shopping = 'Shopping',
   Beach = 'Beach',
   Mountain = 'Mountain',
