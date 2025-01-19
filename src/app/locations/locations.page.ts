@@ -142,7 +142,7 @@ export class LocationsPage implements OnInit
   async deleteLocation(locationId: string) {
     const alert = await this.alertController.create({
       header: 'DELETE LOCATION',
-      message: 'Are you sure you want to DELETE the location?',
+      message: 'Are you sure you want to DELETE the Location?',
       buttons: [
         {
           text: 'Cancel',

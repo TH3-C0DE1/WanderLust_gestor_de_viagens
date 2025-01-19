@@ -55,7 +55,7 @@ export class TravelCommentsModalComponent implements OnInit {
   {
     const confirm = await this.alertController.create({
       header: 'DELETE NOTE',
-      message: 'Are you sure you want to DELETE this note?',
+      message: 'Are you sure you want to DELETE this Note?',
       buttons: [
         {
           text: 'Cancel',
@@ -82,7 +82,7 @@ export class TravelCommentsModalComponent implements OnInit {
         {
           name: 'comment',
           type: 'text',
-          placeholder: 'Write your note...',
+          placeholder: 'Write your Note...',
         },
       ],
       buttons: [

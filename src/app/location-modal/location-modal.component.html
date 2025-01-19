@@ -1,12 +1,13 @@
+
 <ion-header>
   <ion-toolbar>
     <ion-buttons class="disabled" slot="start">
-      <ion-button [disabled]="true">
+      <ion-button [disabled]="true" class="personalize-button">
         <ion-icon name="close"></ion-icon>
       </ion-button>
     </ion-buttons>
 
-    <ion-title class="titleCSS">{{ action === 'create' ? 'CREATE LOCATION' : 'UPDATE LOCATION' }}</ion-title>
+    <ion-title class="titleCSS">{{ action === 'create' ? 'ADD LOCATION' : 'UPDATE LOCATION' }}</ion-title>
 
     <ion-buttons slot="end">
       <ion-button (click)="closeModal()" class="personalize-button">
@@ -45,7 +46,7 @@
 
   <ion-footer>
     <ion-button expand="full" (click)="saveLocation()" class="tripButton">
-      {{ action === 'create' ? 'CREATE LOCATION' : 'UPDATE LOCATION' }}
+      {{ action === 'create' ? 'ADD LOCATION' : 'UPDATE LOCATION' }}
     </ion-button>
   </ion-footer>
 </ion-content>

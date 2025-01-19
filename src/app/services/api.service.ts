@@ -608,7 +608,7 @@ export class ApiService
       const alert = await this.alertController.create({
 
         header: 'DELETE TRIP',
-        message: `Are you sure you want to DELETE the trip "${travel?.description}"?`,
+        message: `Are you sure you want to DELETE the Trip "${travel?.description}"?`,
         buttons: [
           {
             text: 'Cancel',

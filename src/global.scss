@@ -149,7 +149,11 @@ b {
 }
 
 .alert-radio-icon.sc-ion-alert-md {
-    border-width: 3px;
+    border-width: 3px !important;
+}
+
+.alert-radio-inner.sc-ion-alert-md {
+    top: 15% !important;
 }
 
 .alert-wrapper.sc-ion-alert-md {

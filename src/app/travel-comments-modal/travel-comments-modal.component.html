@@ -1,16 +1,21 @@
+
 <ion-header>
   <ion-toolbar>
+
+    <ion-buttons class="disabled" slot="start">
+      <ion-button [disabled]="true" class="personailze-button">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
     <ion-title class="titleCSS"><b>NOTES</b></ion-title>
+
     <ion-buttons slot="end">
       <ion-button (click)="dismiss()" class="personailze-button">
         <ion-icon name="close"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-buttons class="disabled" slot="start">
-      <ion-button [disabled]="true">
-        <ion-icon name="close"></ion-icon>
-      </ion-button>
-    </ion-buttons>
+
   </ion-toolbar>
 </ion-header>
 
