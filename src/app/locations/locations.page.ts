@@ -13,7 +13,7 @@ enum LocationPriority {
 
 @Component({
   selector: 'app-locations',
-  templateUrl: 'locations.page.html',
+  templateUrl: 'locations.page.html', 
   styleUrls: ['locations.page.scss'],
   standalone: false,
 })
@@ -100,9 +100,7 @@ export class LocationsPage implements OnInit
     });
 
     modal.onDidDismiss().then((result) => {
-      if (result.data) {
-        this.locations.push(result.data); // Add the new location to the list if a location was created
-      }
+      this.handleModalDismiss(result);
     });
 
     return await modal.present();
@@ -126,13 +124,7 @@ export class LocationsPage implements OnInit
     });
 
     modal.onDidDismiss().then((result) => {
-      if (result.data) {
-        const index = this.locations.findIndex(loc => loc.id === locationId);
-
-        if (index !== -1) {
-          this.locations[index] = result.data; // Update the location in the array
-        }
-      }
+      this.handleModalDismiss(result);
     });
     
     return await modal.present();
@@ -197,5 +189,59 @@ export class LocationsPage implements OnInit
   
   scrollToTop() {
     this.content.scrollToTop(500);
+  }
+
+  // Handle modal dismiss actions for create/update
+  handleModalDismiss(result: any) {
+    if (result.data) {
+      const action = result.data.action;  // Assuming the action is passed in the modal data
+
+      if (action === 'create') {
+        // Add the new location to the list
+        this.locations.push(result.data.location);
+
+        // Sort locations: Favorites first, then by startAt
+        this.locations.sort((a, b) => {
+          if (a.isFav === b.isFav) {
+            return new Date(a.startAt).getTime() - new Date(b.startAt).getTime();
+          }
+          return b.isFav - a.isFav;
+        });
+
+        this.fetchLocations();
+
+      } else if (action === 'update') {
+        // Update the location in the local state
+        const updatedLocation = result.data.location;
+
+        const index = this.locations.findIndex((loc) => loc.id === updatedLocation.id);
+        if (index !== -1) {
+          this.locations[index] = updatedLocation;
+          
+          // Re-sort the updated list
+          this.locations.sort((a, b) => {
+            if (a.isFav === b.isFav) {
+              return new Date(a.startAt).getTime() - new Date(b.startAt).getTime();
+            }
+            return b.isFav - a.isFav; // Prioritize favorites
+          });
+        }
+      }
+    }
+  }
+
+    // In LocationsPage, presenting the modal
+  async openLocationModal(action: string, location?: any) {
+    const modal = await this.modalController.create({
+      component: LocationModalComponent,
+      componentProps: { action, location }
+    });
+
+    // Handling the dismissal result here
+    modal.onDidDismiss().then((result) => {
+      this.handleModalDismiss(result);
+    });
+
+    await modal.present();
   }
 }

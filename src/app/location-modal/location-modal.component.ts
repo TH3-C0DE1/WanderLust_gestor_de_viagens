@@ -46,32 +46,57 @@ export class LocationModalComponent
 
   ngOnInit() {
     if (this.action === 'update' && this.location) {
-      this.location = { ...this.location };
+      this.location = { ...this.location }; // Make a copy to avoid direct mutation
+    } else if (this.action === 'create') {
+      // Initialize location with default values for create action
+      this.location = {
+        travelId: this.travelId,
+        description: '', // Default name
+        startAt: this.travelStartAt, // Default start date
+        priority: LocationPriority.Normal, // Default priority
+        isFav: false, // Default favorite status
+      };
     }
   }
 
-    // Save (Create/Update)
-    async saveLocation() {
-      if (this.action === 'create') {
-        const newLocation = { ...this.location, travelId: this.travelId };
-        try {
-          const createdLocation = await this.apiService.createLocation(newLocation);
-          this.router.navigate([`/tabs/locations`], { queryParams: { travelId: this.travelId } });
-          this.modalController.dismiss(createdLocation); // Close modal and return created location
-        } catch (error) {
-          console.error('Error creating location:', error);
-        }
-      } else if (this.action === 'update') {
-        const updatedLocation = { ...this.location };
-        try {
-          const updatedLoc = await this.apiService.updateLocation(this.location.id, updatedLocation);
-          this.router.navigate([`/tabs/locations`], { queryParams: { travelId: this.travelId } });
-          this.modalController.dismiss(updatedLoc); // Close modal and return updated location
-        } catch (error) {
-          console.error('Error updating location:', error);
-        }
+  // Save (Create/Update)
+  async saveLocation() {
+    let locationToSave;
+  
+    // Basic validation before saving
+    if (!this.location.description || !this.location.startAt) {
+      console.error('Missing required fields');
+      // Show an alert or feedback to the user for missing fields
+      return;
+    }
+  
+    if (this.action === 'create') {
+      locationToSave = { ...this.location, travelId: this.travelId };
+      try {
+        const createdLocation = await this.apiService.createLocation(locationToSave);
+        this.modalController.dismiss({
+          data: createdLocation,
+          action: 'create'
+        }); // Pass the new location and action type back
+      } catch (error) {
+        console.error('Error creating location:', error);
+      }
+    } else if (this.action === 'update') {
+      locationToSave = { ...this.location };
+      try {
+        const updatedLocation = await this.apiService.updateLocation(this.location.id, locationToSave);
+        this.modalController.dismiss({
+          data: updatedLocation,
+          action: 'update'
+        }); // Pass the updated location and action type back
+      } catch (error) {
+        console.error('Error updating location:', error);
       }
     }
+  }
+
+
+
   
     // Close the modal without saving
     closeModal() {

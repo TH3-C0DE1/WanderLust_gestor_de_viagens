@@ -383,35 +383,43 @@ export class ApiService
     }
   }
 
-  // Update a Location
-  async updateLocation(locationId: string, updatedLocation: any) 
-  {
-    const loading = await this.showLoading();
-  
-    const headers = this.getHeaders();
+// Update a Location
+async updateLocation(locationId: string, updatedLocation: any) {
+  const loading = await this.showLoading();
 
-    try 
-    {
-      // Ensure the date is properly formatted
-      updatedLocation.startAt = new Date(updatedLocation.startAt).toISOString();
+  const headers = this.getHeaders();
 
-      // Send the updated location data to the API for the specific locationId
-      await firstValueFrom(
+  try {
+    // Ensure the date is properly formatted
+    updatedLocation.startAt = new Date(updatedLocation.startAt).toISOString();
 
-        this.http.put(`${this.apiUrl}/api/travels/locations/${locationId}`, updatedLocation, { headers })
-      );
-      
-      loading.dismiss();
+    // Send the updated location data to the API for the specific locationId
+    await firstValueFrom(
+      this.http.put(`${this.apiUrl}/api/travels/locations/${locationId}`, updatedLocation, { headers })
+    );
 
-      await this.presentToast(`Location Updated Successfully. ✈️`, 'success');
-    }     
-    
-    catch (error : any) 
-    {
-      loading.dismiss();
-      await this.presentToast(error.error, 'danger');
+    loading.dismiss();
+
+    await this.presentToast(`Location Updated Successfully. ✈️`, 'success');
+
+    // Instead of calling getTravelLocations again, update the location in the local state
+    const index = this.locations.findIndex(loc => loc.id === updatedLocation.id);
+    if (index !== -1) {
+      this.locations[index] = updatedLocation;  // Update the local state
+      this.locations.sort((a, b) => {
+        if (a.isFav === b.isFav) {
+          return new Date(a.startAt).getTime() - new Date(b.startAt).getTime();
+        }
+        return b.isFav - a.isFav;  // Prioritize favorites
+      });
     }
+
+  } catch (error: any) {
+    loading.dismiss();
+    await this.presentToast(error.error, 'danger');
   }
+}
+
 
   // Delete a Location
   async deleteLocation(locationId: string) 
