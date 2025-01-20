@@ -164,7 +164,7 @@ export class TripsPage implements OnInit
       const matchesFav = !criteria.isFav || travel.isFav;
       const matchesCompanion = !criteria.companion || travel.prop1 === criteria.companion;
       const matchesType = !criteria.type || travel.type === criteria.type;
-      const matchesStatus = !criteria.status || travel.status === criteria.status;
+      const matchesStatus = !criteria.status || travel.state === criteria.status;
 
       return matchesFav && matchesCompanion && matchesType && matchesStatus;
     });
