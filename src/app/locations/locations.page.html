@@ -29,12 +29,12 @@
   <ion-card *ngIf="locations.length > 0" class="outlineCard">
     <ion-card-content *ngFor="let location of locations">
 
-      <div [ngClass]="getPriorityClass(location.prop1)" class="trip-content">
+      <div *ngIf="location" [ngClass]="getPriorityClass(location.prop1 || 'default-class')" class="trip-content">
         <div class="button-box inline-container">
 
           <ion-label class="priority-css desc-width" ><p>{{ location.description }}</p></ion-label>
           <ion-label class="priority-css date-width" >{{ location.startAt | date: 'dd/MM/yy - HH:mm\'h\''}}</ion-label>
-          <ion-label class="priority-css prio-width" >{{ location.prop1 }}</ion-label>
+          <ion-label class="priority-css prio-width" >{{ location.prop1 || 'N/A' }}</ion-label>
 
           <ion-buttons class="all-btn">
             <ion-button (click)="toggleFavorite(location)" class="personalize-button" fill="clear">
