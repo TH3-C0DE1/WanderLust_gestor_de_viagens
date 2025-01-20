@@ -1,9 +1,12 @@
+
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ApiService } from '../services/api.service';
 import { IonContent, ModalController, AlertController } from '@ionic/angular';
+
 import { LocationModalComponent } from '../location-modal/location-modal.component';
 import { LocationCommentsModalComponent } from '../location-comments-modal/location-comments-modal.component';
+
+import { ApiService } from '../services/api.service';
 
 enum LocationPriority {
   Low = 'Low',
@@ -12,23 +15,28 @@ enum LocationPriority {
 }
 
 @Component({
+
   selector: 'app-locations',
   templateUrl: 'locations.page.html', 
   styleUrls: ['locations.page.scss'],
   standalone: false,
+
 })
+
 export class LocationsPage implements OnInit 
 {
   @ViewChild(IonContent) content!: IonContent;
 
   travelId!: string;
   locations: any[] = [];
-  travelStartAt!: string; // Add this property
-  travelEndAt!: string;   // Add this property
+  travelStartAt!: string;
+  travelEndAt!: string;
 
-
-  getPriorityClass(priority: string): string {
-    switch (priority) {
+  // Get Priority Respective CSS Class 
+  getPriorityClass(priority: string): string 
+  {
+    switch (priority) 
+    {
       case LocationPriority.Low:
         return 'low-priority';
       case LocationPriority.Normal:
@@ -51,44 +59,50 @@ export class LocationsPage implements OnInit
 
   ngOnInit() 
   {
-    // Get the travelId from the route parameters
     this.activatedRoute.queryParams.subscribe((params) => {
+
       this.travelId = params['travelId'];
-      this.fetchLocations(); // Fetch locations once travelId is available
+      this.fetchLocations();
     });
   }
 
-  // Fetch locations for the given travelId
+  // Fetch Locations -> Trip
   async fetchLocations() 
   {
-    try {
-      // Fetch travel dates
+    try 
+    {
       const travelDates = await this.apiService.getTravelDates(this.travelId);
 
-      if (travelDates) {
-        this.travelStartAt = travelDates.startAt; // Assign start date
-        this.travelEndAt = travelDates.endAt;     // Assign end date
+      if (travelDates) 
+      {
+        this.travelStartAt = travelDates.startAt;
+        this.travelEndAt = travelDates.endAt;
       }
 
       const locations = await this.apiService.getTravelLocations(this.travelId);
 
-    // Sort locations: Favorites first, then by startAt
-    this.locations = locations.sort((a, b) => {
-      if (a.isFav === b.isFav) {
-        return new Date(a.startAt).getTime() - new Date(b.startAt).getTime();
-      }
-      return b.isFav - a.isFav; // `true` (1) comes before `false` (0)
-    });
+      this.locations = locations.sort((a, b) => {
 
-  } catch (error) {
-    console.error('Error fetching locations', error);
-  }
+        if (a.isFav === b.isFav) 
+        {
+          return new Date(a.startAt).getTime() - new Date(b.startAt).getTime();
+        }
+
+        return b.isFav - a.isFav;
+      });
+    } 
+    
+    catch (error) 
+    {
+      console.error('Error Fetching Locations.', error);
+    }
   }
 
-  // Create a new location
+  // Create New Location
   async createLocation() 
   {
     const modal = await this.modalController.create({
+
       component: LocationModalComponent,
       componentProps: 
       { 
@@ -100,17 +114,20 @@ export class LocationsPage implements OnInit
     });
 
     modal.onDidDismiss().then((result) => {
+
       this.handleModalDismiss(result);
     });
 
     return await modal.present();
   }
 
-  // Update a location
-  async updateLocation(locationId: string) {
+  // Edit Location
+  async updateLocation(locationId: string) 
+  {
     const locationToUpdate = this.locations.find(loc => loc.id === locationId);
 
     const modal = await this.modalController.create({
+
       component: LocationModalComponent,
       componentProps: 
       { 
@@ -120,19 +137,22 @@ export class LocationsPage implements OnInit
         travelStartAt: this.travelStartAt,
         travelEndAt: this.travelEndAt,
         
-      }, // Pass location data and action type (update)
+      },
     });
 
     modal.onDidDismiss().then((result) => {
+
       this.handleModalDismiss(result);
     });
     
     return await modal.present();
   }
 
-  // Delete a location
-  async deleteLocation(locationId: string) {
+  // Delete Location
+  async deleteLocation(locationId: string) 
+  {
     const alert = await this.alertController.create({
+
       header: 'DELETE LOCATION',
       message: 'Are you sure you want to DELETE the Location?',
       buttons: [
@@ -140,15 +160,19 @@ export class LocationsPage implements OnInit
           text: 'Cancel',
           role: 'cancel',
         },
+
         {
           text: 'Delete',
           handler: async () => {
-            try {
-              await this.apiService.deleteLocation(locationId); // Delete the location
-              this.locations = this.locations.filter(loc => loc.id !== locationId); // Remove from list
-              console.log('Location deleted:', locationId);
-            } catch (error) {
-              console.error('Error deleting location:', error);
+            try 
+            {
+              await this.apiService.deleteLocation(locationId);
+              this.locations = this.locations.filter(loc => loc.id !== locationId); 
+            } 
+            
+            catch (error) 
+            {
+              console.error('Error Deleting Location.', error);
             }
           }
         }
@@ -158,90 +182,110 @@ export class LocationsPage implements OnInit
     await alert.present();
   }
 
-  // Open Comments Modal
+  // Open Note Modal
   async openLocCommentsModal(location: any) 
   {
     const modal = await this.modalController.create({
 
       component: LocationCommentsModalComponent,
-
       componentProps: 
       {
         id: location.id, 
       },
+
       backdropDismiss: true,
     });
 
     return await modal.present();
   }
 
-  async toggleFavorite(location: any) {
+  // Toggle Location Fav
+  async toggleFavorite(location: any) 
+  {
     const updatedFavStatus = !location.isFav;
   
-    try {
+    try 
+    {
       await this.apiService.toggleFavorite(location.id, updatedFavStatus);
-      location.isFav = updatedFavStatus; // Update the local state
-      this.fetchLocations(); // Re-fetch locations to maintain order
-    } catch (error) {
-      console.error('Error toggling favorite:', error);
+      location.isFav = updatedFavStatus;
+      this.fetchLocations();
+    } 
+    
+    catch (error) 
+    {
+      console.error('Error Toggling Favorite.', error);
     }
   }
-  
-  scrollToTop() {
-    this.content.scrollToTop(500);
-  }
 
-  // Handle modal dismiss actions for create/update
-  handleModalDismiss(result: any) {
-    if (result.data) {
-      const action = result.data.action;  // Assuming the action is passed in the modal data
+  // Handle Modal Dismiss (Create / Update)
+  handleModalDismiss(result: any) 
+  {
+    if (result.data) 
+    {
+      const action = result.data.action; 
 
-      if (action === 'create') {
-        // Add the new location to the list
+      if (action === 'create') 
+      {
         this.locations.push(result.data.location);
 
-        // Sort locations: Favorites first, then by startAt
         this.locations.sort((a, b) => {
-          if (a.isFav === b.isFav) {
+
+          if (a.isFav === b.isFav) 
+          {
             return new Date(a.startAt).getTime() - new Date(b.startAt).getTime();
           }
+
           return b.isFav - a.isFav;
         });
 
         this.fetchLocations();
 
-      } else if (action === 'update') {
-        // Update the location in the local state
+      } 
+      
+      else if (action === 'update') 
+      {
         const updatedLocation = result.data.location;
 
         const index = this.locations.findIndex((loc) => loc.id === updatedLocation.id);
-        if (index !== -1) {
+
+        if (index !== -1) 
+        {
           this.locations[index] = updatedLocation;
           
-          // Re-sort the updated list
           this.locations.sort((a, b) => {
-            if (a.isFav === b.isFav) {
+
+            if (a.isFav === b.isFav) 
+            {
               return new Date(a.startAt).getTime() - new Date(b.startAt).getTime();
             }
-            return b.isFav - a.isFav; // Prioritize favorites
+
+            return b.isFav - a.isFav;
           });
         }
       }
     }
   }
 
-    // In LocationsPage, presenting the modal
-  async openLocationModal(action: string, location?: any) {
+  // Open Location Modal
+  async openLocationModal(action: string, location?: any) 
+  {
     const modal = await this.modalController.create({
+
       component: LocationModalComponent,
       componentProps: { action, location }
     });
 
-    // Handling the dismissal result here
     modal.onDidDismiss().then((result) => {
+      
       this.handleModalDismiss(result);
     });
 
     await modal.present();
+  }
+
+  // Scroll To Top
+  scrollToTop() 
+  {
+    this.content.scrollToTop(500);
   }
 }

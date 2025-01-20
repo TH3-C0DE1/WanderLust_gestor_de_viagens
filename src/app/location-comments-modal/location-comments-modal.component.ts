@@ -1,57 +1,62 @@
+
 import { Component, Input, OnInit } from '@angular/core';
-import { IonicModule, ModalController } from '@ionic/angular';
+import { IonicModule, ModalController, AlertController } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { ApiService } from '../services/api.service';
-import { AlertController } from '@ionic/angular';
 
 @Component({
+
   selector: 'app-location-comments-modal',
   templateUrl: './location-comments-modal.component.html',
   styleUrls: ['./location-comments-modal.component.scss'],
   standalone: true,
   
-  imports: [
+  imports: 
+  [
     IonicModule,
     CommonModule,
     FormsModule,
   ],
 })
 
-export class LocationCommentsModalComponent  implements OnInit {
-
+export class LocationCommentsModalComponent  implements OnInit 
+{
   @Input() id: string = '';
 
   comments: any[] = [];
 
-
   constructor(
+
     private modalController: ModalController,
     private apiService: ApiService,
     private alertController: AlertController,
+
   ) { }
 
-  ngOnInit() {
+  ngOnInit() 
+  {
     this.loadLocComments();
   }
 
-  // Load Comments (Travel)
+  // Fetch Notes (Location)
   async loadLocComments() 
   {
     this.comments = await this.apiService.getLocationComments(this.id);
   }
 
-  // Dismiss the Modal
+  // Dismiss Modal
   dismiss() 
   {
     this.modalController.dismiss();
   }
 
-  // Delete a Comment
+  // Delete Note (Location)
   async deleteLocComment(commentId: string) 
   {
     const confirm = await this.alertController.create({
+
       header: 'DELETE NOTE',
       message: 'Are you sure you want to DELETE this Note?',
       buttons: [
@@ -59,22 +64,26 @@ export class LocationCommentsModalComponent  implements OnInit {
           text: 'Cancel',
           role: 'cancel',
         },
+
         {
           text: 'Delete',
           handler: async () => {
+
             await this.apiService.deleteLocationComments(commentId);
             this.loadLocComments();
           },
         },
       ],
     });
+
     await confirm.present();
   }
 
-  // Open Modal to Add a Comment
+  // Add Note (Location)
   async openAddLocCommentModal() 
   {
     const alert = await this.alertController.create({
+
       header: 'NEW NOTE',
       inputs: [
         {
@@ -83,15 +92,18 @@ export class LocationCommentsModalComponent  implements OnInit {
           placeholder: 'Write your Note...',
         },
       ],
+
       buttons: [
         {
           text: 'Cancel',
           role: 'cancel',
         },
+
         {
           text: 'Add',
           handler: async (data) => {
             if (data.comment) {
+
               await this.apiService.postLocationComments(this.id, data.comment);
               this.loadLocComments();
             }
@@ -99,15 +111,16 @@ export class LocationCommentsModalComponent  implements OnInit {
         },
       ],
     });
+
     await alert.present();
   }
 
-  // Handle the reordering of items
-  handleReorder(event: any) {
-    const itemToMove = this.comments.splice(event.detail.from, 1)[0]; // Remove the item from its old position
-    this.comments.splice(event.detail.to, 0, itemToMove);             // Insert it at the new position
+  // Handle Reordering Notes (Location)
+  handleReorder(event: any) 
+  {
+    const itemToMove = this.comments.splice(event.detail.from, 1)[0];
+    this.comments.splice(event.detail.to, 0, itemToMove);
 
-    // Complete the reorder action
     event.detail.complete();
   }
 }

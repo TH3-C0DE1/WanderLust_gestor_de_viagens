@@ -1,5 +1,7 @@
+
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
 import { TabsPage } from './tabs.page';
 
 const routes: Routes = [
@@ -7,18 +9,22 @@ const routes: Routes = [
     path: 'tabs',
     component: TabsPage,
     children: [
+
       {
         path: 'trips',
         loadChildren: () => import('../trips/trips.module').then(m => m.TripsPageModule)
       },
+
       {
         path: 'locations',
         loadChildren: () => import('../locations/locations.module').then(m => m.LocationsPageModule)
       },
+
       {
         path: 'notifications',
         loadChildren: () => import('../notifications/notifications.module').then(m => m.NotificationsPageModule)
       },
+
       {
         path: 'profile',
         children: [
@@ -32,6 +38,7 @@ const routes: Routes = [
           }
         ]
       },
+
       {
         path: '',
         redirectTo: '/tabs/trips',
@@ -39,6 +46,7 @@ const routes: Routes = [
       }
     ]
   },
+
   {
     path: '',
     redirectTo: '/tabs/trips',
@@ -49,4 +57,5 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forChild(routes)],
 })
+
 export class TabsPageRoutingModule {}

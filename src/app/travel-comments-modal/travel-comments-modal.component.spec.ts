@@ -1,19 +1,23 @@
+
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { HttpClientModule } from '@angular/common/http'; // TEST - ng test --configuration=ci
-import { ApiService } from '../services/api.service';
+// import { HttpClientModule } from '@angular/common/http'; // TEST - ng test --configuration=ci
 
+import { ApiService } from '../services/api.service';
 import { TravelCommentsModalComponent } from './travel-comments-modal.component';
 
 describe('TravelCommentsModalComponent', () => {
+
   let component: TravelCommentsModalComponent;
   let fixture: ComponentFixture<TravelCommentsModalComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [IonicModule.forRoot(), TravelCommentsModalComponent, HttpClientModule],
+
+      imports: [IonicModule.forRoot(), TravelCommentsModalComponent],
       providers: [ApiService],
+      
     }).compileComponents();
 
     fixture = TestBed.createComponent(TravelCommentsModalComponent);
@@ -22,6 +26,7 @@ describe('TravelCommentsModalComponent', () => {
   }));
 
   it('should create', () => {
+
     expect(component).toBeTruthy();
   });
 });

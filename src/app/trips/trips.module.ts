@@ -6,20 +6,20 @@ import { FormsModule } from '@angular/forms';
 
 import { TripsPage } from './trips.page';
 import { TripsPageRoutingModule } from './trips-routing.module';
-import { TravelCommentsModalComponent } from '../travel-comments-modal/travel-comments-modal.component'; // Import the component
+import { TravelCommentsModalComponent } from '../travel-comments-modal/travel-comments-modal.component';
 import { TravelFormModalComponent } from '../travel-form-modal/travel-form-modal.component';
-
 
 @NgModule({
 
-  imports: [
+  imports: 
+  [
     IonicModule,
     CommonModule,
     FormsModule,
     TripsPageRoutingModule,
     TravelFormModalComponent,
     TravelCommentsModalComponent  
-    ],
+  ],
 
   declarations: 
   [

@@ -1,22 +1,25 @@
+
 import { Component, Input, OnInit } from '@angular/core';
 import { IonicModule, ModalController } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 @Component({
+
   selector: 'app-filter-modal',
   templateUrl: './filter-modal.component.html',
   styleUrls: ['./filter-modal.component.scss'],
   
-  imports: [
+  imports: 
+  [
     IonicModule,
     CommonModule,
     FormsModule,
   ],
 })
 
-export class FilterModalComponent implements OnInit {
-
+export class FilterModalComponent implements OnInit 
+{
   @Input() filterCriteria: any = {
     isFav: false,
     companion: '',
@@ -57,15 +60,17 @@ export class FilterModalComponent implements OnInit {
 
   constructor(private modalController: ModalController) {}
 
-  ngOnInit() {
-    // Ensure modal is initialized with the passed filter criteria
-  }
+  ngOnInit() {}
 
-  applyFilters() {
+  // Apply Filters
+  applyFilters() 
+  {
     this.modalController.dismiss(this.filterCriteria);
   }
 
-  resetFilters() {
+  // Reset Filters
+  resetFilters() 
+  {
     this.filterCriteria = {
       isFav: false,
       companion: '',
@@ -74,7 +79,9 @@ export class FilterModalComponent implements OnInit {
     };
   }
 
-  dismiss() {
+  // Dismiss Modal
+  dismiss() 
+  {
     this.modalController.dismiss();
   }
 }

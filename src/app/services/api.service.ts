@@ -3,11 +3,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { firstValueFrom, BehaviorSubject } from 'rxjs';
 import { AlertController, LoadingController, ModalController, ToastController } from '@ionic/angular';
+
 import { TravelFormModalComponent } from '../travel-form-modal/travel-form-modal.component';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root', })
 
 export class ApiService 
 {
@@ -18,7 +17,6 @@ export class ApiService
   public travels: any[] = [];    
   public locations: any[] = [];    
 
-  // Define a BehaviorSubject to store the list of travels
   private travelListChanged = new BehaviorSubject<any[]>([]);
 
   constructor(
@@ -49,10 +47,10 @@ export class ApiService
   }
 
 //-------------------------------------------------------------------------------------------
-// TRAVELS
+// TRIPS
 //-------------------------------------------------------------------------------------------
 
-  // GET Travels
+  // GET Trips
   async getTravels(): Promise<any[]> 
   {
     const loading = await this.showLoading();
@@ -63,8 +61,6 @@ export class ApiService
     {
       this.travels = await firstValueFrom(this.http.get<any[]>(`${this.apiUrl}/api/travels`, { headers }));
 
-
-      // Sort travels by startAt in ascending order
       this.travels.sort((a, b) => new Date(a.startAt).getTime() - new Date(b.startAt).getTime());
 
       loading.dismiss();
@@ -90,7 +86,7 @@ export class ApiService
     }
   }
 
-  // POST Travels
+  // POST Trip (Create)
   async postTravel(newTravel: any)
   {
     const loading = await this.showLoading();
@@ -113,7 +109,7 @@ export class ApiService
     }
   }
 
-  // PUT Travels (Edit)
+  // PUT Trip (Edit)
   async putTravel(id: string, updatedTravel: any)
   {
     const loading = await this.showLoading();
@@ -136,7 +132,7 @@ export class ApiService
     }
   }
   
-   // DEL Travels
+   // DEL Trip
   async deleteTravel(id: string)
   {
     const loading = await this.showLoading();
@@ -159,33 +155,35 @@ export class ApiService
     }
   }
 
-  // Toggle Favorite
-  async toggleTravelFavorite(travel: any) {
+  // Toggle Trip Favorites
+  async toggleTravelFavorite(travel: any) 
+  {
     const loading = await this.showLoading();
 
     const headers = this.getHeaders();
 
-    try {
-          // Prepare updated travel data with the new favorite status
-    const updatedTravel = { ...travel, isFav: !travel.isFav };
-      // Send a PATCH request to update the isFav property
-      await firstValueFrom(
-        this.http.put(`${this.apiUrl}/api/travels/${travel.id}`, updatedTravel, { headers })
-      );
+    try 
+    {
+      const updatedTravel = { ...travel, isFav: !travel.isFav };
+
+      await firstValueFrom(this.http.put(`${this.apiUrl}/api/travels/${travel.id}`, updatedTravel, { headers }));
 
       loading.dismiss();
       await this.presentToast(updatedTravel.isFav ? 'Added to Favorites. ❤️' : 'Removed from Favorites. 💔', 'success');
-    } catch (error: any) {
+    } 
+    
+    catch (error: any) 
+    {
       loading.dismiss();
       await this.presentToast(error.error, 'danger');
     }
   }
 
 //-------------------------------------------------------------------------------------------
-// TRAVELS COMMENTS
+// TRIPS NOTES
 //-------------------------------------------------------------------------------------------
 
-  // GET Comments for a Travel
+  // GET Trips Notes
   async getTravelComments(id: string)
   {
     const loading = await this.showLoading();
@@ -194,15 +192,12 @@ export class ApiService
 
     try 
     {
-      // Fetch all travels
       const travels: { id: string; comments: any[] }[] = await firstValueFrom(
         
-        this.http.get<any[]>(`${this.apiUrl}/api/travels`, { headers })
-      );
+        this.http.get<any[]>(`${this.apiUrl}/api/travels`, { headers }));
 
       loading.dismiss();
 
-      // Find the specific travel by ID
       const travel = travels.find((travel) => travel.id === id);
 
       if (!travel) 
@@ -232,7 +227,7 @@ export class ApiService
     }
   }
 
-  // POST Travel Notes
+  // POST Trips Note (Create)
   async postTravelComments(travelId: string, comment: string)
   {
     const loading = await this.showLoading();
@@ -257,7 +252,7 @@ export class ApiService
     }
   }
 
-  // DEL Travels
+  // DEL Trips Note
   async deleteTravelComments(id: string)
   {
     const loading = await this.showLoading();
@@ -281,10 +276,10 @@ export class ApiService
   }
 
 //-------------------------------------------------------------------------------------------
-// TRAVELS LOCATIONS
+// LOCATIONS
 //-------------------------------------------------------------------------------------------
 
-  // Get Trip Locations
+  // GET Trip Locations
   async getTravelLocations(travelId: string) : Promise<any[]>
   {
     const loading = await this.showLoading();
@@ -295,10 +290,8 @@ export class ApiService
     {
       this.locations = await firstValueFrom(
 
-        this.http.get<any[]>(`${this.apiUrl}/api/travels/${travelId}/locations`, { headers })
-      );
+        this.http.get<any[]>(`${this.apiUrl}/api/travels/${travelId}/locations`, { headers }));
 
-      // Sort locations by startAt in ascending order
       this.locations.sort((a, b) => new Date(a.startAt).getTime() - new Date(b.startAt).getTime());
   
       loading.dismiss();
@@ -324,36 +317,41 @@ export class ApiService
     }
   }
 
-  // Get Start and End Dates for a Specific Trip
-  async getTravelDates(travelId: string): Promise<{ startAt: string; endAt: string } | null> {
+  // GET Trip (Start Date <-> End Date)
+  async getTravelDates(travelId: string): Promise<{ startAt: string; endAt: string } | null> 
+  {
     const loading = await this.showLoading();
+
     const headers = this.getHeaders();
 
-    try {
-      // Fetch all travels
+    try 
+    {
       const travels: { id: string; startAt: string; endAt: string }[] = await firstValueFrom(
-        this.http.get<any[]>(`${this.apiUrl}/api/travels`, { headers })
-      );
+
+        this.http.get<any[]>(`${this.apiUrl}/api/travels`, { headers }));
 
       loading.dismiss();
 
-      // Find the specific travel by ID
       const travel = travels.find((t) => t.id === travelId);
 
-      if (!travel) {
-        await this.presentToast(`Trip with ID ${travelId} not found. 😥`, 'warning');
+      if (!travel) 
+      {
+        await this.presentToast(`Trip Not Found. 😥`, 'warning');
         return null;
       }
 
       return { startAt: travel.startAt, endAt: travel.endAt };
-    } catch (error: any) {
+    } 
+    
+    catch (error: any) 
+    {
       loading.dismiss();
       await this.presentToast(error.error, 'danger');
       return null;
     }
   }
 
-  // Add a Location
+  // POST Location (Create)
   async createLocation(location: any) 
   {
     const loading = await this.showLoading();
@@ -362,18 +360,13 @@ export class ApiService
   
     try 
     {
-      // Ensure the date is properly formatted
       location.startAt = new Date(location.startAt).toISOString();
 
-      // Send the location data to the API, including the travelId in the body
-      await firstValueFrom(
-
-        this.http.post<any>(`${this.apiUrl}/api/travels/locations`, location, { headers })
-      );
+      await firstValueFrom(this.http.post<any>(`${this.apiUrl}/api/travels/locations`, location, { headers }));
       
       loading.dismiss();
 
-      await this.presentToast(`Location Added Successfully. ✈️`, 'success');
+      await this.presentToast(`Location Added Successfully. 🌍`, 'success');
     }     
     
     catch (error : any) 
@@ -383,45 +376,51 @@ export class ApiService
     }
   }
 
-// Update a Location
-async updateLocation(locationId: string, updatedLocation: any) {
-  const loading = await this.showLoading();
+  // PUT Location (Edit)
+  async updateLocation(locationId: string, updatedLocation: any) 
+  {
+    const loading = await this.showLoading();
 
-  const headers = this.getHeaders();
+    const headers = this.getHeaders();
 
-  try {
-    // Ensure the date is properly formatted
-    updatedLocation.startAt = new Date(updatedLocation.startAt).toISOString();
+    try 
+    {
+      updatedLocation.startAt = new Date(updatedLocation.startAt).toISOString();
 
-    // Send the updated location data to the API for the specific locationId
-    await firstValueFrom(
-      this.http.put(`${this.apiUrl}/api/travels/locations/${locationId}`, updatedLocation, { headers })
-    );
+      await firstValueFrom(
 
-    loading.dismiss();
+        this.http.put(`${this.apiUrl}/api/travels/locations/${locationId}`, updatedLocation, { headers }));
 
-    await this.presentToast(`Location Updated Successfully. ✈️`, 'success');
+      loading.dismiss();
 
-    // Instead of calling getTravelLocations again, update the location in the local state
-    const index = this.locations.findIndex(loc => loc.id === updatedLocation.id);
-    if (index !== -1) {
-      this.locations[index] = updatedLocation;  // Update the local state
-      this.locations.sort((a, b) => {
-        if (a.isFav === b.isFav) {
-          return new Date(a.startAt).getTime() - new Date(b.startAt).getTime();
-        }
-        return b.isFav - a.isFav;  // Prioritize favorites
-      });
+      await this.presentToast(`Location Updated Successfully. 🌍`, 'success');
+
+      const index = this.locations.findIndex(loc => loc.id === updatedLocation.id);
+
+      if (index !== -1) 
+      {
+        this.locations[index] = updatedLocation;
+
+        this.locations.sort((a, b) => 
+        {
+          if (a.isFav === b.isFav) 
+          {
+            return new Date(a.startAt).getTime() - new Date(b.startAt).getTime();
+          }
+
+          return b.isFav - a.isFav;
+        });
+      }
+    } 
+    
+    catch (error: any) 
+    {
+      loading.dismiss();
+      await this.presentToast(error.error, 'danger');
     }
-
-  } catch (error: any) {
-    loading.dismiss();
-    await this.presentToast(error.error, 'danger');
   }
-}
 
-
-  // Delete a Location
+  // DEL Location
   async deleteLocation(locationId: string) 
   {
     const loading = await this.showLoading();
@@ -430,15 +429,11 @@ async updateLocation(locationId: string, updatedLocation: any) {
 
     try 
     {
-      // Send the DELETE request to remove the location
-      await firstValueFrom(
-        
-        this.http.delete(`${this.apiUrl}/api/travels/locations/${locationId}`, { headers })
-      );
+      await firstValueFrom(this.http.delete(`${this.apiUrl}/api/travels/locations/${locationId}`, { headers }));
 
       loading.dismiss();
 
-      await this.presentToast(`Location Deleted Successfully. ✈️`, 'success');
+      await this.presentToast(`Location Deleted Successfully. 🌍`, 'success');
     } 
     
     catch (error : any) 
@@ -448,31 +443,33 @@ async updateLocation(locationId: string, updatedLocation: any) {
     }
   }
 
-  // Toggle Favorite
-  async toggleFavorite(locationId: string, isFav: boolean) {
+  // Toggle Location Favorites
+  async toggleFavorite(locationId: string, isFav: boolean) 
+  {
     const loading = await this.showLoading();
 
     const headers = this.getHeaders();
 
-    try {
-      // Send a PATCH request to update the isFav property
-      await firstValueFrom(
-        this.http.put(`${this.apiUrl}/api/travels/locations/${locationId}`, { isFav }, { headers })
-      );
+    try 
+    {
+      await firstValueFrom(this.http.put(`${this.apiUrl}/api/travels/locations/${locationId}`, { isFav }, { headers }));
 
       loading.dismiss();
       await this.presentToast(isFav ? 'Added to Favorites. ❤️' : 'Removed from Favorites. 💔', 'success');
-    } catch (error: any) {
+    } 
+    
+    catch (error: any) 
+    {
       loading.dismiss();
       await this.presentToast(error.error, 'danger');
     }
   }
 
 //-------------------------------------------------------------------------------------------
-// LOCATIONS COMMENTS
+// LOCATIONS NOTES
 //-------------------------------------------------------------------------------------------
 
-  // GET Comments for a Location
+  // GET Locations Notes
   async getLocationComments(id: string)
   {
     const loading = await this.showLoading();
@@ -481,17 +478,13 @@ async updateLocation(locationId: string, updatedLocation: any) {
 
     try 
     {
-      // Fetch all location
-      const location = await firstValueFrom(
-        
-        this.http.get<any>(`${this.apiUrl}/api/travels/locations/${id}`, { headers })
-      );
+      const location = await firstValueFrom(this.http.get<any>(`${this.apiUrl}/api/travels/locations/${id}`, { headers }));
 
       loading.dismiss();
 
       if (!location) 
       {
-        await this.presentToast(`Location With ID ${id} Not Found. 😥`, 'warning');
+        await this.presentToast(`Location Not Found. 😥`, 'warning');
         return [];
       }
 
@@ -516,7 +509,7 @@ async updateLocation(locationId: string, updatedLocation: any) {
     }
   }
 
-  // POST Location Notes
+  // POST Location Note
   async postLocationComments(locationId: string, comment: string)
   {
     const loading = await this.showLoading();
@@ -541,7 +534,7 @@ async updateLocation(locationId: string, updatedLocation: any) {
     }
   }
 
-  // DEL Location Notes
+  // DEL Location Note
   async deleteLocationComments(id: string)
   {
     const loading = await this.showLoading();
@@ -571,7 +564,6 @@ async updateLocation(locationId: string, updatedLocation: any) {
   // Show Loading Spinner
   private async showLoading() 
   {
-
     const loading = await this.loadingController.create({
 
       spinner: 'bubbles',
@@ -587,13 +579,12 @@ async updateLocation(locationId: string, updatedLocation: any) {
   // Show Toast Notification
   private async presentToast(message: string, color: 'success' | 'danger' | 'warning') 
   {
-
     const toast = await this.toastController.create({
 
       message: message,
-      duration: 2000,             // Duration of the Toast in milliseconds   
-      position: 'top', 
-      cssClass: 'toastCSS',      
+      duration: 2000,
+      position: 'top',
+      cssClass: 'toastCSS',
       color: color,
 
     });
@@ -601,7 +592,7 @@ async updateLocation(locationId: string, updatedLocation: any) {
     await toast.present();
   }
 
-  // Reload Travel
+  // Reload Trips
   async reloadTravels() 
   {
     this.travels = await this.getTravels();  
@@ -609,10 +600,10 @@ async updateLocation(locationId: string, updatedLocation: any) {
   }
 
   // Open Modal
-  async openModal(action: 'POST' | 'PUT' | 'DELETE', travel?: any) {
+  async openModal(action: 'POST' | 'PUT' | 'DELETE', travel?: any) 
+  {
     if (action === 'DELETE') 
     {
-      // Create Alert for DELETE
       const alert = await this.alertController.create({
 
         header: 'DELETE TRIP',
@@ -621,10 +612,8 @@ async updateLocation(locationId: string, updatedLocation: any) {
           {
             text: 'Cancel',
             role: 'cancel',
-            handler: () => {
-              console.log('Canceled');
-            }
           },
+
           {
             text: 'Delete',
             role: 'destructive',
@@ -641,8 +630,8 @@ async updateLocation(locationId: string, updatedLocation: any) {
     
     else 
     {
-      // Open modal for POST or PUT
       const modal = await this.modalController.create({
+        
         component: TravelFormModalComponent,
         componentProps: {
           travel: action === 'PUT' ? { ...travel } : {},

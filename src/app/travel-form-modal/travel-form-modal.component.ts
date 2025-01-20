@@ -1,3 +1,4 @@
+
 import { Component, Input } from '@angular/core';
 import { IonicModule, ModalController, AlertController } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
@@ -38,17 +39,20 @@ enum TravelCompanion
 }
 
 @Component({
+
   standalone: true,
   selector: 'app-travel-form-modal',
   templateUrl: './travel-form-modal.component.html',
   styleUrls: ['./travel-form-modal.component.scss'],
 
-  imports: [
+  imports: 
+  [
     IonicModule,
     CommonModule,
     FormsModule,
   ],
 })
+
 export class TravelFormModalComponent 
 {
   travelTypes = Object.values(TravelType);
@@ -60,30 +64,50 @@ export class TravelFormModalComponent
   @Input() actionType: 'POST' | 'PUT' | 'DELETE' = 'POST';
 
   constructor(
+
     private modalController: ModalController,
     private alertController: AlertController,
 
   ) {}
 
-  // Handle Form Submission (for POST and PUT)
-  async submitForm() {
-    if (this.actionType === 'POST' || this.actionType === 'PUT') {
-      if (this.travel.endAt && this.travel.startAt && new Date(this.travel.endAt) < new Date(this.travel.startAt)) {
-        // Show an alert if endAt is before startAt
+  // Form Submission Validation
+  async submitForm() 
+  {
+    if (this.actionType === 'POST' || this.actionType === 'PUT') 
+    {
+      // Validation Alert For Date Order
+      if (this.travel.endAt && this.travel.startAt && new Date(this.travel.endAt) < new Date(this.travel.startAt)) 
+      {
         const alert = await this.alertController.create({
-          header: 'Invalid Date',
+
+          header: 'Invalid Date Order',
           message: 'End Date cannot be before Start Date.',
           buttons: ['OK'],
         });
+
         await alert.present();
-        return; // Prevent form submission
+        return;
+      }
+      
+      // Validation Alert For Empty Title
+      if (!this.travel.description || this.travel.description.trim().length === 0) 
+      {
+        const alert = await this.alertController.create({
+
+          header: 'Invalid Trip Title',
+          message: 'Title cannot be Empty.',
+          buttons: ['OK'],
+        });
+
+        await alert.present();
+        return; 
       }
 
       this.modalController.dismiss(this.travel);
     }
   }
 
-  // Handle DELETE Confirmation (for DELETE)
+  // Confirm Delete
   confirmDelete() 
   {
     if (this.actionType === 'DELETE') 
@@ -92,7 +116,7 @@ export class TravelFormModalComponent
     }
   }
 
-  // Dismiss the modal (Cancel button)
+  // Dismiss Modal
   dismiss() 
   {
     this.modalController.dismiss(); 
